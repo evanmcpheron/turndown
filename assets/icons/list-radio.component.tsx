@@ -7,7 +7,7 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const ListRadioIcon: React.FC<
- IconProps & {
+  IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
 > = ({
@@ -20,108 +20,107 @@ export const ListRadioIcon: React.FC<
   haptic,
   ...more
 }) => {
-  const { colors } = useTheme();
+    const { colors } = useTheme();
 
-  const domRef: TurndownObject = useRef(null);
+    const domRef: TurndownObject = useRef(null);
 
-  const { onPress, onMove, onUp, onDown, groupId } = more;
-  const pointerEvents = {
-    onPress,
-    onMove,
-    onUp,
-    onDown,
-    groupId,
+    const { onPress, onMove, onUp, onDown, groupId } = more;
+    const pointerEvents = {
+      onPress,
+      onMove,
+      onUp,
+      onDown,
+      groupId,
+    };
+
+    usePointerEvent({ element: domRef, active: active, ...pointerEvents });
+
+    const internalProperties = removeUndefined({
+      style: style || {},
+      pointerEvents,
+      haptic,
+      active,
+      size,
+      color: colors[colorName || "text"],
+    });
+
+    return (
+      <StyledIcon ref={domRef} {...internalProperties}>
+        {(() => {
+          switch (type) {
+            case "solid":
+              return (
+                <Svg viewBox="0 0 512 512"
+
+                  fill={colors[colorName || "text"]}
+                >
+                  <Path
+
+                    d="M64 160a64 64 0 1 0 0-128 64 64 0 1 0 0 128m128-96c-17.7 0-32 14.3-32 32s14.3 32 32 32h288c17.7 0 32-14.3 32-32s-14.3-32-32-32zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32h288c17.7 0 32-14.3 32-32s-14.3-32-32-32zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32h288c17.7 0 32-14.3 32-32s-14.3-32-32-32zM40 416a24 24 0 1 1 48 0 24 24 0 1 1-48 0m88 0a64 64 0 1 0-128 0 64 64 0 1 0 128 0M64 232a24 24 0 1 1 0 48 24 24 0 1 1 0-48m0 88a64 64 0 1 0 0-128 64 64 0 1 0 0 128"
+                  />
+                </Svg>
+              );
+
+            case "regular":
+              return (
+                <Svg viewBox="0 0 512 512"
+
+                  fill={colors[colorName || "text"]}
+                >
+                  <Path
+
+                    d="M64 32a64 64 0 1 0 0 128 64 64 0 1 0 0-128m120 40c-13.3 0-24 10.7-24 24s10.7 24 24 24h304c13.3 0 24-10.7 24-24s-10.7-24-24-24zm0 160c-13.3 0-24 10.7-24 24s10.7 24 24 24h304c13.3 0 24-10.7 24-24s-10.7-24-24-24zm0 160c-13.3 0-24 10.7-24 24s10.7 24 24 24h304c13.3 0 24-10.7 24-24s-10.7-24-24-24zM64 280a24 24 0 1 1 0-48 24 24 0 1 1 0 48m0-88a64 64 0 1 0 0 128 64 64 0 1 0 0-128M40 416a24 24 0 1 1 48 0 24 24 0 1 1-48 0m88 0a64 64 0 1 0-128 0 64 64 0 1 0 128 0"
+                  />
+                </Svg>
+              );
+
+            case "light":
+              return (
+                <Svg viewBox="0 0 512 512"
+
+                  fill={colors[colorName || "text"]}
+                >
+                  <Path
+
+                    d="M32 96a32 32 0 1 1 64 0 32 32 0 1 1-64 0m96 0A64 64 0 1 0 0 96a64 64 0 1 0 128 0m64 0c0 8.8 7.2 16 16 16h288c8.8 0 16-7.2 16-16s-7.2-16-16-16H208c-8.8 0-16 7.2-16 16m0 160c0 8.8 7.2 16 16 16h288c8.8 0 16-7.2 16-16s-7.2-16-16-16H208c-8.8 0-16 7.2-16 16m0 160c0 8.8 7.2 16 16 16h288c8.8 0 16-7.2 16-16s-7.2-16-16-16H208c-8.8 0-16 7.2-16 16M64 288a32 32 0 1 1 0-64 32 32 0 1 1 0 64m0-96a64 64 0 1 0 0 128 64 64 0 1 0 0-128m16-96a16 16 0 1 0-32 0 16 16 0 1 0 32 0M32 416a32 32 0 1 1 64 0 32 32 0 1 1-64 0m96 0a64 64 0 1 0-128 0 64 64 0 1 0 128 0"
+                  />
+                </Svg>
+              );
+
+            case "thin":
+              return (
+                <Svg viewBox="0 0 512 512"
+
+                  fill={colors[colorName || "text"]}
+                >
+                  <Path
+
+                    d="M64 56a40 40 0 1 0 0 80 40 40 0 1 0 0-80m0 96a56 56 0 1 1 0-112 56 56 0 1 1 0 112m104-56c0-4.4 3.6-8 8-8h320c4.4 0 8 3.6 8 8s-3.6 8-8 8H176c-4.4 0-8-3.6-8-8m0 160c0-4.4 3.6-8 8-8h320c4.4 0 8 3.6 8 8s-3.6 8-8 8H176c-4.4 0-8-3.6-8-8m0 160c0-4.4 3.6-8 8-8h320c4.4 0 8 3.6 8 8s-3.6 8-8 8H176c-4.4 0-8-3.6-8-8M64 216a40 40 0 1 0 0 80 40 40 0 1 0 0-80m0 96a56 56 0 1 1 0-112 56 56 0 1 1 0 112m40 104a40 40 0 1 0-80 0 40 40 0 1 0 80 0m-96 0a56 56 0 1 1 112 0 56 56 0 1 1-112 0m56-304a16 16 0 1 1 0-32 16 16 0 1 1 0 32"
+                  />
+                </Svg >
+              );
+
+            case "duotone":
+              return (
+                <Svg viewBox="0 0 512 512"
+
+                  fill={colors[colorName || "text"]} >
+                  <Path
+                    fill={colors[colorName || "text"]}
+                    opacity={opacity || 0.5}
+                    d="M160 96c0-17.7 14.3-32 32-32h288c17.7 0 32 14.3 32 32s-14.3 32-32 32H192c-17.7 0-32-14.3-32-32m0 160c0-17.7 14.3-32 32-32h288c17.7 0 32 14.3 32 32s-14.3 32-32 32H192c-17.7 0-32-14.3-32-32m32 128h288c17.7 0 32 14.3 32 32s-14.3 32-32 32H192c-17.7 0-32-14.3-32-32s14.3-32 32-32"
+                  />
+                  <Path
+
+                    d="M64 160a64 64 0 1 0 0-128 64 64 0 1 0 0 128m0 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48m0 88a64 64 0 1 0 0-128 64 64 0 1 0 0 128m0 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48m0 88a64 64 0 1 0 0-128 64 64 0 1 0 0 128"
+                  />
+                </Svg >
+              );
+
+            default:
+              return null;
+          }
+        })()}
+      </StyledIcon >
+    );
   };
-
-  usePointerEvent({ element: domRef, active: active, ...pointerEvents });
-
-  const internalProperties = removeUndefined({
-    style: style || {},
-    pointerEvents,
-    haptic,
-    active,
-    size,
-    color: colors[colorName || "text"],
-  });
-
-  return (
-    <StyledIcon ref={domRef} {...internalProperties}>
-      {(() => {
-        switch (type) {
-          case "solid":
-            return (
-              <Svg viewBox="0 0 512 512"
-                 
-                 fill={colors[colorName || "text"]} 
-              >
-                <Path
-                   
-                  d="M64 160a64 64 0 1 0 0-128 64 64 0 1 0 0 128m128-96c-17.7 0-32 14.3-32 32s14.3 32 32 32h288c17.7 0 32-14.3 32-32s-14.3-32-32-32zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32h288c17.7 0 32-14.3 32-32s-14.3-32-32-32zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32h288c17.7 0 32-14.3 32-32s-14.3-32-32-32zM40 416a24 24 0 1 1 48 0 24 24 0 1 1-48 0m88 0a64 64 0 1 0-128 0 64 64 0 1 0 128 0M64 232a24 24 0 1 1 0 48 24 24 0 1 1 0-48m0 88a64 64 0 1 0 0-128 64 64 0 1 0 0 128"
-                />
-              </Svg>
-            );
-
-          case "regular":
-            return (
-              <Svg viewBox="0 0 512 512"
-                 
-                 fill={colors[colorName || "text"]} 
-              >
-                <Path
-                   
-                  d="M64 32a64 64 0 1 0 0 128 64 64 0 1 0 0-128m120 40c-13.3 0-24 10.7-24 24s10.7 24 24 24h304c13.3 0 24-10.7 24-24s-10.7-24-24-24zm0 160c-13.3 0-24 10.7-24 24s10.7 24 24 24h304c13.3 0 24-10.7 24-24s-10.7-24-24-24zm0 160c-13.3 0-24 10.7-24 24s10.7 24 24 24h304c13.3 0 24-10.7 24-24s-10.7-24-24-24zM64 280a24 24 0 1 1 0-48 24 24 0 1 1 0 48m0-88a64 64 0 1 0 0 128 64 64 0 1 0 0-128M40 416a24 24 0 1 1 48 0 24 24 0 1 1-48 0m88 0a64 64 0 1 0-128 0 64 64 0 1 0 128 0"
-                />
-              </Svg>
-            );
-
-          case "light":
-            re</Svg>
-              <Svg viewBox="0 0 512 512"
-                 
-                 fill={colors[colorName || "text"]} 
-              >
-                <Path
-                   
-                  d="M32 96a32 32 0 1 1 64 0 32 32 0 1 1-64 0m96 0A64 64 0 1 0 0 96a64 64 0 1 0 128 0m64 0c0 8.8 7.2 16 16 16h288c8.8 0 16-7.2 16-16s-7.2-16-16-16H208c-8.8 0-16 7.2-16 16m0 160c0 8.8 7.2 16 16 16h288c8.8 0 16-7.2 16-16s-7.2-16-16-16H208c-8.8 0-16 7.2-16 16m0 160c0 8.8 7.2 16 16 16h288c8.8 0 16-7.2 16-16s-7.2-16-16-16H208c-8.8 0-16 7.2-16 16M64 288a32 32 0 1 1 0-64 32 32 0 1 1 0 64m0-96a64 64 0 1 0 0 128 64 64 0 1 0 0-128m16-96a16 16 0 1 0-32 0 16 16 0 1 0 32 0M32 416a32 32 0 1 1 64 0 32 32 0 1 1-64 0m96 0a64 64 0 1 0-128 0 64 64 0 1 0 128 0"
-                />
-              </Svg>
-            );
-
-          case "thin":
-            return (
-              <Svg viewBox="0 0 512 512"
-              </Svg>sName="aps-icon-svg"
-                 fill={colors[colorName || "text"]} 
-              >
-                <Path
-                   
-                  d="M64 56a40 40 0 1 0 0 80 40 40 0 1 0 0-80m0 96a56 56 0 1 1 0-112 56 56 0 1 1 0 112m104-56c0-4.4 3.6-8 8-8h320c4.4 0 8 3.6 8 8s-3.6 8-8 8H176c-4.4 0-8-3.6-8-8m0 160c0-4.4 3.6-8 8-8h320c4.4 0 8 3.6 8 8s-3.6 8-8 8H176c-4.4 0-8-3.6-8-8m0 160c0-4.4 3.6-8 8-8h320c4.4 0 8 3.6 8 8s-3.6 8-8 8H176c-4.4 0-8-3.6-8-8M64 216a40 40 0 1 0 0 80 40 40 0 1 0 0-80m0 96a56 56 0 1 1 0-112 56 56 0 1 1 0 112m40 104a40 40 0 1 0-80 0 40 40 0 1 0 80 0m-96 0a56 56 0 1 1 112 0 56 56 0 1 1-112 0m56-304a16 16 0 1 1 0-32 16 16 0 1 1 0 32"
-                />
-              </Svg>
-            );
-
-          case "duotone":
-            return (
-              <Svg viewBox="0 0 512 512"
-                 
-                 fill={colors[colorName || "text"]} 
-              </Svg>
-                <Path
-                   fill={colors[colorName || "text"]} 
-                  opacity={opacity || 0.5}
-                  d="M160 96c0-17.7 14.3-32 32-32h288c17.7 0 32 14.3 32 32s-14.3 32-32 32H192c-17.7 0-32-14.3-32-32m0 160c0-17.7 14.3-32 32-32h288c17.7 0 32 14.3 32 32s-14.3 32-32 32H192c-17.7 0-32-14.3-32-32m32 128h288c17.7 0 32 14.3 32 32s-14.3 32-32 32H192c-17.7 0-32-14.3-32-32s14.3-32 32-32"
-                />
-                <Path
-                   
-                  d="M64 160a64 64 0 1 0 0-128 64 64 0 1 0 0 128m0 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48m0 88a64 64 0 1 0 0-128 64 64 0 1 0 0 128m0 72a24 24 0 1 1 0 48 24 24 0 1 1 0-48m0 88a64 64 0 1 0 0-128 64 64 0 1 0 0 128"
-                />
-              </Svg>
-            );
-
-          default:
-            return null;
-        }
-      })()}
-    </StyledIcon>
-  );
-};</Svg>

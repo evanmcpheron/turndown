@@ -7,7 +7,7 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const OverlineIcon: React.FC<
- IconProps & {
+  IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
 > = ({
@@ -20,108 +20,107 @@ export const OverlineIcon: React.FC<
   haptic,
   ...more
 }) => {
-  const { colors } = useTheme();
+    const { colors } = useTheme();
 
-  const domRef: TurndownObject = useRef(null);
+    const domRef: TurndownObject = useRef(null);
 
-  const { onPress, onMove, onUp, onDown, groupId } = more;
-  const pointerEvents = {
-    onPress,
-    onMove,
-    onUp,
-    onDown,
-    groupId,
+    const { onPress, onMove, onUp, onDown, groupId } = more;
+    const pointerEvents = {
+      onPress,
+      onMove,
+      onUp,
+      onDown,
+      groupId,
+    };
+
+    usePointerEvent({ element: domRef, active: active, ...pointerEvents });
+
+    const internalProperties = removeUndefined({
+      style: style || {},
+      pointerEvents,
+      haptic,
+      active,
+      size,
+      color: colors[colorName || "text"],
+    });
+
+    return (
+      <StyledIcon ref={domRef} {...internalProperties}>
+        {(() => {
+          switch (type) {
+            case "solid":
+              return (
+                <Svg viewBox="0 0 448 512"
+
+                  fill={colors[colorName || "text"]}
+                >
+                  <Path
+
+                    d="M32 32C14.3 32 0 46.3 0 64s14.3 32 32 32h384c17.7 0 32-14.3 32-32s-14.3-32-32-32zm192 96a176 176 0 1 0 0 352 176 176 0 1 0 0-352m112 176a112 112 0 1 1-224 0 112 112 0 1 1 224 0"
+                  />
+                </Svg>
+              );
+
+            case "regular":
+              return (
+                <Svg viewBox="0 0 448 512"
+
+                  fill={colors[colorName || "text"]}
+                >
+                  <Path
+
+                    d="M24 32C10.7 32 0 42.7 0 56s10.7 24 24 24h400c13.3 0 24-10.7 24-24s-10.7-24-24-24zm200 80c-97.2 0-176 78.8-176 176v16c0 97.2 78.8 176 176 176s176-78.8 176-176v-16c0-97.2-78.8-176-176-176M96 288c0-70.7 57.3-128 128-128s128 57.3 128 128v16c0 70.7-57.3 128-128 128S96 374.7 96 304z"
+                  />
+                </Svg>
+              );
+
+            case "light":
+              return (
+                <Svg viewBox="0 0 448 512"
+
+                  fill={colors[colorName || "text"]}
+                >
+                  <Path
+
+                    d="M16 32C7.2 32 0 39.2 0 48s7.2 16 16 16h416c8.8 0 16-7.2 16-16s-7.2-16-16-16zm208 96c-88.4 0-160 71.6-160 160v32c0 88.4 71.6 160 160 160s160-71.6 160-160v-32c0-88.4-71.6-160-160-160M96 288c0-70.7 57.3-128 128-128s128 57.3 128 128v32c0 70.7-57.3 128-128 128S96 390.7 96 320z"
+                  />
+                </Svg>
+              );
+
+            case "thin":
+              return (
+                <Svg viewBox="0 0 448 512"
+
+                  fill={colors[colorName || "text"]}
+                >
+                  <Path
+
+                    d="M8 48h432c4.4 0 8-3.6 8-8s-3.6-8-8-8H8c-4.4 0-8 3.6-8 8s3.6 8 8 8m216 80c-88.4 0-160 71.6-160 160v32c0 88.4 71.6 160 160 160s160-71.6 160-160v-32c0-88.4-71.6-160-160-160M80 288c0-79.5 64.5-144 144-144s144 64.5 144 144v32c0 79.5-64.5 144-144 144S80 399.5 80 320z"
+                  />
+                </Svg >
+              );
+
+            case "duotone":
+              return (
+                <Svg viewBox="0 0 448 512"
+
+                  fill={colors[colorName || "text"]}  >
+                  <Path
+                    fill={colors[colorName || "text"]}
+                    opacity={opacity || 0.5}
+                    d="M400 304a176 176 0 1 1-352 0 176 176 0 1 1 352 0M224 192a112 112 0 1 0 0 224 112 112 0 1 0 0-224"
+                  />
+                  <Path
+
+                    d="M0 64c0-17.7 14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64"
+                  />
+                </Svg >
+              );
+
+            default:
+              return null;
+          }
+        })()}
+      </StyledIcon >
+    );
   };
-
-  usePointerEvent({ element: domRef, active: active, ...pointerEvents });
-
-  const internalProperties = removeUndefined({
-    style: style || {},
-    pointerEvents,
-    haptic,
-    active,
-    size,
-    color: colors[colorName || "text"],
-  });
-
-  return (
-    <StyledIcon ref={domRef} {...internalProperties}>
-      {(() => {
-        switch (type) {
-          case "solid":
-            return (
-              <Svg viewBox="0 0 448 512"
-                 
-                 fill={colors[colorName || "text"]} 
-              >
-                <Path
-                   
-                  d="M32 32C14.3 32 0 46.3 0 64s14.3 32 32 32h384c17.7 0 32-14.3 32-32s-14.3-32-32-32zm192 96a176 176 0 1 0 0 352 176 176 0 1 0 0-352m112 176a112 112 0 1 1-224 0 112 112 0 1 1 224 0"
-                />
-              </Svg>
-            );
-
-          case "regular":
-            return (
-              <Svg viewBox="0 0 448 512"
-                 
-                 fill={colors[colorName || "text"]} 
-              >
-                <Path
-                   
-                  d="M24 32C10.7 32 0 42.7 0 56s10.7 24 24 24h400c13.3 0 24-10.7 24-24s-10.7-24-24-24zm200 80c-97.2 0-176 78.8-176 176v16c0 97.2 78.8 176 176 176s176-78.8 176-176v-16c0-97.2-78.8-176-176-176M96 288c0-70.7 57.3-128 128-128s128 57.3 128 128v16c0 70.7-57.3 128-128 128S96 374.7 96 304z"
-                />
-              </Svg>
-            );
-
-          case "light":
-            re</Svg>
-              <Svg viewBox="0 0 448 512"
-                 
-                 fill={colors[colorName || "text"]} 
-              >
-                <Path
-                   
-                  d="M16 32C7.2 32 0 39.2 0 48s7.2 16 16 16h416c8.8 0 16-7.2 16-16s-7.2-16-16-16zm208 96c-88.4 0-160 71.6-160 160v32c0 88.4 71.6 160 160 160s160-71.6 160-160v-32c0-88.4-71.6-160-160-160M96 288c0-70.7 57.3-128 128-128s128 57.3 128 128v32c0 70.7-57.3 128-128 128S96 390.7 96 320z"
-                />
-              </Svg>
-            );
-
-          case "thin":
-            return (
-              <Svg viewBox="0 0 448 512"
-              </Svg>sName="aps-icon-svg"
-                 fill={colors[colorName || "text"]} 
-              >
-                <Path
-                   
-                  d="M8 48h432c4.4 0 8-3.6 8-8s-3.6-8-8-8H8c-4.4 0-8 3.6-8 8s3.6 8 8 8m216 80c-88.4 0-160 71.6-160 160v32c0 88.4 71.6 160 160 160s160-71.6 160-160v-32c0-88.4-71.6-160-160-160M80 288c0-79.5 64.5-144 144-144s144 64.5 144 144v32c0 79.5-64.5 144-144 144S80 399.5 80 320z"
-                />
-              </Svg>
-            );
-
-          case "duotone":
-            return (
-              <Svg viewBox="0 0 448 512"
-                 
-                 fill={colors[colorName || "text"]} 
-              </Svg>
-                <Path
-                   fill={colors[colorName || "text"]} 
-                  opacity={opacity || 0.5}
-                  d="M400 304a176 176 0 1 1-352 0 176 176 0 1 1 352 0M224 192a112 112 0 1 0 0 224 112 112 0 1 0 0-224"
-                />
-                <Path
-                   
-                  d="M0 64c0-17.7 14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64"
-                />
-              </Svg>
-            );
-
-          default:
-            return null;
-        }
-      })()}
-    </StyledIcon>
-  );
-};</Svg>
