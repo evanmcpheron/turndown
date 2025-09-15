@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const PlaneCircleCheckIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const PlaneCircleCheckIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const PlaneCircleCheckIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const PlaneCircleCheckIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const PlaneCircleCheckIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const PlaneCircleCheckIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const PlaneCircleCheckIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M192 93.7C192 59.5 221 0 256 0c36 0 64 59.5 64 93.7v84.6l77.1 44.1C350.6 254 320 307.4 320 368c0 54.2 24.5 102.7 63.1 135-2 5.3-7.1 9-13.1 9-1.3 0-2.6-.2-3.9-.5L256 480l-110.1 31.5c-1.3.4-2.6.5-3.9.5-7.8 0-14-6.3-14-14v-42c0-5 2.4-9.8 6.4-12.8L192 400v-70.9l-171.6 49c-10.2 3-20.4-4.7-20.4-15.3v-65.5c0-5.7 3.1-11 8.1-13.9L192 178.3z"
                 />

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const OilTemperatureIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const OilTemperatureIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const OilTemperatureIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const OilTemperatureIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const OilTemperatureIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const OilTemperatureIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const OilTemperatureIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M380 367.9c12.6-18.1 20-40.2 20-63.9v-1.2c21.9-3.2 43.7-12.6 61.5-24.9 11.9-8.5 28.1-7.8 39.2 1.7 14.4 11.9 32.5 21 50.6 25.2 17.2 4 27.9 21.2 23.9 38.4s-21.2 27.9-38.4 23.9c-24.5-5.7-44.9-16.5-58.2-25C449.5 357.7 417 368 384 368c-1.4 0-2.7 0-4-.1m-183.9 0c-1.3 0-2.7.1-4 .1-33 0-65.5-10.3-94.5-25.8-13.4 8.4-33.7 19.3-58.2 25-17.2 4-34.4-6.7-38.4-23.9s6.7-34.4 23.9-38.4c18.1-4.2 36.2-13.3 50.6-25.2 11.1-9.5 27.3-10.1 39.2-1.7 17.8 12.3 39.6 21.7 61.4 24.9v1.2c0 23.8 7.4 45.8 20 63.9zm110.5 54C329 437.4 356.5 448 384 448c26.9 0 55.4-10.8 77.4-26.1 11.9-8.5 28.1-7.8 39.2 1.7 14.4 11.9 32.5 21 50.6 25.2 17.2 4 27.9 21.2 23.9 38.4s-21.2 27.9-38.4 23.9c-24.5-5.7-44.9-16.5-58.2-25-29 15.6-61.5 25.9-94.5 25.9-31.9 0-60.6-9.9-80.4-18.9-5.8-2.7-11.1-5.3-15.6-7.7-4.5 2.4-9.7 5.1-15.6 7.7-19.8 9-48.5 18.9-80.4 18.9-33 0-65.5-10.3-94.5-25.8-13.4 8.4-33.7 19.3-58.2 25-17.2 4-34.4-6.7-38.4-23.9s6.7-34.4 23.9-38.4c18.1-4.2 36.2-13.3 50.6-25.2 11.1-9.4 27.3-10.1 39.2-1.7 22.1 15.2 50.5 26 77.4 26 27.5 0 55-10.6 77.5-26.1 11.1-7.9 25.9-7.9 37 0z"
                 />

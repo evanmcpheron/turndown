@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const ShirtIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,8 +41,9 @@ export const ShirtIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
+
 
   return (
     <StyledIcon ref={domRef} {...internalProperties}>
@@ -40,7 +53,7 @@ export const ShirtIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +66,7 @@ export const ShirtIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +79,7 @@ export const ShirtIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +92,7 @@ export const ShirtIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +105,10 @@ export const ShirtIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M320 112c61.9 0 112-50.1 112-112h8.8c22.5 0 44.2 7.9 61.5 22.3l126.2 105.1c6.6 5.5 10.7 13.5 11.4 22.1s-2.1 17.1-7.8 23.6l-56 64c-11.4 13.1-31.2 14.6-44.6 3.5L480 197.7V448c0 35.3-28.7 64-64 64H224c-35.3 0-64-28.7-64-64V197.7l-51.5 42.9c-13.3 11.1-33.1 9.6-44.6-3.5l-56-64c-5.7-6.5-8.5-15-7.8-23.6s4.8-16.6 11.4-22.1L137.7 22.3C155 7.9 176.7 0 199.2 0h8.8c0 61.9 50.1 112 112 112"
                 />

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const OliveBranchIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const OliveBranchIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const OliveBranchIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const OliveBranchIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const OliveBranchIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const OliveBranchIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const OliveBranchIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M336 512c79.5 0 144-86 144-192s-64.5-192-144-192-144 86-144 192 64.5 192 144 192m269.4-67.2c56.2-58.3 41-168.6-33.9-246.4-42.9-44.5-96.1-68.7-144.2-70.3 13.6 10.4 25.7 22.9 36.2 36.9C494 205.8 512 260.7 512 320c0 57.8-17.1 111.4-46.3 151.8 52.9 16.5 105.5 8.4 139.6-27z"
                 />

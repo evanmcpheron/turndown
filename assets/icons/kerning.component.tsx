@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const KerningIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const KerningIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const KerningIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const KerningIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const KerningIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const KerningIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const KerningIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M17.7 99.4c15.8-7.9 35-1.5 42.9 14.3L160 312.4l99.4-198.8c7.9-15.8 27.1-22.2 42.9-14.3s22.2 27.1 14.3 42.9l-128 256c-5.4 11-16.5 17.8-28.6 17.8s-23.2-6.8-28.6-17.7l-128-256c-7.9-15.8-1.5-35 14.3-42.9m320 313.2c-15.8-7.9-22.2-27.1-14.3-42.9l128-256C456.8 102.8 467.9 96 480 96s23.2 6.8 28.6 17.7l128 256c7.9 15.8 1.5 35-14.3 42.9s-35 1.5-42.9-14.3L556.2 352H403.8l-23.2 46.3c-7.9 15.8-27.1 22.2-42.9 14.3M524.2 288 480 199.6 435.8 288z"
                 />

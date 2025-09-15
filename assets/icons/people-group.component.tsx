@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const PeopleGroupIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const PeopleGroupIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const PeopleGroupIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const PeopleGroupIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const PeopleGroupIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const PeopleGroupIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const PeopleGroupIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M128 160a64 64 0 1 0 0-128 64 64 0 1 0 0 128M48 304c0-16.2 6-31.1 16-42.3v84.7C54 335 48 320.2 48 304m112 0c0-37.8 14.6-72.2 38.4-97.9-16.1-9-34.7-14.1-54.4-14.1h-32C50.1 192 0 242.1 0 304c0 44.7 26.2 83.2 64 101.2V448c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32v-53.5c-20-24.7-32-56.2-32-90.5m288 101.2V448c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32v-42.8c37.8-18 64-56.5 64-101.2 0-61.9-50.1-112-112-112h-32c-19.7 0-38.3 5.1-54.4 14.1 23.8 25.7 38.4 60.1 38.4 97.9 0 34.3-12 65.8-32 90.5zM512 160a64 64 0 1 0 0-128 64 64 0 1 0 0 128m80 144c0 16.2-6 31-16 42.3v-84.6c10 11.3 16 26.1 16 42.3"
                 />

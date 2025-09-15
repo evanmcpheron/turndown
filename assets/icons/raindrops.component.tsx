@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const RaindropsIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,8 +41,9 @@ export const RaindropsIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
+
 
   return (
     <StyledIcon ref={domRef} {...internalProperties}>
@@ -40,7 +53,7 @@ export const RaindropsIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +66,7 @@ export const RaindropsIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +79,7 @@ export const RaindropsIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +92,7 @@ export const RaindropsIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +105,10 @@ export const RaindropsIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="m148.5 39.2-46.1 94.4c-4.2 8.6-6.4 18-6.4 27.6 0 34.7 28.1 62.8 62.8 62.8h2.4c34.7 0 62.8-28.1 62.8-62.8 0-9.6-2.2-19-6.4-27.6l-46.1-94.4c-2.1-4.4-6.6-7.2-11.5-7.2s-9.4 2.8-11.5 7.2m-96 192L6.4 325.6c-4.2 8.6-6.4 18-6.4 27.6C0 387.9 28.1 416 62.8 416h2.4c34.7 0 62.8-28.1 62.8-62.8 0-9.6-2.2-19-6.4-27.6l-46.1-94.4c-2.1-4.4-6.6-7.2-11.5-7.2s-9.4 2.8-11.5 7.2"
                 />

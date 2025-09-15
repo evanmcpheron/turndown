@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const PlanetMoonIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const PlanetMoonIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const PlanetMoonIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const PlanetMoonIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const PlanetMoonIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const PlanetMoonIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const PlanetMoonIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M224 512c123.7 0 224-100.3 224-224 0-112.8-83.4-206.2-192-221.7v82.1c0 7.5-2.6 14.7-7.4 20.5l-52.7 63.2c-11.3 13.5-10.4 33.5 2.1 45.9 6.4 6.4 15.1 10 24.1 10H288c17.7 0 32 14.3 32 32v15.9c0 10.6-2.6 21-7.6 30.3l-41.3 76.6c-4.4 8.1-12.8 13.2-22 13.2-13.8 0-25-11.2-25-25v-47c-17.7 0-32-14.3-32-32v-32l-49.9-49.9c-9-9-21.2-14.1-33.9-14.1H74.5c-17 0-33.3-6.7-45.3-18.7l-18.3-18.4C3.8 240.6 0 263.9 0 288c0 123.7 100.3 224 224 224"
                 />

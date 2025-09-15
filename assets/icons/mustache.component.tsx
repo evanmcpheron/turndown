@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const MustacheIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const MustacheIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const MustacheIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const MustacheIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const MustacheIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const MustacheIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const MustacheIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M193.4 194.9c16.4-12.3 36.3-18.9 56.8-18.9 26.6 0 51.9 11.2 69.8 30.7 17.9-19.5 43.2-30.7 69.8-30.7 20.5 0 40.4 6.6 56.8 18.9l13.1 9.8c16.7 12.5 37 19.3 57.8 19.3 15 0 29.7-3.5 43.1-10.2l8.3-4.1c1.9-1 4-1.5 6-1.7 1.8-.1 3.6 0 5.4.5.3.1.5.2.8.2 2.2.7 4.1 1.9 5.7 3.3 1.2 1.1 2.2 2.3 3 3.7.4.6.7 1.3 1 1.9.6 1.5 1 2.9 1.1 4.4.2 2.2 0 4.5-.7 6.8-9.4 28.3-32.9 54.7-58.8 73.8-25.8 19-57.3 33.1-85 33.1-16.4 0-34.4-4.7-50.1-11.2-15.6-6.5-30.6-15.5-40.6-25.5-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0c6 6 17 13 30.3 18.5 13.2 5.5 26.9 8.8 37.8 8.8 18.2 0 43-9.9 66-26.9 9.5-7 18.1-14.8 25.4-22.9-7 1.2-14.2 1.8-21.4 1.8-27.8 0-54.8-9-77-25.7l-13.1-9.8c-10.8-8.1-24-12.5-37.6-12.5-19 0-37 8.6-48.9 23.5l-8.2 10.2c-.4.6-.9 1.1-1.4 1.6-1.3 1.3-2.8 2.4-4.5 3.1-4.4 2.1-9.4 2-13.7 0-1.6-.8-3.1-1.8-4.5-3.1-.5-.5-1-1-1.4-1.6l-8.2-10.2C287 216.3 269 207.7 250 207.7c-13.6 0-26.7 4.4-37.6 12.5l-13.1 9.8c-22.2 16.7-49.3 25.7-77 25.7-7.2 0-14.3-.6-21.4-1.8 7.3 8.1 16 15.9 25.4 22.9 23 17 47.9 26.9 66 26.9 10.9 0 24.6-3.3 37.8-8.8 13.3-5.5 24.3-12.5 30.3-18.5 6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6c-10 10-25 19-40.6 25.5C227 331.3 209 336 192.6 336c-27.7 0-59.2-14.1-85-33.1-25.9-19.1-49.3-45.5-58.8-73.7l-.3-1.2c-.4-1.5-.6-3.1-.5-4.6.1-2.2.6-4.4 1.7-6.5 1-2.1 2.4-3.8 4.1-5.2 1.3-1.1 2.9-2 4.6-2.7.3-.1.7-.2 1-.3 3.8-1.1 7.7-.8 11.1.7.2.1.5.2.7.3l8.2 4.1c13.4 6.7 28.1 10.2 43.1 10.2 20.9 0 41.2-6.8 57.8-19.3z"
                 />

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const OrnamentIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const OrnamentIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const OrnamentIcon: React.FC<
             return (
               <Svg viewBox="0 0 384 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const OrnamentIcon: React.FC<
             return (
               <Svg viewBox="0 0 384 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const OrnamentIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 384 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const OrnamentIcon: React.FC<
             return (
               <Svg viewBox="0 0 384 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const OrnamentIcon: React.FC<
             return (
               <Svg viewBox="0 0 384 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32v1c.4 13.9 9.7 26.6 22.4 31h-45.8c-5.4-9.4-8.6-20.3-8.6-32 0-35.3 28.7-64 64-64s64 28.7 64 64c0 11.7-3.1 22.6-8.6 32h-45.8c12.8-4.4 22.1-17.2 22.4-31.2zm160 256c0 22.4-3.8 44-10.9 64H10.9C3.8 364 0 342.4 0 320s3.8-44 10.9-64h362.2c7.1 20 10.9 41.6 10.9 64"
                 />

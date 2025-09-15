@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const LeafOakIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const LeafOakIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const LeafOakIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const LeafOakIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const LeafOakIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const LeafOakIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const LeafOakIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="m470.6 258.4-40.8 10.2c-6 1.5-8.1 9-3.7 13.4l22 22c17.7 17.7 17.7 46.3 0 64-10.1 10.1-24.3 14.8-38.4 12.8l-75.1-10.7c-5.6-.8-9.5 5.4-6.4 10.1 13.9 20.8 11.1 48.5-6.6 66.2L318 450c-17.9 17.9-45.2 22.3-67.8 11L219 445.5c-17.8-8.9-37.4-13.5-57.2-13.5h-47.9l200-199.9c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0L80 398.1v-47.8c0-19.9-4.6-39.5-13.5-57.2l-15.6-31.2c-11.3-22.6-6.9-49.9 11-67.8l3.6-3.6c17.7-17.7 45.4-20.4 66.2-6.6 4.7 3.1 10.9-.8 10.1-6.4l-10.7-75.1c-2-14.1 2.7-28.3 12.8-38.4 17.7-17.7 46.3-17.7 64 0l22 22c4.4 4.4 11.9 2.3 13.4-3.7l10.2-40.8C259.7 17.1 281.6 0 306.7 0c18.3 0 35.4 9.1 45.5 24.4l9.5 14.3c3.8 5.6 10.6 8.3 17.2 6.6l20.1-5c20.4-5.1 42 .9 56.9 15.8s20.9 36.5 15.8 56.9l-5 20.1c-1.6 6.6 1 13.4 6.6 17.2l14.3 9.5c15.3 10.1 24.4 27.2 24.4 45.5 0 25.1-17.1 47-41.4 53.1"
                 />

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const SackDollarIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,8 +41,9 @@ export const SackDollarIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
+
 
   return (
     <StyledIcon ref={domRef} {...internalProperties}>
@@ -40,7 +53,7 @@ export const SackDollarIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +66,7 @@ export const SackDollarIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +79,7 @@ export const SackDollarIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +92,7 @@ export const SackDollarIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +105,10 @@ export const SackDollarIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M192 96h128l47.4-71.1c7.1-10.7-.5-24.9-13.3-24.9H157.9c-12.8 0-20.4 14.2-13.3 24.9zm128 32H192c-3.8 2.5-8.1 5.3-13 8.4C122.3 172.7 0 250.9 0 416c0 53 43 96 96 96h320c53 0 96-43 96-96 0-165.1-122.3-243.3-179-279.6-4.8-3.1-9.2-5.9-13-8.4m-64 68c11 0 20 9 20 20v13.9c7.5 1.2 14.6 2.9 21.1 4.7 10.7 2.8 17 13.8 14.2 24.5s-13.8 17-24.5 14.2c-11-2.9-21.6-5-31.2-5.2-7.9-.1-16 1.8-21.5 5-4.8 2.8-6.2 5.6-6.2 9.3 0 1.8.1 3.5 5.3 6.7 6.3 3.8 15.5 6.7 28.3 10.5l.7.2c11.2 3.4 25.6 7.7 37.1 15 12.9 8.1 24.3 21.3 24.6 41.6.3 20.9-10.5 36.1-24.8 45-7.2 4.5-15.2 7.3-23.2 9V424c0 11-9 20-20 20s-20-9-20-20v-14.6c-10.3-2.2-20-5.5-28.2-8.4-2.1-.7-4.1-1.4-6.1-2.1-10.5-3.5-16.1-14.8-12.6-25.3s14.8-16.1 25.3-12.6c2.5.8 4.9 1.7 7.2 2.4 13.6 4.6 24 8.1 35.1 8.5 8.6.3 16.5-1.6 21.4-4.7 4.1-2.5 6-5.5 5.9-10.5 0-2.9-.8-5-5.9-8.2-6.3-4-15.4-6.9-28-10.7l-1.7-.5c-10.9-3.3-24.6-7.4-35.6-14-12.7-7.7-24.6-20.5-24.7-40.7-.1-21.1 11.8-35.7 25.8-43.9 6.9-4.1 14.5-6.8 22.2-8.5V216c0-11 9-20 20-20"
                 />

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const OnionIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const OnionIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const OnionIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const OnionIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const OnionIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const OnionIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const OnionIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="m213.5 10.9 3.4 6.8c2.9 5.9 11.4 5.9 14.3 0l3.4-6.8C237.9 4.2 244.7 0 252.2 0c10.9 0 19.6 9 21.3 19.8 7.5 48 42.5 76.4 79.2 106.2C399 163.7 448 203.5 448 288c0 112-112.8 174.4-224 176C112.8 462.4 0 400 0 288c0-84.5 49-124.3 95.3-162C132 96.2 167 67.8 174.5 19.8 176.2 9 184.9 0 195.8 0c7.5 0 14.3 4.2 17.7 10.9m-116 174.3-.4.9c-.4.8-.9 1.9-1.6 3.4-1.3 2.9-3.2 7.1-5.4 12.3-4.3 10.4-9.8 25-14.5 41.8-9.2 32.7-16.5 76.9-2.6 114 3.1 8.3 12.3 12.5 20.6 9.4s12.5-12.3 9.4-20.6c-10.1-27-5.4-62.7 3.4-94 4.3-15.3 9.3-28.6 13.3-38.2 2-4.8 3.7-8.6 4.9-11.2.6-1.3 1.1-2.3 1.4-2.9l.3-.7c.6-1.1 1-2.3 1.3-3.6.5-2 .6-4 .3-5.9-.6-4.5-3.1-8.6-7-11.2-1.6-1-3.3-1.8-5.2-2.2s-3.8-.5-5.6-.3c-4.7.6-8.8 3.2-11.3 6.9-.5.7-.9 1.4-1.2 2.2zm111.9-63.9-.6 1.2c-.5 1.1-1.2 2.6-2.1 4.6-1.8 4-4.3 9.7-7.1 17-5.7 14.5-12.9 35.2-19.1 60-12.3 49.4-20.9 116.3-4 183.8 2.1 8.6 10.8 13.8 19.4 11.6s13.8-10.8 11.6-19.4c-15.1-60.5-7.7-121.6 4-168.2 5.8-23.2 12.6-42.5 17.9-56 2.6-6.7 4.9-12 6.5-15.5.8-1.8 1.4-3.1 1.8-4l.5-1c.6-1.2 1.1-2.4 1.4-3.7.4-1.9.5-3.8.3-5.6-.6-4.7-3.2-8.8-7-11.4-1.6-1-3.3-1.8-5.2-2.2s-3.8-.5-5.6-.3c-4.5.6-8.7 3-11.4 7l-1.2 2.1-.1.1zm84.2 50.9s0 .1.1.1c1.6 3.1 3.9 7.6 6.5 13.2 5.3 11.4 12.2 27.3 18.4 45.6 12.6 37.3 21.2 81.4 11.2 116.5-2.4 8.5 2.5 17.3 11 19.8s17.4-2.5 19.8-11c12.7-44.9 1.4-96.8-11.7-135.5-6.7-19.7-14-36.8-19.8-48.9-2.9-6.1-5.3-11-7.1-14.3q-1.35-2.55-2.1-3.9l-.6-1.1-.2-.3v-.1l-1 .5 1-.6c-3-5.4-8.8-8.4-14.6-8.2h-.6c-8.8 0-16 7.2-16 16 0 4.9 2.2 9.3 5.7 12.2"
                 />

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const Circle0Icon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const Circle0Icon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -38,37 +50,37 @@ export const Circle0Icon: React.FC<
         switch (type) {
           case "solid":
             return (
-              <Svg viewBox="0 0 512 512" fill={color}>
+              <Svg viewBox="0 0 512 512"  fill={colors[colorName || "text"]} >
                 <Path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512m0-384c53 0 96 43 96 96v64c0 53-43 96-96 96s-96-43-96-96v-64c0-53 43-96 96-96m-48 96v64c0 26.5 21.5 48 48 48s48-21.5 48-48v-64c0-26.5-21.5-48-48-48s-48 21.5-48 48" />
               </Svg>
             );
 
           case "regular":
             return (
-              <Svg viewBox="0 0 512 512" fill={color}>
+              <Svg viewBox="0 0 512 512"  fill={colors[colorName || "text"]} >
                 <Path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416m0 464a256 256 0 1 0 0-512 256 256 0 1 0 0 512m0-384c-53 0-96 43-96 96v64c0 53 43 96 96 96s96-43 96-96v-64c0-53-43-96-96-96m-48 96c0-26.5 21.5-48 48-48s48 21.5 48 48v64c0 26.5-21.5 48-48 48s-48-21.5-48-48z" />
               </Svg>
             );
 
           case "light":
             return (
-              <Svg viewBox="0 0 512 512" fill={color}>
+              <Svg viewBox="0 0 512 512"  fill={colors[colorName || "text"]} >
                 <Path d="M256 32a224 224 0 1 1 0 448 224 224 0 1 1 0-448m0 480a256 256 0 1 0 0-512 256 256 0 1 0 0 512m0-384c-53 0-96 43-96 96v64c0 53 43 96 96 96s96-43 96-96v-64c0-53-43-96-96-96m-64 96c0-35.3 28.7-64 64-64s64 28.7 64 64v64c0 35.3-28.7 64-64 64s-64-28.7-64-64z" />
               </Svg>
             );
 
           case "thin":
             return (
-              <Svg viewBox="0 0 512 512" fill={color}>
+              <Svg viewBox="0 0 512 512"  fill={colors[colorName || "text"]} >
                 <Path d="M256 16a240 240 0 1 1 0 480 240 240 0 1 1 0-480m0 496a256 256 0 1 0 0-512 256 256 0 1 0 0 512m0-384c-53 0-96 43-96 96v64c0 53 43 96 96 96s96-43 96-96v-64c0-53-43-96-96-96m-80 96c0-44.2 35.8-80 80-80s80 35.8 80 80v64c0 44.2-35.8 80-80 80s-80-35.8-80-80z" />
               </Svg>
             );
 
           case "duotone":
             return (
-              <Svg viewBox="0 0 512 512" fill={color}>
+              <Svg viewBox="0 0 512 512"  fill={colors[colorName || "text"]} >
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512m0-384c53 0 96 43 96 96v64c0 53-43 96-96 96s-96-43-96-96v-64c0-53 43-96 96-96m-48 96v64c0 26.5 21.5 48 48 48s48-21.5 48-48v-64c0-26.5-21.5-48-48-48s-48 21.5-48 48"
                 />

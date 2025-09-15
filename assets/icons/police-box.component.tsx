@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const PoliceBoxIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const PoliceBoxIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const PoliceBoxIcon: React.FC<
             return (
               <Svg viewBox="0 0 384 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const PoliceBoxIcon: React.FC<
             return (
               <Svg viewBox="0 0 384 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const PoliceBoxIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 384 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const PoliceBoxIcon: React.FC<
             return (
               <Svg viewBox="0 0 384 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const PoliceBoxIcon: React.FC<
             return (
               <Svg viewBox="0 0 384 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M208 16c0-8.8-7.2-16-16-16s-16 7.2-16 16v16h32zM104 128c-4.4 0-8 3.6-8 8v24h32v-32zm24 48H96v24c0 4.4 3.6 8 8 8h24zm16-48v32h32v-24c0-4.4-3.6-8-8-8zm32 48h-32v32h24c4.4 0 8-3.6 8-8zM24 464c-13.3 0-24 10.7-24 24s10.7 24 24 24h336c13.3 0 24-10.7 24-24s-10.7-24-24-24zm184-328v24h32v-32h-24c-4.4 0-8 3.6-8 8m0 40v24c0 4.4 3.6 8 8 8h24v-32zm72-48h-24v32h32v-24c0-4.4-3.6-8-8-8m-24 48v32h24c4.4 0 8-3.6 8-8v-24z"
                 />

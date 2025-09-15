@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const PillsIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const PillsIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const PillsIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const PillsIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const PillsIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const PillsIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const PillsIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M224 256V144c0-61.9-50.1-112-112-112S0 82.1 0 144v112h224m330.9 143.4C568.3 376 576 348.9 576 320c0-88.4-71.6-160-160-160-28.9 0-56 7.7-79.4 21.1-12.3 7.1-13.1 23.7-3.1 33.8l187.6 187.6c10 10 26.7 9.3 33.8-3.1m-59.5 59.5c12.3-7.1 13.1-23.7 3.1-33.8L310.9 237.5c-10-10-26.7-9.3-33.8 3.1C263.7 264 256 291.1 256 320c0 88.4 71.6 160 160 160 28.9 0 56-7.7 79.4-21.1"
                 />

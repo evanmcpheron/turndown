@@ -1,7 +1,12 @@
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 const HomeScreen = () => {
-  return <View></View>;
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: "red",
+    },
+  });
+  return <View style={styles.container}></View>;
 };
 
 export default HomeScreen;

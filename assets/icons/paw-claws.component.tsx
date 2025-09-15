@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const PawClawsIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const PawClawsIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const PawClawsIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const PawClawsIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const PawClawsIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const PawClawsIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const PawClawsIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="m178.1 15.3-39.2 43.1c-17.3 19-26.9 43.9-26.9 69.6-.2 11.3 1.5 23.2 5.5 35.1 14.3 42.9 52.1 69.1 84.4 58.5s46.9-53.9 32.6-96.8c-8.2-24.6-24.2-43.8-42.5-53.6V20.7c0-7.3-9-10.8-13.9-5.4m132 206.3c32.3 10.6 70.1-15.6 84.4-58.5 4-11.9 5.7-23.9 5.5-35.1 0-25.7-9.6-50.6-26.9-69.6l-39.2-43.1C329 9.9 320 13.4 320 20.7v50.5c-18.3 9.8-34.3 28.9-42.5 53.6-14.3 42.9.3 86.2 32.6 96.8M90.2 314.7c24.5-14 29.1-51.7 10.2-84.1-9.3-15.9-22.5-27.6-36.4-33.8v-44.2c0-7.7-9.9-11-14.5-4.7l-37.3 51.3C4.3 210.1 0 223.3 0 236.8v3.2c-.1 13.3 3.7 27.8 11.6 41.4 18.9 32.4 54 47.3 78.5 33.3zm331.7 0c24.5 14 59.7-.9 78.5-33.3 7.9-13.6 11.7-28.1 11.6-41.4v-3.2c0-13.5-4.3-26.7-12.2-37.6l-37.3-51.3c-4.6-6.3-14.5-3-14.5 4.7v44.2c-13.9 6.1-27.1 17.8-36.4 33.7-18.9 32.4-14.3 70.1 10.2 84.1z"
                 />

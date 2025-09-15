@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const NfcMagnifyingGlassIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const NfcMagnifyingGlassIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const NfcMagnifyingGlassIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const NfcMagnifyingGlassIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const NfcMagnifyingGlassIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const NfcMagnifyingGlassIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const NfcMagnifyingGlassIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c8.7 0 17-1.7 24.6-4.9-35.9-9.1-67-30.3-88.6-59.1H112c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h32c8.8 0 16 7.2 16 16s-7.2 16-16 16h-32c-8.8 0-16 7.2-16 16v224c0 8.8 7.2 16 16 16h189.3c-8.6-19.6-13.3-41.2-13.3-64 0-52.3 25.1-98.8 64-128v-48c0-8.8-7.2-16-16-16h-80c-8.8 0-16 7.2-16 16v66.7c18.6 6.6 32 24.4 32 45.3 0 26.5-21.5 48-48 48s-48-21.5-48-48c0-20.9 13.4-38.7 32-45.3V144c0-26.5 21.5-48 48-48h80c26.5 0 48 21.5 48 48v29.3c19.6-8.6 41.2-13.3 64-13.3V96c0-35.3-28.7-64-64-64z"
                 />

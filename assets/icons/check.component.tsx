@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const CheckIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const CheckIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -41,7 +53,7 @@ export const CheckIcon: React.FC<
               <Svg
                 viewBox="0 0 448 512"
                 className="mickey-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                   className="mickey-icon-foreground"
@@ -55,7 +67,7 @@ export const CheckIcon: React.FC<
               <Svg
                 viewBox="0 0 448 512"
                 className="mickey-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                   className="mickey-icon-foreground"
@@ -69,7 +81,7 @@ export const CheckIcon: React.FC<
               <Svg
                 viewBox="0 0 448 512"
                 className="mickey-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                   className="mickey-icon-foreground"
@@ -83,7 +95,7 @@ export const CheckIcon: React.FC<
               <Svg
                 viewBox="0 0 448 512"
                 className="mickey-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                   className="mickey-icon-foreground"
@@ -97,7 +109,7 @@ export const CheckIcon: React.FC<
               <Svg
                 viewBox="0 0 448 512"
                 className="mickey-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path className="mickey-icon-background" d="" />
                 <Path

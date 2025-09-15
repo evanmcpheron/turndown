@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const SheepIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,8 +41,9 @@ export const SheepIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
+
 
   return (
     <StyledIcon ref={domRef} {...internalProperties}>
@@ -40,7 +53,7 @@ export const SheepIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +66,7 @@ export const SheepIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +79,7 @@ export const SheepIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +92,7 @@ export const SheepIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +105,10 @@ export const SheepIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M308.5 142.1c8 18.6 24.8 30.7 43.5 33.4V208c0 61.9 50.1 112 112 112h15.5c.3 2.6.5 5.3.5 8 0 35.3-28.7 64-64 64-3.3 0-6.6-.3-9.8-.7-6.8 28-32.1 48.7-62.2 48.7-15 0-28.9-5.2-39.8-13.9-11.7 13.4-29 21.9-48.2 21.9s-36.5-8.5-48.2-21.9C196.9 434.8 183 440 168 440c-30.1 0-55.3-20.8-62.2-48.7-3.2.5-6.5.7-9.8.7-35.3 0-64-28.7-64-64 0-5.3.7-10.5 1.9-15.5C13.7 301.7 0 280.5 0 256s13.7-45.7 33.9-56.5c-1.2-5-1.9-10.2-1.9-15.5 0-35.3 28.7-64 64-64 3.3 0 6.6.3 9.8.8 6.9-28 32.1-48.8 62.2-48.8 15 0 28.9 5.2 39.8 13.9C219.5 72.5 236.8 64 256 64c22.9 0 43 12 54.3 30.1-7.5 14.4-8.7 31.9-1.8 47.9z"
                 />

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const MasksTheaterIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const MasksTheaterIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const MasksTheaterIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const MasksTheaterIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const MasksTheaterIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const MasksTheaterIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const MasksTheaterIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M240.7 446.9c-58.2 8.8-124.5-37.5-166.1-73.7-28.3-24.5-44.3-59.8-49.8-97.2L.6 111.8C-.8 102 0 91.9 5.7 83.9 20.5 63 63 22.7 175.7 5.6s164.9 8.9 185.1 24.5c7.8 6 11.5 15.4 12.9 25.2l1.2 8.1c-53 3.2-81.9 18.8-95.7 29.5-7.8 6-11.5 15.4-12.9 25.2l-19.4 131.3c-12.3-4.4-25.8-6-39.5-3.9-35.2 5.3-61.8 32.7-68.2 66.3-1.6 8.2 8.3 12.2 14.8 7 17-13.5 37.5-22.9 60.4-26.4 9-1.4 17.9-1.7 26.7-1.2-3.5 34.5 2.3 69.5 20.7 98.8 7.5 11.9 16.3 24.9 26.2 37.9-14.9 9.7-30.7 16.6-47.1 19.1zM174.1 157c-1-5.3-7.4-6.4-11.8-3.3-7.7 5.5-16.8 9.3-26.8 10.8s-19.8.6-28.7-2.4c-5.1-1.7-10.9 1.3-10.3 6.7.1.5.1 1.1.2 1.6 3.2 21.8 23.2 36.8 44.7 33.5s36.3-23.5 33.1-45.3c-.1-.5-.2-1.1-.3-1.6z"
                 />

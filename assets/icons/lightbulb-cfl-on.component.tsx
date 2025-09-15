@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const LightbulbCflOnIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const LightbulbCflOnIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const LightbulbCflOnIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const LightbulbCflOnIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const LightbulbCflOnIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const LightbulbCflOnIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const LightbulbCflOnIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="m327.8 63-128 32c-17.1 4.3-34.5-6.1-38.8-23.3s6.1-34.5 23.3-38.8l128-32c17.1-4.3 34.5 6.1 38.8 23.3S345 58.7 327.8 63M479 88.2c4.3 17.1-6.1 34.5-23.3 38.8l-256 64c-17.1 4.3-34.5-6.1-38.8-23.3s6.1-34.5 23.3-38.8l256-64c17.1-4.3 34.5 6.1 38.8 23.3m0 96c4.3 17.1-6.1 34.5-23.3 38.8l-195.8 49-3.9 1-56.2 14c-17.1 4.3-34.5-6.1-38.8-23.3s6.1-34.5 23.3-38.8l256-64c17.1-4.3 34.5 6.1 38.8 23.3zM256 306l48-12v90h-48zm223-25.7c4.3 17.1-6.1 34.5-23.3 38.8l-64 16-7.7 1.9v47h-48v-80h.2c1.6-12.7 10.8-23.7 24-27l16-4 64-16c17.1-4.3 34.5 6.1 38.8 23.3"
                 />

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const PersonBikingMountainIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const PersonBikingMountainIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const PersonBikingMountainIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const PersonBikingMountainIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const PersonBikingMountainIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const PersonBikingMountainIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const PersonBikingMountainIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M96.2 276.6c1.7-11.7 11.7-20.6 23.8-20.6h16c12.1 0 22.1 8.9 23.8 20.6 7.6 2.2 14.9 5.3 21.7 9 9.4-7 22.8-6.3 31.3 2.3l11.3 11.3c8.6 8.6 9.3 21.9 2.3 31.3 3.7 6.8 6.8 14.1 9 21.7C247 353.9 256 363.9 256 376v16c0 12.1-8.9 22.1-20.6 23.8-2.2 7.6-5.3 14.9-9 21.7 7 9.4 6.3 22.8-2.3 31.3l-11.3 11.3c-8.6 8.6-21.9 9.3-31.3 2.2-6.8 3.7-14.1 6.8-21.7 9-1.7 11.8-11.7 20.7-23.8 20.7h-16c-12.1 0-22.1-8.9-23.8-20.6-7.6-2.2-14.9-5.3-21.7-9-9.4 7.1-22.8 6.3-31.3-2.2l-11.4-11.3c-8.6-8.6-9.3-21.9-2.3-31.3-3.7-6.9-6.8-14.1-9-21.8C8.9 414.1 0 404.1 0 392v-16c0-12.1 8.9-22.1 20.6-23.8 2.2-7.6 5.3-14.9 9-21.8-7-9.4-6.3-22.8 2.3-31.3l11.3-11.3c8.6-8.6 21.9-9.3 31.3-2.3 6.8-3.7 14.1-6.8 21.7-9zM192 384a64 64 0 1 0-128 0 64 64 0 1 0 128 0m288.2-107.4C481.9 265 491.9 256 504 256h16c12.1 0 22.1 8.9 23.8 20.6 7.6 2.2 14.9 5.3 21.8 9 9.4-7 22.8-6.3 31.3 2.3l11.3 11.3c8.6 8.6 9.3 21.9 2.2 31.3 3.7 6.8 6.8 14.1 9 21.7C631 353.9 640 363.9 640 376v16c0 12.1-8.9 22.1-20.6 23.8-2.2 7.6-5.3 14.9-9 21.7 7 9.4 6.3 22.8-2.2 31.3l-11.3 11.3c-8.6 8.6-21.9 9.3-31.3 2.2-6.9 3.7-14.1 6.8-21.8 9-1.7 11.8-11.7 20.7-23.8 20.7h-16c-12.1 0-22.1-8.9-23.8-20.6-7.6-2.2-14.9-5.3-21.7-9-9.4 7.1-22.8 6.3-31.3-2.2l-11.3-11.3c-8.6-8.6-9.3-21.9-2.2-31.3-3.7-6.9-6.8-14.1-9-21.8-11.8-1.7-20.7-11.7-20.7-23.8v-16c0-12.1 8.9-22.1 20.6-23.8 2.2-7.6 5.3-14.9 9-21.8-7-9.4-6.3-22.8 2.2-31.3l11.3-11.3c8.6-8.6 21.9-9.3 31.3-2.3 6.8-3.7 14.1-6.8 21.7-9zM576 384a64 64 0 1 0-128 0 64 64 0 1 0 128 0"
                 />

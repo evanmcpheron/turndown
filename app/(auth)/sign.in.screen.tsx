@@ -1,4 +1,5 @@
 import { EyeIcon } from "@/assets/icons/eye.component";
+import { Label } from "@/components/font";
 import { useAuth } from "@/context";
 import { Link, router } from "expo-router";
 import React, { useState } from "react";
@@ -33,13 +34,13 @@ const SignInScreen = () => {
 
   return (
     <View style={{ flex: 1, padding: 20, justifyContent: "center", gap: 14 }}>
-      <Text style={{ fontSize: 28, fontWeight: "700" }}>Welcome back</Text>
+      <Label>Welcome back</Label>
       <EyeIcon
         onPress={() => console.log("pressed")}
         type="duotone"
         size="medium"
         haptic="strong"
-        color="red"
+        color="warning"
       />
       <TextInput
         autoCapitalize="none"
@@ -77,11 +78,7 @@ const SignInScreen = () => {
           opacity: submitting ? 0.7 : 1,
         }}
       >
-        {submitting ? (
-          <ActivityIndicator />
-        ) : (
-          <Text style={{ color: "white", fontWeight: "700" }}>Sign in</Text>
-        )}
+        {submitting ? <ActivityIndicator /> : <Text>Sign in</Text>}
       </Pressable>
 
       <Text style={{ textAlign: "center" }}>

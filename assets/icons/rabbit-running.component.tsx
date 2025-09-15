@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const RabbitRunningIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const RabbitRunningIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const RabbitRunningIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const RabbitRunningIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const RabbitRunningIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const RabbitRunningIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const RabbitRunningIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="m458.6 37.2 2.2 2.1c36.2 35.5 52.3 86.2 43.9 135.5 5.1 2.9 9.9 6.3 14.5 10l34.6 28.2c14 11.4 22.2 28.6 22.2 46.7 0 33.3-27 60.3-60.3 60.3H414.4l-6.4 3.7-56 32.4v-15.6c0-57.2-37.9-107.4-92.8-123.1l-30.8-8.8c-8.5-2.4-17.4 2.5-19.8 11s2.5 17.4 11 19.8l30.8 8.8c41.2 11.8 69.6 49.4 69.6 92.3V384h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H300.4c-16 0-31.4-6-43.2-16.8L115 300.8c-34.8-31.9-42.4-84-18.1-124.5l2.1-3.4c16.7-27.9 46.7-44.9 79.2-44.9 35.6 0 70.6 9.3 101.5 26.9L384.8 215c1.2-7.8 3.9-15.1 7.6-21.8-37.1-18.3-66.5-50.2-81.4-89.7-4.4-11.7.4-24.9 11.2-31.1 5.6-3.2 12.3-4.2 18.5-2.6l3.4.9c47.2 11.9 85.3 45.3 103.7 89.3h1.7c8.5 0 16.9 1 25 2.9-10.3-31-29-58.1-53.3-78.8.4-11.9 2.3-23.9 5.5-35.6l.8-2.9c1.8-6.3 6.8-11.3 13.1-13s13.2.1 17.9 4.7zM142.2 421.4l32.9-22 48.6 44.5-46 30.7c-14.7 9.8-34.6 5.8-44.4-8.9s-5.8-34.6 8.9-44.4zM512 240a16 16 0 1 0-32 0 16 16 0 1 0 32 0"
                 />

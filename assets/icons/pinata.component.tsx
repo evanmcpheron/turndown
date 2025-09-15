@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const PinataIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const PinataIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const PinataIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const PinataIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const PinataIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const PinataIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const PinataIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M400 435.2V400H224v35.2l-7.4 4.9c-9.6 6.4-21.8 7.1-32.1 2l-16.5-8.2-17.7 8.8c-9 4.5-19.6 4.5-28.6 0l-9.7-4.8v-35.8l24 12 17.7-8.8c9-4.5 19.6-4.5 28.6 0l16.5 8.3 16.3-10.9c2.6-1.8 5.7-2.7 8.9-2.7h176c3.2 0 6.2.9 8.9 2.7l16.3 10.9 16.5-8.3c9-4.5 19.6-4.5 28.6 0l17.7 8.8 24-12v35.8l-9.7 4.8c-9 4.5-19.6 4.5-28.6 0l-17.7-8.8-16.5 8.3c-10.3 5.1-22.5 4.4-32.1-2l-7.4-4.9zm112-118v34.5l-11.4 4.6c-8.5 3.4-18 3-26.2-1.1l-19.1-9.6-26.7 10.7c-8.5 3.4-18 3-26.2-1.1l-19.1-9.6-26.7 10.7c-8.5 3.4-18 3-26.2-1.1l-19.1-9.6-26.7 10.7c-8.5 3.4-18 3-26.2-1.1l-19.1-9.6-26.7 10.7c-8.5 3.4-18 3-26.2-1.1l-19.1-9.6-26.7 10.7c-8.5 3.4-18 3-26.2-1.1L112 354v-35.9l16.7 8.4 26.7-10.7c8.5-3.4 18-3 26.2 1.1l19.1 9.6 26.7-10.7c8.5-3.4 18-3 26.2 1.1l19.1 9.6 26.7-10.7c8.5-3.4 18-3 26.2 1.1l19.1 9.6 26.7-10.7c8.5-3.4 18-3 26.2 1.1l19.1 9.6 26.7-10.7c8.5-3.4 18-3 26.2 1.1l19.1 9.6zM240 198.1V224h19.8L183 262.4c-14.1 7-30.5 7.8-45.1 2.2l-25.9-9.9V224l-73.2-31.4c-1.5-.6-2.9-1.3-4.3-2.1l114.8 44.2c6.3 2.4 13.3 2.1 19.3-.9z"
                 />

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const KaabaIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const KaabaIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const KaabaIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const KaabaIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const KaabaIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const KaabaIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const KaabaIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="m60 120 228-71.2L516 120l-228 71.2zM0 229.2l52.8 16.5c8.4 2.6 13.1 11.6 10.5 20s-11.6 13.1-20 10.5L0 262.8zm576 33.5-43.2 13.5c-8.4 2.6-17.4-2.1-20-10.5s2.1-17.4 10.5-20l52.7-16.5zM96.7 276.2c2.6-8.4 11.6-13.1 20-10.5l64 20c8.4 2.6 13.1 11.6 10.5 20s-11.6 13.1-20 10.5l-64-20c-8.4-2.6-13.1-11.6-10.5-20m382.5 0c2.6 8.4-2.1 17.4-10.5 20l-64 20c-8.4 2.6-17.4-2.1-20-10.5s2.1-17.4 10.5-20l64-20c8.4-2.6 17.4 2.1 20 10.5m-254.5 40c2.6-8.4 11.6-13.1 20-10.5l38.5 12c3.1 1 6.4 1 9.5 0l38.5-12c8.4-2.6 17.4 2.1 20 10.5s-2.1 17.4-10.5 20l-38.5 12c-9.3 2.9-19.3 2.9-28.6 0l-38.5-12c-8.4-2.6-13.1-11.6-10.5-20z"
                 />

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const SaxophoneIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,8 +41,9 @@ export const SaxophoneIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
+
 
   return (
     <StyledIcon ref={domRef} {...internalProperties}>
@@ -40,7 +53,7 @@ export const SaxophoneIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +66,7 @@ export const SaxophoneIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +79,7 @@ export const SaxophoneIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +92,7 @@ export const SaxophoneIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +105,10 @@ export const SaxophoneIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="m246.7 176-75.3 130.1c-2.2 3.8-3.4 8.2-3.4 12.6v2.6c0 12.5 10.1 22.6 22.6 22.6 6 0 11.8-2.4 16-6.6L319 225l-8-8c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l8 8L367 177l-8-8c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l8 8L415 129l-8-8c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l8 8 44.3-44.3c12-12 28.3-18.7 45.3-18.7h30.3c15 0 29.5 5.2 41 14.8l24.3 20.3c3.7 3.1 5.9 7.7 5.9 12.6 0 9-7.3 16.3-16.3 16.3h-64.2c-9.8 0-19 4.5-25.1 12.1L288.6 418.6c-30.7 38.8-77.4 61.4-126.8 61.4C72.4 480 0 407.6 0 318.2v-3.1c0-12.7 1.5-25.4 4.4-37.8L28.2 176H24c-13.3 0-24-10.7-24-24s10.7-24 24-24h240c13.3 0 24 10.7 24 24s-10.7 24-24 24zM120 320a24 24 0 1 0-48 0 24 24 0 1 0 48 0m8-72a24 24 0 1 0 0-48 24 24 0 1 0 0 48"
                 />

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const SealQuestionIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,8 +41,9 @@ export const SealQuestionIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
+
 
   return (
     <StyledIcon ref={domRef} {...internalProperties}>
@@ -40,7 +53,7 @@ export const SealQuestionIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +66,7 @@ export const SealQuestionIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +79,7 @@ export const SealQuestionIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +92,7 @@ export const SealQuestionIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +105,10 @@ export const SealQuestionIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M4.4 256c0 12.3 4.7 24.6 14.1 33.9L64 335.5V400c0 26.5 21.5 48 48 48h64.5l45.6 45.6c18.7 18.7 49.1 18.7 67.9 0l45.5-45.6H400c26.5 0 48-21.5 48-48v-64.5l45.6-45.6c18.7-18.7 18.7-49.1 0-67.9L448 176.5V112c0-26.5-21.5-48-48-48h-64.5l-45.6-45.6C271.2-.3 240.8-.3 222 18.4L176.5 64H112c-26.5 0-48 21.5-48 48v64.5l-45.6 45.6c-9.4 9.3-14 21.6-14 33.9m165-89.5c-4.4 12.5 2.1 26.2 14.6 30.6s26.2-2.1 30.6-14.6l.4-1.2c1.1-3.2 4.2-5.3 7.5-5.3h58.3c8.4 0 15.1 6.8 15.1 15.1 0 5.4-2.9 10.4-7.6 13.1-14.8 8.5-29.6 17-44.3 25.4-7.5 4.3-12.1 12.2-12.1 20.8v13.5c0 13.3 10.7 24 24 24 13.1 0 23.8-10.5 24-23.6 10.8-6.2 21.5-12.4 32.3-18.5 19.6-11.3 31.7-32.2 31.7-54.8 0-34.9-28.3-63.1-63.1-63.1h-58.3c-23.7 0-44.8 14.9-52.8 37.3l-.4 1.2zM224 352a32 32 0 1 0 64 0 32 32 0 1 0-64 0"
                 />

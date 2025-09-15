@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const SectionIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,8 +41,9 @@ export const SectionIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
+
 
   return (
     <StyledIcon ref={domRef} {...internalProperties}>
@@ -40,7 +53,7 @@ export const SectionIcon: React.FC<
             return (
               <Svg viewBox="0 0 256 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +66,7 @@ export const SectionIcon: React.FC<
             return (
               <Svg viewBox="0 0 256 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +79,7 @@ export const SectionIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 256 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +92,7 @@ export const SectionIcon: React.FC<
             return (
               <Svg viewBox="0 0 256 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +105,10 @@ export const SectionIcon: React.FC<
             return (
               <Svg viewBox="0 0 256 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M1.7 243c4.8-28 20.6-48.9 41.7-62.5 22.2 15.2 50.8 24.2 73.7 31.4l3.7 1.2c17.5 5.5 31.8 10.3 43.1 15.5l-16.4-2.6c-26.7-4.2-48-1.7-62.1 4.3-12.6 5.4-18.6 13-20.5 22.7-.8 8.1.5 12.7 2.1 15.7 1.7 3.3 4.9 7.1 11 11.3 13.8 9.3 34.3 15.6 61.7 23.8l1.4.4c24.1 7.2 54.7 16.4 77.5 33 12.4 9.1 23.7 21.2 30.7 37.6 7 16.5 8.4 34.6 5 53.9-6 35-29.2 58.9-58.5 71.4-28.3 12.1-62.7 14.1-97.2 8.7h-.2c-18.8-3-48.7-13.3-67.3-19.6-3.5-1.2-6.7-2.3-9.2-3.1-16.8-5.4-25.8-23.5-20.3-40.3s23.7-25.8 40.5-20.3c3.8 1.3 8 2.7 12.3 4.1 19 6.5 41.4 14.1 54.1 16.2 26.6 4.2 48 1.6 62-4.4 13-5.6 18.9-13.4 20.7-23.5 1.6-9.5.4-14.9-.9-18.1-1.4-3.3-4.1-6.9-9.5-10.9-12.5-9.2-32.2-15.6-59.4-23.8l-3.7-1.1c-23.5-7-53-15.8-75.4-31-12.5-8.5-24.4-19.9-32.3-35.5-8-15.9-10.7-33.7-8.4-53 .1-.6.1-1.1.2-1.7z"
                 />

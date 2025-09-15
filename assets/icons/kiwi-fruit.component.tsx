@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const KiwiFruitIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const KiwiFruitIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const KiwiFruitIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const KiwiFruitIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const KiwiFruitIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const KiwiFruitIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const KiwiFruitIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M224 320c123.7 0 224-64.5 224-144S347.7 32 224 32 0 96.5 0 176s100.3 144 224 144m16-240v24c0 8.8-7.2 16-16 16s-16-7.2-16-16V80c0-8.8 7.2-16 16-16s16 7.2 16 16M80 160h32c8.8 0 16 7.2 16 16s-7.2 16-16 16H80c-8.8 0-16-7.2-16-16s7.2-16 16-16m256 0h32c8.8 0 16 7.2 16 16s-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16s7.2-16 16-16m-96 88v24c0 8.8-7.2 16-16 16s-16-7.2-16-16v-24c0-8.8 7.2-16 16-16s16 7.2 16 16M116.7 92.7c6.2-6.2 16.4-6.2 22.6 0l16 16c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0l-16-16c-6.2-6.2-6.2-16.4 0-22.6m192 0c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6l-16 16c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6zm-153.4 128c6.2 6.2 6.2 16.4 0 22.6l-16 16c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l16-16c6.2-6.2 16.4-6.2 22.6 0m137.4 0c6.2-6.2 16.4-6.2 22.6 0l16 16c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0l-16-16c-6.2-6.2-6.2-16.4 0-22.6M224 200c-30.9 0-56-10.7-56-24s25.1-24 56-24 56 10.7 56 24-25.1 24-56 24"
                 />

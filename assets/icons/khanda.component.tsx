@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const KhandaIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const KhandaIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const KhandaIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const KhandaIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const KhandaIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const KhandaIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const KhandaIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M266.2 3.7c-5.9-4.9-14.6-4.9-20.5 0l-48 40c-5.9 4.9-7.5 13.2-3.8 19.9l.1.1.3.6c.3.5.7 1.3 1.2 2.3 1 2 2.6 5 4.4 8.6 3.6 7.4 8.5 17.7 13.3 29.4 10 24.1 18.8 51.5 18.8 71.3s-8.8 47.2-18.8 71.3c-4.8 11.7-9.7 22-13.3 29.4-1.8 3.7-3.3 6.6-4.4 8.6-.5 1-.9 1.8-1.2 2.3l-.3.6-.1.1c-3.6 6.7-2 15 3.8 19.9l42.3 35.4v19.1l16.5 11.4 15.5-10.7v-19.8l42.2-35.2c5.9-4.9 7.5-13.2 3.8-19.9l-.1-.1-.3-.6c-.3-.5-.7-1.3-1.2-2.3-1-2-2.6-5-4.4-8.6-3.6-7.4-8.5-17.7-13.3-29.4-10-24.1-18.8-51.5-18.8-71.3s8.8-47.2 18.8-71.3c4.8-11.7 9.7-22 13.3-29.4 1.8-3.7 3.3-6.6 4.4-8.6.5-1 .9-1.8 1.2-2.3l.3-.6.1-.1c3.6-6.7 2-15-3.8-19.9l-48-40zM288 480c0-11.8-6.4-22.2-16-27.7v-28.9l-15.5-10.6-16.5 11.3v28.1c-9.6 5.5-16 15.9-16 27.7 0 17.7 14.3 32 32 32s32-14.3 32-32z"
                 />

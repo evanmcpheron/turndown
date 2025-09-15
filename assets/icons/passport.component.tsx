@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const PassportIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const PassportIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const PassportIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const PassportIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const PassportIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const PassportIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const PassportIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M183 278.8c-6.8-17.1-12.9-40.4-14.6-70.8h-39.1c5.3 31.4 25.8 57.6 53.7 70.8m41.3 9.2c2.4-3.5 5.7-8.9 9.1-16.5 6-13.6 12.4-34.3 14.2-63.5h-47.1c1.8 29.2 8.1 49.9 14.2 63.5 3.4 7.6 6.7 13 9.1 16.5h.6zm40.7-9.2c27.9-13.2 48.4-39.4 53.7-70.8h-39.1c-1.6 30.4-7.7 53.8-14.6 70.8M279.6 176h39.1c-5.3-31.4-25.8-57.6-53.7-70.8 6.8 17.1 12.9 40.4 14.6 70.8m-55.9-80c-2.4 3.5-5.7 8.9-9.1 16.5-6 13.6-12.4 34.3-14.2 63.5h47.1c-1.8-29.2-8.1-49.9-14.2-63.5-3.4-7.6-6.7-13-9.1-16.5h-.6zm-40.7 9.2c-27.9 13.2-48.4 39.4-53.7 70.8h39.1c1.6-30.4 7.7-53.8 14.6-70.8M96 192a128 128 0 1 1 256 0 128 128 0 1 1-256 0"
                 />

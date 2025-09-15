@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const LocationCrosshairsSlashIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const LocationCrosshairsSlashIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const LocationCrosshairsSlashIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const LocationCrosshairsSlashIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const LocationCrosshairsSlashIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const LocationCrosshairsSlashIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const LocationCrosshairsSlashIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M509.3 288c-4 24-12.5 46.5-24.6 66.6l-51-40c9.1-17.6 14.2-37.5 14.2-58.7 0-70.7-57.3-128-128-128-32.2 0-61.7 11.9-84.2 31.5l-51-40c27.7-27.1 63.4-46.1 103.3-52.7V32c0-17.7 14.3-32 32-32s32 14.3 32 32v34.7c80.4 13.4 143.9 76.9 157.3 157.3H544c17.7 0 32 14.3 32 32s-14.3 32-32 32zM400 256c0 9.9-1.8 19.4-5.1 28.2L274.7 190c12.9-8.8 28.5-14 45.3-14 44.2 0 80 35.8 80 80m-41.8 122.2 56.8 44.7c-19.2 10.9-40.4 18.6-62.9 22.4V480c0 17.7-14.3 32-32 32s-32-14.3-32-32v-34.7c-80.5-13.4-144-76.9-157.4-157.3H96c-17.7 0-32-14.3-32-32s14.3-32 32-32h34.7q1.8-10.8 4.8-21.3l56.8 44.7c-.2 2.8-.3 5.6-.3 8.5 0 70.7 57.3 128 128 128 13.3 0 26.1-2 38.2-5.8z"
                 />

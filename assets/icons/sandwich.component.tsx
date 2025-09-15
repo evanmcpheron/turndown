@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const SandwichIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,8 +41,9 @@ export const SandwichIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
+
 
   return (
     <StyledIcon ref={domRef} {...internalProperties}>
@@ -40,7 +53,7 @@ export const SandwichIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +66,7 @@ export const SandwichIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +79,7 @@ export const SandwichIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +92,7 @@ export const SandwichIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +105,10 @@ export const SandwichIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M32 304c22.7 0 44.3-10.3 58.8-17.2 1.3-.6 2.6-1.2 3.8-1.8 17.4-8.2 29.4-13 41.4-13 16.2 0 27.5 5 45.4 13.1h.1c18 8.2 41.4 18.9 74.5 18.9s56.6-10.7 74.5-18.9h.1C348.5 277 359.8 272 376 272c12 0 23.9 4.7 41.4 13 1.2.6 2.5 1.2 3.8 1.8 14.5 6.9 36.1 17.2 58.8 17.2 17.7 0 32-14.3 32-32s-14.3-32-32-32c-7.2 0-15.8-3.7-35.4-13-16.6-7.8-40.6-19-68.6-19-30.6 0-53 10.2-70.1 18l-1.9.9c-17.1 7.8-29.7 13.1-48 13.1s-30.9-5.3-48.1-13.1l-1.9-.9c-17-7.8-39.4-18-70.1-18-28 0-52.1 11.3-68.6 19-19.6 9.2-28.2 13-35.4 13-17.7 0-32 14.3-32 32s14.3 32 32 32zm201.7 37.7 70.2 40.9c10 5.8 22.3 5.8 32.2 0l70.2-40.9c6.4-3.7 13.6-5.7 20.9-5.7H212.8c7.4 0 14.6 2 20.9 5.7"
                 />

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const PersonDotsFromLineIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const PersonDotsFromLineIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const PersonDotsFromLineIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const PersonDotsFromLineIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const PersonDotsFromLineIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const PersonDotsFromLineIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const PersonDotsFromLineIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M232 88a88 88 0 1 1 176 0 88 88 0 1 1-176 0m-24 234.7c-47.3 15.8-82.3 37.7-97.3 50.1-20.4 17-50.6 14.2-67.6-6.1s-14.2-50.6 6.1-67.6c8-6.6 18.6-14.4 31.7-22.5 8.4 7.1 19.2 11.4 31 11.4 26.5 0 48-21.5 48-48v-2.1c45.1-17 99.8-29.9 160-29.9 47.3 0 91.1 7.9 129.6 19.6-1.1 4-1.6 8.1-1.6 12.4 0 26.5 21.5 48 48 48 17.7 0 33.2-9.6 41.5-23.9 23.1 12.5 41.2 25 53.2 35 20.4 17 23.1 47.2 6.1 67.6s-47.2 23.1-67.6 6.1c-15-12.5-50-34.4-97.3-50.1V432H208zm96-42.7a24 24 0 1 0-48 0 24 24 0 1 0 48 0m56 104a24 24 0 1 0 0-48 24 24 0 1 0 0 48"
                 />

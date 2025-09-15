@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const PepperIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const PepperIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const PepperIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const PepperIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const PepperIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const PepperIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const PepperIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M216.7 97.4c-.3-.1-.6-.1-.9-.2-8.8-1.5-17.9-1.7-27.1-.6-4 .5-7.9 1.2-11.9 2.2-51.4 12.9-74.7 65-61.9 116.4L152 363.5c2.1 8.6-3.1 17.3-11.6 19.4s-17.3-3.1-19.4-11.6L83.8 223c-11.8-47 .4-94.4 31.3-125.2-13.6-2.8-28-2.6-42.4 1-51.4 12.9-82.7 65-69.8 116.5l56 224c12.9 51.4 65 82.7 116.4 69.8 7-1.7 13.6-4.2 19.8-7.3 5.6-2.8 12.3-2.8 17.9 0 3 1.5 6 2.8 9.2 4 10.7 4 22.2 6.2 34 6.2 11.6 0 22.9-2.1 33.5-6.1 3.2-1.2 6.4-2.6 9.4-4.1 5.6-2.8 12.3-2.8 17.9 0 6.2 3.1 12.8 5.6 19.8 7.3 51.4 12.9 103.6-18.4 116.4-69.8l56-224c12.9-51.4-18.4-103.6-69.8-116.4-23.2-5.8-46.5-2.6-66.3 7.3-5.6 2.8-12.3 2.8-17.9 0-6.2-3.1-12.8-5.6-19.8-7.3-24.5-6.1-49.1-2.2-69.6 9-6 3.3-13.4 3.3-19.4 0-9.2-5-19.2-8.6-29.6-10.5z"
                 />

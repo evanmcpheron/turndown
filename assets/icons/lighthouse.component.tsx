@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const LighthouseIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const LighthouseIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const LighthouseIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const LighthouseIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const LighthouseIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const LighthouseIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const LighthouseIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M1.9 14.5C7.2 2.4 21.3-3.3 33.5 1.9l112 48c12.2 5.2 17.8 19.3 12.6 31.5S138.8 99.2 126.6 94l-112-48C2.4 40.8-3.3 26.7 1.9 14.5m156.1 160c5.2 12.2-.4 26.3-12.6 31.5l-112 48c-12.2 5.2-26.3-.4-31.5-12.6s.4-26.3 12.6-31.5l112-48c12.2-5.2 26.3.4 31.5 12.6M303.9 4.4c10-5.8 22.3-5.8 32.2 0l96 56c15.3 8.9 20.4 28.5 11.5 43.8C437.7 114.3 427 120 416 120v40h-64V87.7L320 69l-32 18.7V160h-64v-40c-11 0-21.7-5.7-27.6-15.9-8.9-15.3-3.7-34.9 11.5-43.8l96-56zm302.7-2.5c12.2-5.2 26.3.4 31.5 12.6s-.4 26.3-12.6 31.5l-112 48c-12.2 5.2-26.3-.4-31.5-12.6s.4-26.3 12.6-31.5zM494.6 206c-12.2-5.2-17.8-19.3-12.6-31.5s19.3-17.8 31.5-12.6l112 48c12.2 5.2 17.8 19.3 12.6 31.5s-19.3 17.8-31.5 12.6z"
                 />

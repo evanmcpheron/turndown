@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const LungsVirusIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const LungsVirusIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const LungsVirusIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const LungsVirusIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const LungsVirusIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const LungsVirusIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const LungsVirusIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M352 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v124.2c8.5-7.6 19.7-12.2 32-12.2s23.5 4.6 32 12.2zm32 157.5c18.6-12.4 44-10.3 60.5 6.1 18.7 18.7 18.7 49.1 0 67.9-1.5 1.5-1.9 3.4-1.1 5.5s2.5 3.1 4.6 3.1c26.5 0 48 21.5 48 48s-21.5 48-48 48c-2.2 0-3.8 1.1-4.6 3.1s-.5 3.9 1.1 5.5c18.7 18.7 18.7 49.1 0 67.9-10.7 10.7-25.3 15.3-39.2 13.8 12.8 15.9 30.6 27.7 51.5 32.9l72.7 18.2q10.65 2.7 21.6 2.7c49.1 0 89-39.8 89-89v-7c0-1.3-.1-2.7-.2-4-7.2-57.9-33.1-119.4-59.6-170.3-26.8-51.5-55.6-94.8-71-116.9-13-18.6-34-28.8-55.8-28.8C415 96 384 127 384 165.3v24.1zM234.8 458.2c-14 1.5-28.5-3-39.2-13.8-18.7-18.7-18.7-49.1 0-67.9 1.5-1.5 1.9-3.4 1.1-5.5s-2.5-3.1-4.6-3.1c-26.5 0-48-21.5-48-48s21.5-48 48-48c2.2 0 3.8-1.1 4.6-3.1s.5-3.9-1.1-5.5c-18.7-18.7-18.7-49.1 0-67.9 16.4-16.4 41.8-18.5 60.5-6.1v-24C256 127 225 96 186.7 96c-21.7 0-42.8 10.2-55.8 28.8-15.4 22.1-44.3 65.4-71 116.9C33.4 292.6 7.5 354.2.2 412c-.2 1.3-.2 2.6-.2 4v7c0 49.1 39.8 89 89 89q10.95 0 21.6-2.7l72.7-18.2c20.9-5.2 38.7-17.1 51.5-32.9"
                 />

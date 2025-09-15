@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const PartyBellIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const PartyBellIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const PartyBellIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const PartyBellIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const PartyBellIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const PartyBellIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const PartyBellIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M448 64a32 32 0 1 0 64 0 32 32 0 1 0-64 0M320 480a32 32 0 1 0 64 0 32 32 0 1 0-64 0M64 512a32 32 0 1 0 0-64 32 32 0 1 0 0 64m329-345c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l8.2 8.3c24.4 24.4 56.4 39.8 90.7 43.6l27.4 3c13.2 1.5 25-8 26.5-21.2s-8-25-21.2-26.5l-27.4-3c-23.5-2.6-45.4-13.1-62.1-29.8zM167 359c-9.4 9.4-9.4 24.6 0 33.9l8.3 8.3c16.7 16.7 27.2 38.6 29.8 62.1l3 27.4c1.5 13.2 13.3 22.7 26.5 21.2s22.7-13.3 21.2-26.5l-3-27.4c-3.8-34.3-19.2-66.3-43.6-90.7L201 359c-9.4-9.4-24.6-9.4-33.9 0zm302.7 144.5c8.6 10.1 23.7 11.4 33.8 2.8s11.4-23.7 2.8-33.8l-8.5-10c-4.9-5.8-7.5-13.2-7.3-20.7 1.1-42.5-31.7-78.3-74.2-80.8l-30-1.8c-16.6-1-29.4-15-29-31.6.5-19.4-6.1-38.2-18.6-53l-8.5-10c-8.6-10.1-23.7-11.4-33.8-2.8s-11.4 23.7-2.8 33.8l8.5 10c4.9 5.8 7.5 13.2 7.3 20.7-1.1 42.5 31.7 78.3 74.2 80.8l30 1.8c16.6 1 29.4 15 29 31.6-.5 19.4 6.1 38.2 18.6 53z"
                 />

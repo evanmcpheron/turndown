@@ -7,7 +7,6 @@ import {
 } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-// ⬇️ Replace with your real Firebase user object or null
 type User = { uid: string; email?: string | null } | null;
 
 type AuthContextType = {

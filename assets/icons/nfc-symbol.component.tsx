@@ -50,7 +50,7 @@ export const NfcSymbolIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -63,7 +63,7 @@ export const NfcSymbolIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -76,7 +76,7 @@ export const NfcSymbolIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -89,7 +89,7 @@ export const NfcSymbolIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -102,10 +102,10 @@ export const NfcSymbolIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M386.3 475.7c-12 6.9-27.1 5.4-37.4-3.9l-178.3-160c-13.2-11.8-14.2-32-2.4-45.2s32-14.2 45.2-2.4l159.8 143.5C418.5 373.2 448 317.4 448 256c0-69.6-37.9-132-93.7-164.3-15.3-8.8-20.6-28.4-11.7-43.7s28.4-20.5 43.7-11.7C461.6 79.9 512 163.2 512 256s-50.3 176.1-125.7 219.7"
                 />
@@ -120,7 +120,7 @@ export const NfcSymbolIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
               </Svg>h
                    

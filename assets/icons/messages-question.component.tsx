@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const MessagesQuestionIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const MessagesQuestionIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const MessagesQuestionIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const MessagesQuestionIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const MessagesQuestionIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const MessagesQuestionIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const MessagesQuestionIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M64 0C28.7 0 0 28.7 0 64v192c0 35.3 28.7 64 64 64h32v48c0 6.1 3.4 11.6 8.8 14.3s11.9 2.1 16.8-1.5l81.1-60.8H352c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm72.2 92.4c6.6-18.6 24.2-31.1 44-31.1h48.5c29.1 0 52.6 23.6 52.6 52.6 0 18.8-10.1 36.3-26.4 45.6L228 175c-.2 10.9-9.1 19.6-20 19.6-11 0-20-9-20-20v-11.1c0-7.2 3.8-13.8 10-17.3l37-21.3c3.9-2.3 6.3-6.4 6.3-10.9 0-7-5.7-12.6-12.6-12.6h-48.5c-2.8 0-5.3 1.8-6.3 4.4l-.4 1c-3.7 10.4-15.1 15.9-25.5 12.2s-15.9-15.1-12.2-25.5l.4-1zM181.3 248a26.7 26.7 0 1 1 53.3 0 26.7 26.7 0 1 1-53.3 0"
                 />

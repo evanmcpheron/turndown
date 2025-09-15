@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const LobsterIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const LobsterIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const LobsterIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const LobsterIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const LobsterIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const LobsterIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const LobsterIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M160.2 29.4c-1.5 8.7 4.4 17 13.2 18.4l7.9 1.3C196.7 51.7 208 65 208 80.7v91.1c9.3-14.4 21.2-25.8 32-33.7V80.7c0-31.3-22.6-58-53.5-63.1l-7.9-1.3c-8.7-1.5-17 4.4-18.4 13.2zM192 256h-48.9c-7.5 0-14.8-1.7-21.5-5.1l-34.4-17.2c-7.9-4-17.5-.7-21.5 7.2s-.7 17.5 7.2 21.5l34.5 17.2c11.1 5.6 23.4 8.4 35.8 8.4H192zm0 48h-69.6c-5.2 0-10.3-.8-15.2-2.5l-38.1-12.7c-8.4-2.8-17.4 1.7-20.2 10.1s1.7 17.4 10.1 20.2l38.1 12.7c8.2 2.7 16.7 4.1 25.3 4.1H192zm0 48h-16.9c-12.4 0-24.7 2.9-35.8 8.4l-18.5 9.2c-7.9 4-11.1 13.6-7.2 21.5s13.6 11.1 21.5 7.2l18.5-9.2c6.7-3.3 14-5.1 21.5-5.1H192zm128 32h16.9c7.4 0 14.8 1.7 21.5 5.1l18.5 9.2c7.9 4 17.5.7 21.5-7.2s.7-17.5-7.2-21.5l-18.5-9.2c-11.1-5.6-23.4-8.4-35.8-8.4H320zm0-48h69.6c8.6 0 17.1-1.4 25.3-4.1l38.1-12.7c8.4-2.8 12.9-11.9 10.1-20.2s-11.9-12.9-20.2-10.1l-38.1 12.7c-4.9 1.6-10 2.5-15.2 2.5H320v32zm0-48h48.9c12.4 0 24.7-2.9 35.8-8.4l34.5-17.2c7.9-4 11.1-13.6 7.2-21.5s-13.6-11.1-21.5-7.2l-34.5 17.2c-6.7 3.3-14 5.1-21.5 5.1H320zm-16-116.2V80.7c0-15.6 11.3-29 26.7-31.6l7.9-1.3c8.7-1.5 14.6-9.7 13.2-18.4s-9.7-14.6-18.4-13.2l-7.9 1.3C294.6 22.7 272 49.4 272 80.7V138c10.8 8 22.7 19.4 32 33.7z"
                 />

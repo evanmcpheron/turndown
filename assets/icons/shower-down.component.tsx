@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const ShowerDownIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,8 +41,9 @@ export const ShowerDownIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
+
 
   return (
     <StyledIcon ref={domRef} {...internalProperties}>
@@ -40,7 +53,7 @@ export const ShowerDownIcon: React.FC<
             return (
               <Svg viewBox="0 0 384 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +66,7 @@ export const ShowerDownIcon: React.FC<
             return (
               <Svg viewBox="0 0 384 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +79,7 @@ export const ShowerDownIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 384 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +92,7 @@ export const ShowerDownIcon: React.FC<
             return (
               <Svg viewBox="0 0 384 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +105,10 @@ export const ShowerDownIcon: React.FC<
             return (
               <Svg viewBox="0 0 384 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="m52.8 295.4-18.1 42.3c-1.8 4.1-2.7 8.6-2.7 13.1v1.2c0 17.7 14.3 32 32 32s32-14.3 32-32v-1.2c0-4.5-.9-8.9-2.7-13.1l-18.1-42.3c-1.9-4.5-6.3-7.4-11.2-7.4s-9.2 2.9-11.2 7.4m109.8 42.4c-1.8 4.1-2.7 8.6-2.7 13.1v1.1c0 17.7 14.3 32 32 32s32-14.3 32-32v-1.2c0-4.5-.9-8.9-2.7-13.1L203 295.3c-1.9-4.5-6.3-7.4-11.2-7.4s-9.2 2.9-11.2 7.4l-18.2 42.4zm64 128c-1.8 4.1-2.7 8.6-2.7 13.1v1.1c0 17.7 14.3 32 32 32s32-14.3 32-32v-1.2c0-4.5-.9-8.9-2.7-13.1L267 423.3c-1.9-4.5-6.3-7.4-11.2-7.4s-9.2 2.9-11.2 7.4l-18.2 42.4zm82.2-170.4-18.2 42.4c-1.8 4.1-2.7 8.6-2.7 13.1v1.1c0 17.7 14.3 32 32 32s32-14.3 32-32v-1.2c0-4.5-.9-8.9-2.7-13.1L331 295.3c-1.9-4.5-6.3-7.4-11.2-7.4s-9.2 2.9-11.2 7.4zM98.7 465.7c-1.8 4.1-2.7 8.6-2.7 13.1v1.2c0 17.7 14.3 32 32 32s32-14.3 32-32v-1.2c0-4.5-.9-8.9-2.7-13.1l-18.2-42.4c-1.9-4.5-6.3-7.4-11.2-7.4s-9.2 2.9-11.2 7.4z"
                 />

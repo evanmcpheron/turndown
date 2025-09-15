@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const RaccoonIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const RaccoonIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const RaccoonIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const RaccoonIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const RaccoonIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const RaccoonIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const RaccoonIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M290.7 10.9C304.5 3.8 320 0 336 0s31.5 3.8 45.3 10.9l44.1-9.8c3.2-.7 6.5-1.1 9.7-1.1h1.3c24 0 43.5 19.5 43.5 43.5 0 4.7-.8 9.3-2.2 13.8l-13.8 41.5 14.1 17.4-86.4-30.1c-21.7-7.5-44 1.4-55.6 18.6-11.5-17.3-33.9-26.2-55.6-18.6L194 116.2l14.1-17.3-13.9-41.6c-1.5-4.4-2.2-9.1-2.2-13.8 0-24 19.5-43.5 43.5-43.5h1.3c3.3 0 6.5.4 9.7 1.1l44.1 9.8zm62.7 162.6 78.2 41.7-8.7 2.6c-10.6 3.2-20.6 7.9-29.8 14l-18.8 12.6C362.9 252 349.6 256 336 256c13.3 0 24-10.7 24-24s-10.7-24-24-24-24 10.7-24 24 10.7 24 24 24c-13.6 0-26.9-4-38.2-11.6L279 231.9c-9.2-6.1-19.2-10.9-29.8-14l-8.7-2.6 78.2-41.7c7.1-3.8 13-9.2 17.3-15.7 4.3 6.5 10.2 11.9 17.3 15.7zm-94.6-137-19.1-4.2c-.9-.2-1.8-.3-2.8-.3h-1.3c-6.4 0-11.5 5.2-11.5 11.5 0 1.2.2 2.5.6 3.6l7.3 22.3L258.4 37l.3-.4zM440 69.4l7.4-22.2q.6-1.8.6-3.6c0-6.4-5.2-11.5-11.5-11.5h-1.3c-.9 0-1.9.1-2.8.3l-19.1 4.2.3.4zM96 400c0-70.6 35.2-133.1 89.1-170.7 5.9 3.5 12.3 6.4 19.1 8.4l35.8 10.8c7.5 2.3 14.7 5.6 21.3 10l18.8 12.6c16.6 11 36 16.9 55.9 16.9s39.4-5.9 55.9-16.9l18.8-12.6c5.8-3.9 12.1-7 18.7-9.2 11.7 9.3 18.5 23.4 18.5 38.3 0 15.4-7.2 29.9-19.5 39.1l-38.1 28.5c-7.1 5.3-8.5 15.3-3.2 22.4s15.3 8.5 22.4 3.2l6.5-4.8v72h16c26.4 0 47.8 21.3 48 47.6V512H352v-16c0-44.2-35.8-80-80-80h-32c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c26.5 0 48 21.5 48 48v16H112C50.1 512 0 461.9 0 400v-80h77.7C68.8 345 64 371.9 64 400c0 8.8 7.2 16 16 16s16-7.2 16-16M0 256v-32h128v12.8c-5.7 6.1-11 12.5-16 19.2zm128-96H0v-32h128zm351.5 136.4c0-.4.1-.8.1-1.3l.3.9-.5.4zm-183.7 85.3c7.6 4.5 17.4 2.1 22-5.5s2.1-17.4-5.5-21.9l-80-48c-7.6-4.5-17.4-2.1-22 5.5s-2.1 17.4 5.5 22l80 48z"
                 />

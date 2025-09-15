@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const PeanutIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const PeanutIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const PeanutIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const PeanutIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const PeanutIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const PeanutIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const PeanutIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M432 0h-68c-20.1 0-39.2 4-56.7 11.2-17.4 7.2-33.7 17.8-47.8 32l-.4.4C245 57.8 234.4 74 227.2 91.4c-4 9.5-6.9 19.6-8.8 30-4.8 24.5-12.6 49.1-30.3 66.7s-42.2 25.4-66.7 30.3c-10.4 1.9-20.5 4.9-30 8.8-17.5 7.2-33.9 17.9-48.1 32.1s-24.9 30.5-32.1 48S0 343.9 0 364v68c0 44.2 35.8 80 80 80h68c40.5 0 77.1-16.2 103.8-42.5l1.7-1.7c13.8-14 24.2-30.1 31.3-47.2 4-9.5 6.9-19.6 8.8-30 4.8-24.5 12.6-49.1 30.3-66.7s42.2-25.4 66.7-30.3c10.4-1.9 20.5-4.9 30-8.8 17.3-7.2 33.5-17.7 47.6-31.7l.9-.9C495.6 225.4 512 188.6 512 148V80c0-44.2-35.8-80-80-80m-35.2 128a19.2 19.2 0 1 1 38.4 0 19.2 19.2 0 1 1-38.4 0m0 64a19.2 19.2 0 1 1 38.4 0 19.2 19.2 0 1 1-38.4 0m-64 0a19.2 19.2 0 1 1 38.4 0 19.2 19.2 0 1 1-38.4 0m-224 224a19.2 19.2 0 1 1 38.4 0 19.2 19.2 0 1 1-38.4 0m83.2-19.2a19.2 19.2 0 1 1 0 38.4 19.2 19.2 0 1 1 0-38.4m0-64a19.2 19.2 0 1 1 0 38.4 19.2 19.2 0 1 1 0-38.4"
                 />

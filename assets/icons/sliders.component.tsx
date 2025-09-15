@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const SlidersIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,8 +41,9 @@ export const SlidersIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
+
 
   return (
     <StyledIcon ref={domRef} {...internalProperties}>
@@ -40,7 +53,7 @@ export const SlidersIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +66,7 @@ export const SlidersIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +79,7 @@ export const SlidersIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +92,7 @@ export const SlidersIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +105,10 @@ export const SlidersIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M0 416c0-17.7 14.3-32 32-32h54.7c-4.3 9.8-6.7 20.6-6.7 32s2.4 22.2 6.7 32H32c-17.7 0-32-14.3-32-32m233.3 32c4.3-9.8 6.7-20.6 6.7-32s-2.4-22.2-6.7-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32zM0 256c0-17.7 14.3-32 32-32h246.7c-4.3 9.8-6.7 20.6-6.7 32s2.4 22.2 6.7 32H32c-17.7 0-32-14.3-32-32m425.3 32c4.3-9.8 6.7-20.6 6.7-32s-2.4-22.2-6.7-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32zM32 64h86.7c-4.3 9.8-6.7 20.6-6.7 32s2.4 22.2 6.7 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32m233.3 64c4.3-9.8 6.7-20.6 6.7-32s-2.4-22.2-6.7-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
                 />

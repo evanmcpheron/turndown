@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const LuchadorMaskIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const LuchadorMaskIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const LuchadorMaskIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const LuchadorMaskIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const LuchadorMaskIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const LuchadorMaskIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const LuchadorMaskIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M144 288c-44.2 0-80-35.8-80-80 0-26.5 21.5-48 48-48h32c44.2 0 80 35.8 80 80 0-44.2 35.8-80 80-80h32c26.5 0 48 21.5 48 48 0 44.2-35.8 80-80 80h-13.3c3.4 6.3 5.3 13.4 5.3 20.7 0 4-.6 7.9-1.6 11.6 32.3 3.2 57.6 30.5 57.6 63.7 0 35.3-28.7 64-64 64H160c-35.3 0-64-28.7-64-64 0-33.2 25.2-60.5 57.6-63.7-1-3.7-1.6-7.6-1.6-11.6 0-7.3 1.8-14.4 5.3-20.7zm-48-80c0 26.5 21.5 48 48 48h32c8.8 0 16-7.2 16-16 0-26.5-21.5-48-48-48h-32c-8.8 0-16 7.2-16 16m88 100.7c0 6.2 5.1 11.3 11.3 11.3h57.3c6.2 0 11.3-5.1 11.3-11.3 0-3-1.2-5.9-3.3-8l-8-8-4.2-4.2-.4-.4-10.3-10.3c-3.7-3.8-8.6-5.8-13.7-5.8s-10 2-13.7 5.7L200 288l-.4.4-4.2 4.2-8 8c-2.1 2.1-3.3 5-3.3 8zm11.3 43.3H160c-17.7 0-32 14.3-32 32s14.3 32 32 32h128c17.7 0 32-14.3 32-32s-14.3-32-32-32h-92.7M336 192h-32c-26.5 0-48 21.5-48 48 0 8.8 7.2 16 16 16h32c26.5 0 48-21.5 48-48 0-8.8-7.2-16-16-16"
                 />

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const EthernetIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,8 +41,9 @@ export const EthernetIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
+
 
   return (
     <StyledIcon ref={domRef} {...internalProperties}>
@@ -38,37 +51,37 @@ export const EthernetIcon: React.FC<
         switch (type) {
           case "solid":
             return (
-              <Svg viewBox="0 0 512 512" fill={color}>
+              <Svg viewBox="0 0 512 512"  fill={colors[colorName || "text"]} >
                 <Path d="M0 224v192c0 17.7 14.3 32 32 32h64V336c0-8.8 7.2-16 16-16s16 7.2 16 16v112h64V336c0-8.8 7.2-16 16-16s16 7.2 16 16v112h64V336c0-8.8 7.2-16 16-16s16 7.2 16 16v112h64V336c0-8.8 7.2-16 16-16s16 7.2 16 16v112h64c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32h-32v-32c0-17.7-14.3-32-32-32h-32V96c0-17.7-14.3-32-32-32H160c-17.7 0-32 14.3-32 32v32H96c-17.7 0-32 14.3-32 32v32H32c-17.7 0-32 14.3-32 32" />
               </Svg>
             );
 
           case "regular":
             return (
-              <Svg viewBox="0 0 512 512" fill={color}>
+              <Svg viewBox="0 0 512 512"  fill={colors[colorName || "text"]} >
                 <Path d="M128 96c0-17.7 14.3-32 32-32h192c17.7 0 32 14.3 32 32v32h32c17.7 0 32 14.3 32 32v32h32c17.7 0 32 14.3 32 32v192c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32h32v-32c0-17.7 14.3-32 32-32h32zm48 16v40c0 13.3-10.7 24-24 24h-40v40c0 13.3-10.7 24-24 24H48v160h40v-56c0-13.3 10.7-24 24-24s24 10.7 24 24v56h48v-56c0-13.3 10.7-24 24-24s24 10.7 24 24v56h48v-56c0-13.3 10.7-24 24-24s24 10.7 24 24v56h48v-56c0-13.3 10.7-24 24-24s24 10.7 24 24v56h40V240h-40c-13.3 0-24-10.7-24-24v-40h-40c-13.3 0-24-10.7-24-24v-40z" />
               </Svg>
             );
 
           case "light":
             return (
-              <Svg viewBox="0 0 512 512" fill={color}>
+              <Svg viewBox="0 0 512 512"  fill={colors[colorName || "text"]} >
                 <Path d="M128 96c0-17.7 14.3-32 32-32h192c17.7 0 32 14.3 32 32v32h32c17.7 0 32 14.3 32 32v32h32c17.7 0 32 14.3 32 32v192c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32h32v-32c0-17.7 14.3-32 32-32h32zm224 0H160v48c0 8.8-7.2 16-16 16H96v48c0 8.8-7.2 16-16 16H32v192h64v-80c0-8.8 7.2-16 16-16s16 7.2 16 16v80h64v-80c0-8.8 7.2-16 16-16s16 7.2 16 16v80h64v-80c0-8.8 7.2-16 16-16s16 7.2 16 16v80h64v-80c0-8.8 7.2-16 16-16s16 7.2 16 16v80h64V224h-48c-8.8 0-16-7.2-16-16v-48h-48c-8.8 0-16-7.2-16-16z" />
               </Svg>
             );
 
           case "thin":
             return (
-              <Svg viewBox="0 0 512 512" fill={color}>
+              <Svg viewBox="0 0 512 512"  fill={colors[colorName || "text"]} >
                 <Path d="M128 96c0-17.7 14.3-32 32-32h192c17.7 0 32 14.3 32 32v32h32c17.7 0 32 14.3 32 32v32h32c17.7 0 32 14.3 32 32v192c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32h32v-32c0-17.7 14.3-32 32-32h32zm32-16c-8.8 0-16 7.2-16 16v40c0 4.4-3.6 8-8 8H96c-8.8 0-16 7.2-16 16v40c0 4.4-3.6 8-8 8H32c-8.8 0-16 7.2-16 16v192c0 8.8 7.2 16 16 16h72V328c0-4.4 3.6-8 8-8s8 3.6 8 8v104h80V328c0-4.4 3.6-8 8-8s8 3.6 8 8v104h80V328c0-4.4 3.6-8 8-8s8 3.6 8 8v104h80V328c0-4.4 3.6-8 8-8s8 3.6 8 8v104h72c8.8 0 16-7.2 16-16V224c0-8.8-7.2-16-16-16h-40c-4.4 0-8-3.6-8-8v-40c0-8.8-7.2-16-16-16h-40c-4.4 0-8-3.6-8-8V96c0-8.8-7.2-16-16-16z" />
               </Svg>
             );
 
           case "duotone":
             return (
-              <Svg viewBox="0 0 512 512" fill={color}>
+              <Svg viewBox="0 0 512 512"  fill={colors[colorName || "text"]} >
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M0 224v192c0 17.7 14.3 32 32 32h64V336c0-8.8 7.2-16 16-16s16 7.2 16 16v112h64V336c0-8.8 7.2-16 16-16s16 7.2 16 16v112h64V336c0-8.8 7.2-16 16-16s16 7.2 16 16v112h64V336c0-8.8 7.2-16 16-16s16 7.2 16 16v112h64c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32h-32v-32c0-17.7-14.3-32-32-32h-32V96c0-17.7-14.3-32-32-32H160c-17.7 0-32 14.3-32 32v32H96c-17.7 0-32 14.3-32 32v32H32c-17.7 0-32 14.3-32 32"
                 />

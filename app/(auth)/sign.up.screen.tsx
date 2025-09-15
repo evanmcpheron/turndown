@@ -71,11 +71,7 @@ const SignUpScreen = () => {
           opacity: submitting ? 0.7 : 1,
         }}
       >
-        {submitting ? (
-          <ActivityIndicator />
-        ) : (
-          <Text style={{ color: "white", fontWeight: "700" }}>Sign up</Text>
-        )}
+        {submitting ? <ActivityIndicator /> : <Text>Sign up</Text>}
       </Pressable>
 
       <Text style={{ textAlign: "center", color: "red" }}>

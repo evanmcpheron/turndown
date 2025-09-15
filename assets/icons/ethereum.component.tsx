@@ -39,7 +39,7 @@ export const EthereumIcon: React.FC<
         switch (type) {
           case "brands":
             return (
-              <Svg viewBox="0 0 320 512" fill={color}>
+              <Svg viewBox="0 0 320 512"  fill={colors[colorName || "text"]} >
                 <Path d="M311.9 260.8 160 353.6 8 260.8 160 0zM160 383.4 8 290.6 160 512l152-221.4z" />
               </Svg>
             );

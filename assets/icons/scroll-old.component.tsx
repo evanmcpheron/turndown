@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const ScrollOldIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,8 +41,9 @@ export const ScrollOldIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
+
 
   return (
     <StyledIcon ref={domRef} {...internalProperties}>
@@ -40,7 +53,7 @@ export const ScrollOldIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +66,7 @@ export const ScrollOldIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +79,7 @@ export const ScrollOldIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +92,7 @@ export const ScrollOldIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +105,10 @@ export const ScrollOldIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M128 96v89.4c0 4.2 1.7 8.3 4.7 11.3l21.7 21.7c3.1 3.1 3.1 8.2 0 11.3l-21.7 21.7c-3 3-4.7 7.1-4.7 11.3V400c0 44.2 35.8 80 80 80s80-35.8 80-80v-16c0-17.7 14.3-32 32-32h25.4c4.2 0 8.3 1.7 11.3 4.7l21.7 21.7c3.1 3.1 8.2 3.1 11.3 0l21.7-21.7c3-3 7.1-4.7 11.3-4.7H480v-57.4c0-4.2-1.7-8.3-4.7-11.3l-21.7-21.7c-3.1-3.1-3.1-8.2 0-11.3l21.7-21.7c3-3 4.7-7.1 4.7-11.3v-18.7c0-4.2-1.7-8.3-4.7-11.3l-21.7-21.7c-3.1-3.1-3.1-8.2 0-11.3l21.7-21.7c3-3 4.7-7.1 4.7-11.3V96c0-35.3-28.7-64-64-64H64c35.3 0 64 28.7 64 64"
                 />

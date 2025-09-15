@@ -14,12 +14,11 @@ import {
   useState,
 } from "react";
 import { useColorScheme } from "react-native";
-import { deepMerge, toNativeTheme } from "./theme.context.helpers";
+import { toNativeTheme } from "./theme.context.helpers";
 import {
   CustomThemeContextValue,
   DEFAULT_THEME_KEY,
   Scheme,
-  ThemeOverrides,
   ThemeProviderProps,
 } from "./theme.context.types";
 
@@ -29,20 +28,18 @@ const CustomThemeContext = createContext<CustomThemeContextValue | undefined>(
 
 export function CustomThemeProvider({
   children,
-  mode: initialMode = "system",
+  mode: initialMode = "light",
   persist = true,
   storageKey = DEFAULT_THEME_KEY,
-  overrides: initialOverrides,
   onChange,
 }: ThemeProviderProps) {
   const systemScheme = useColorScheme(); // 'light' | 'dark' | null
+
   const [mode, setMode] = useState<"system" | Scheme>(initialMode);
   const [_scheme, setExplicitScheme] = useState<Scheme>(
     initialMode === "dark" ? "dark" : "light"
   );
-  const [overrides, setOverrides] = useState<ThemeOverrides | undefined>(
-    initialOverrides
-  );
+
   const didHydrate = useRef(false);
 
   // Hydrate from storage
@@ -62,7 +59,6 @@ export function CustomThemeProvider({
     })();
   }, [persist, storageKey]);
 
-  // Resolve effective scheme
   const effectiveScheme: Scheme = useMemo(() => {
     if (mode === "system") {
       return systemScheme === "dark" ? "dark" : "light";
@@ -70,12 +66,10 @@ export function CustomThemeProvider({
     return mode;
   }, [mode, systemScheme]);
 
-  // Build themes (merge overrides)
   const app: AppTheme = useMemo(() => {
-    const base = effectiveScheme === "dark" ? DarkAppTheme : LightAppTheme;
-    const patch = overrides?.[effectiveScheme];
-    return deepMerge(base, patch);
-  }, [effectiveScheme, overrides]);
+    return effectiveScheme === "dark" ? DarkAppTheme : LightAppTheme;
+  }, [effectiveScheme]);
+  console.log(`🚀 ~ theme.context.tsx:72 ~ CustomThemeProvider ~ app: \n`, app);
 
   const nav: Theme = useMemo(() => toNativeTheme(app), [app]);
 
@@ -103,31 +97,18 @@ export function CustomThemeProvider({
     setMode("system");
   }, []);
 
-  const updateOverrides = useCallback((patch: ThemeOverrides) => {
-    setOverrides((prev) => deepMerge(prev ?? {}, patch));
-  }, []);
-
   const value = useMemo<CustomThemeContextValue>(
     () => ({
       scheme: effectiveScheme,
       mode,
       app,
+      colors: app.colors,
       nav,
       toggle,
       setScheme,
       followSystem,
-      updateOverrides,
     }),
-    [
-      effectiveScheme,
-      mode,
-      app,
-      nav,
-      toggle,
-      setScheme,
-      followSystem,
-      updateOverrides,
-    ]
+    [effectiveScheme, mode, app, nav, toggle, setScheme, followSystem]
   );
 
   return (

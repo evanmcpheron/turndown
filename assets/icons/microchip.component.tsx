@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const MicrochipIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const MicrochipIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const MicrochipIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const MicrochipIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const MicrochipIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const MicrochipIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const MicrochipIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M152 0c-13.3 0-24 10.7-24 24v40h48V24c0-13.3-10.7-24-24-24m80 24v40h48V24c0-13.3-10.7-24-24-24s-24 10.7-24 24m104 0v40h48V24c0-13.3-10.7-24-24-24s-24 10.7-24 24m152 104h-40v48h40c13.3 0 24-10.7 24-24s-10.7-24-24-24m0 104h-40v48h40c13.3 0 24-10.7 24-24s-10.7-24-24-24m0 104h-40v48h40c13.3 0 24-10.7 24-24s-10.7-24-24-24M384 488v-40h-48v40c0 13.3 10.7 24 24 24s24-10.7 24-24m-104-40h-48v40c0 13.3 10.7 24 24 24s24-10.7 24-24zm-104 0h-48v40c0 13.3 10.7 24 24 24s24-10.7 24-24zM24 384h40v-48H24c-13.3 0-24 10.7-24 24s10.7 24 24 24m40-104v-48H24c-13.3 0-24 10.7-24 24s10.7 24 24 24zM24 128c-13.3 0-24 10.7-24 24s10.7 24 24 24h40v-48zm328 32H160v192h192z"
                 />

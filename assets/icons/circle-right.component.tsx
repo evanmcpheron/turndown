@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const CircleRightIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const CircleRightIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -38,37 +50,37 @@ export const CircleRightIcon: React.FC<
         switch (type) {
           case "solid":
             return (
-              <Svg viewBox="0 0 512 512" fill={color}>
+              <Svg viewBox="0 0 512 512"  fill={colors[colorName || "text"]} >
                 <Path d="M0 256a256 256 0 1 0 512 0 256 256 0 1 0-512 0m294.6-120.9 99.9 107.1c3.5 3.8 5.5 8.7 5.5 13.8s-2 10.1-5.5 13.8l-99.9 107.1c-4.2 4.5-10.1 7.1-16.3 7.1-12.3 0-22.3-10-22.3-22.3V304h-96c-17.7 0-32-14.3-32-32v-32c0-17.7 14.3-32 32-32h96v-57.7c0-12.3 10-22.3 22.3-22.3 6.2 0 12.1 2.6 16.3 7.1" />
               </Svg>
             );
 
           case "regular":
             return (
-              <Svg viewBox="0 0 512 512" fill={color}>
+              <Svg viewBox="0 0 512 512"  fill={colors[colorName || "text"]} >
                 <Path d="M464 256a208 208 0 1 1-416 0 208 208 0 1 1 416 0M0 256a256 256 0 1 0 512 0 256 256 0 1 0-512 0m294.6-120.9c-4.2-4.5-10.1-7.1-16.3-7.1-12.3 0-22.3 10-22.3 22.3V208h-96c-17.7 0-32 14.3-32 32v32c0 17.7 14.3 32 32 32h96v57.7c0 12.3 10 22.3 22.3 22.3 6.2 0 12.1-2.6 16.3-7.1l99.9-107.1c3.5-3.8 5.5-8.7 5.5-13.8s-2-10.1-5.5-13.8z" />
               </Svg>
             );
 
           case "light":
             return (
-              <Svg viewBox="0 0 512 512" fill={color}>
+              <Svg viewBox="0 0 512 512"  fill={colors[colorName || "text"]} >
                 <Path d="M480 256a224 224 0 1 1-448 0 224 224 0 1 1 448 0M0 256a256 256 0 1 0 512 0 256 256 0 1 0-512 0m400 0c0-9.2-3.5-18-9.7-24.7l-84-91a38.3 38.3 0 0 0-28.1-12.3c-21.1 0-38.3 17.1-38.3 38.3V192h-80c-26.5 0-48 21.5-48 48v32c0 26.5 21.5 48 48 48h80v25.7c0 21.1 17.1 38.3 38.3 38.3 10.7 0 20.9-4.5 28.1-12.3l84-91c6.2-6.7 9.7-15.6 9.7-24.7m-33.2-3c.8.8 1.2 1.9 1.2 3s-.4 2.2-1.2 3l-84 91c-1.2 1.3-2.9 2-4.6 2-3.5 0-6.3-2.8-6.3-6.3V304c0-8.8-7.2-16-16-16h-96c-8.8 0-16-7.2-16-16v-32c0-8.8 7.2-16 16-16h96c8.8 0 16-7.2 16-16v-41.7c0-3.5 2.8-6.3 6.3-6.3 1.7 0 3.4.7 4.6 2z" />
               </Svg>
             );
 
           case "thin":
             return (
-              <Svg viewBox="0 0 512 512" fill={color}>
+              <Svg viewBox="0 0 512 512"  fill={colors[colorName || "text"]} >
                 <Path d="M496 256a240 240 0 1 1-480 0 240 240 0 1 1 480 0M0 256a256 256 0 1 0 512 0 256 256 0 1 0-512 0m400 0c0-7.2-2.9-14.2-8-19.3L292.3 137c-5.7-5.7-13.5-9-21.7-9-16.9 0-30.6 13.7-30.6 30.6V208h-88c-22.1 0-40 17.9-40 40v16c0 22.1 17.9 40 40 40h88v49.4c0 16.9 13.7 30.6 30.6 30.6 8.1 0 15.9-3.2 21.7-9l99.7-99.7c5.1-5.1 8-12.1 8-19.3m-19.3-8c2.1 2.1 3.3 5 3.3 8s-1.2 5.9-3.3 8L281 363.7c-2.7 2.7-6.5 4.3-10.3 4.3-8.1 0-14.6-6.6-14.6-14.6V296c0-4.4-3.6-8-8-8h-96c-13.3 0-24-10.7-24-24v-16c0-13.3 10.7-24 24-24h96c4.4 0 8-3.6 8-8v-57.4c0-8.1 6.5-14.6 14.6-14.6 3.9 0 7.6 1.5 10.3 4.3z" />
               </Svg>
             );
 
           case "duotone":
             return (
-              <Svg viewBox="0 0 512 512" fill={color}>
+              <Svg viewBox="0 0 512 512"  fill={colors[colorName || "text"]} >
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M0 256a256 256 0 1 0 512 0 256 256 0 1 0-512 0m294.6-120.9 99.9 107.1c3.5 3.8 5.5 8.7 5.5 13.8s-2 10.1-5.5 13.8l-99.9 107.1c-4.2 4.5-10.1 7.1-16.3 7.1-12.3 0-22.3-10-22.3-22.3V304h-96c-17.7 0-32-14.3-32-32v-32c0-17.7 14.3-32 32-32h96v-57.7c0-12.3 10-22.3 22.3-22.3 6.2 0 12.1 2.6 16.3 7.1"
                 />

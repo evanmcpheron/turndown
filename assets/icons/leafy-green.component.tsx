@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const LeafyGreenIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const LeafyGreenIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const LeafyGreenIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const LeafyGreenIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const LeafyGreenIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const LeafyGreenIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const LeafyGreenIcon: React.FC<
             return (
               <Svg viewBox="0 0 576 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="m109.3 421.5-15.1 15.1c-10.2-10.4-15.9-24.3-15.9-38.8v-12.9c0-14.7-5.8-28.8-16.3-39.2l-26.3-26.4c-10.4-10.4-16.3-24.5-16.3-39.2v-35.7c0-13.1-5.3-25.4-11-37.1-15.2-31.1-9.9-69.6 15.9-95.4 2.1-2.1 4.3-4.1 6.5-5.9C50.6 89.9 70 69.6 83 47.7c4.1-6.9 9.1-13.4 15-19.3 37.9-37.9 99.4-37.9 137.3 0 5.9 5.9 10.9 12.4 15 19.3 1.2 2.1 2.5 4.1 3.9 6.2-3.6 5.9-6.6 12.3-8.9 18.9-4.9 14.3-10.6 28.6-21.3 39.3l-29.1 29.1c-12 12-18.7 28.3-18.7 45.3v43c0 17-6.7 33.3-18.7 45.3L147 285.3c-12 12-18.7 28.3-18.7 45.3v45.7c0 17-6.7 33.3-18.7 45.3zm366-298.2L390.6 208H448c8.8 0 16 7.2 16 16s-7.2 16-16 16h-89.4l-59.3 59.3-48 48c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l43.3-43.3V192c0-8.8 7.2-16 16-16s16 7.2 16 16v57.4l36.7-36.7 112-112c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6"
                 />

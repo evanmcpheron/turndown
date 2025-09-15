@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const NestingDollsIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const NestingDollsIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const NestingDollsIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const NestingDollsIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const NestingDollsIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const NestingDollsIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const NestingDollsIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M80 112C80 50.1 130.1 0 192 0s112 50.1 112 112v144H80zm120.7-47.1c-4.1-5.3-13.2-5.3-17.3 0-11.7 15.1-28.7 26-48.2 29.7-4 .8-7.2 4.2-6.8 8.2 1.5 14 7.6 27.7 18.4 38.5 25 25 65.5 25 90.5 0 10.8-10.8 16.9-24.4 18.4-38.5.4-4.1-2.7-7.5-6.8-8.2-19.5-3.7-36.5-14.6-48.2-29.7m254.7 256c4.1-5.3 13.2-5.3 17.3 0 14.6 18.9 37.5 31.1 63.3 31.1 4.3 0 8 3.3 7.6 7.6-1.7 17.9-9.4 35.3-23.1 49-31.2 31.2-81.9 31.2-113.1 0-13.7-13.7-21.4-31.1-23.1-49-.4-4.3 3.3-7.6 7.6-7.6 25.8 0 48.7-12.2 63.3-31.1z"
                 />

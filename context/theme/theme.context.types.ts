@@ -1,4 +1,4 @@
-import { AppTheme } from "@/helpers/theme/general.styles";
+import { AppTheme, SemanticColors } from "@/helpers/theme/general.styles";
 import type { Theme } from "@react-navigation/native";
 
 export type Scheme = "light" | "dark";
@@ -22,9 +22,9 @@ export type CustomThemeContextValue = {
   scheme: Scheme;
   mode: "system" | Scheme;
   app: AppTheme;
+  colors: SemanticColors;
   nav: Theme;
   toggle: () => void;
   setScheme: (s: Scheme) => void;
   followSystem: () => void;
-  updateOverrides: (patch: ThemeOverrides) => void;
 };

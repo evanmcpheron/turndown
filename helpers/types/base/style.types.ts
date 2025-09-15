@@ -1,3 +1,4 @@
+import { SemanticColors } from "@/helpers/theme/general.styles";
 import {
   AccessibilityProps,
   ImageStyle,
@@ -45,15 +46,10 @@ export type Colors = ThemeColorKeys | CSSColor | string;
 export type ThemeColorProperties = Record<string, CSSColor>;
 export declare const Color: Record<ThemeColorKeys, string>;
 
-export interface IconBaseProps extends DomProperties, ClickActions {
-  size?: keyof typeof sizes | number | `${number}%`;
-  color?: keyof typeof Color | CSSColor | string;
-}
-
 export interface IconProps extends DomProperties, ClickActions {
   type?: "solid" | "regular" | "light" | "thin" | "duotone" | "brands";
   size?: keyof typeof sizes | number | `${number}%`;
-  color?: keyof typeof Color | CSSColor | string;
+  color?: keyof SemanticColors;
   opacity?: number;
   haptic?: "strong" | "light";
 }

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const MosquitoNetIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const MosquitoNetIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const MosquitoNetIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const MosquitoNetIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const MosquitoNetIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const MosquitoNetIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const MosquitoNetIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M161.7 440.8c-4 7.9-.7 17.5 7.2 21.5s17.5.7 21.5-7.2l32-64c1.1-2.2 1.7-4.7 1.7-7.2v-41.4l32-32v50c0 17.7 14.3 32 32 32s32-14.3 32-32v-50l42.9 42.9c3-3.7 6.6-6.9 10.6-9.5-12.9-8.6-21.5-23.3-21.5-40 0-2.1.1-4.2.4-6.2L320 265.4v-23.2l40.2 35c6.1-9.1 15.2-15.9 25.9-19.2 6-19.7 24.3-34.1 45.9-34.1 16.7 0 31.4 8.5 40 21.5 8.6-12.9 23.3-21.5 40-21.5s31.4 8.5 40 21.5c2.1-3.1 4.5-6 7.3-8.6-12.9-16.9-32.2-28.6-54.7-31.4l-159.9-23.8 49.6-41.3c5.1-4.2 7-11.1 4.9-17.4l-13.9-41.7 29-58.1c4-7.9.7-17.5-7.2-21.5s-17.5-.7-21.5 7.2l-32 64c-1.9 3.8-2.2 8.2-.9 12.2l12.5 37.6-45.2 37.9v-22.6c0-14.9-10.1-27.3-23.8-31V63.7c0-4.5-3.7-8.2-8.2-8.2s-8.2 3.7-8.2 8.2V107c-13.7 3.6-23.8 16.1-23.8 31v22.6l-45.4-37.8 12.5-37.6c1.3-4 1-8.4-.9-12.2l-32-64c-4-7.9-13.6-11.1-21.5-7.2s-11.1 13.6-7.2 21.5l29 58.1-13.9 41.7c-2.1 6.2-.1 13.1 4.9 17.4l49.6 41.3-159.7 23.7C30.6 210.6 0 245.2 0 286.3c0 72.6 87.8 109 139.2 57.6L256 242.2v23.1l-59.3 59.3c-3 3-4.7 7.1-4.7 11.3v44.2l-30.3 60.6z"
                 />

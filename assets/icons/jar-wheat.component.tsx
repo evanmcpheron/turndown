@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const JarWheatIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const JarWheatIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const JarWheatIcon: React.FC<
             return (
               <Svg viewBox="0 0 320 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const JarWheatIcon: React.FC<
             return (
               <Svg viewBox="0 0 320 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const JarWheatIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 320 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const JarWheatIcon: React.FC<
             return (
               <Svg viewBox="0 0 320 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const JarWheatIcon: React.FC<
             return (
               <Svg viewBox="0 0 320 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M64 64C28.7 64 0 92.7 0 128v320c0 35.3 28.7 64 64 64h192c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64zm112 160h-53.8C90 224 64 198 64 165.8c0-3.2 2.6-5.8 5.8-5.8H112c19.1 0 36.3 8.4 48 21.7 11.7-13.3 28.9-21.7 48-21.7h42.2c3.2 0 5.8 2.6 5.8 5.8 0 32.1-26 58.2-58.2 58.2zm74.2 32c3.2 0 5.8 2.6 5.8 5.8 0 32.1-26 58.2-58.2 58.2h-75.6C90 320 64 294 64 261.8c0-3.2 2.6-5.8 5.8-5.8H112c19.1 0 36.3 8.4 48 21.7 11.7-13.3 28.9-21.7 48-21.7zm0 96c3.2 0 5.8 2.6 5.8 5.8 0 32.1-26 58.2-58.2 58.2H176v32c0 8.8-7.2 16-16 16s-16-7.2-16-16v-32h-21.8C90 416 64 390 64 357.8c0-3.2 2.6-5.8 5.8-5.8H112c19.1 0 36.3 8.4 48 21.7 11.7-13.3 28.9-21.7 48-21.7z"
                 />

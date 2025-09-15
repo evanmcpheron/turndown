@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const SignalStreamSlashIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,8 +41,9 @@ export const SignalStreamSlashIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
+
 
   return (
     <StyledIcon ref={domRef} {...internalProperties}>
@@ -40,7 +53,7 @@ export const SignalStreamSlashIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +66,7 @@ export const SignalStreamSlashIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +79,7 @@ export const SignalStreamSlashIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +92,7 @@ export const SignalStreamSlashIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +105,10 @@ export const SignalStreamSlashIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M576 256c0 51.3-13.4 99.5-36.9 141.2L488 357.1c15.3-30.3 24-64.7 24-101.1 0-53-18.4-101.6-49.1-140-11.1-13.8-8.8-33.9 5-45s33.9-8.8 45 5c39.4 49.3 63.1 111.9 63.1 180m-112 0c0 25.2-5.3 49.1-14.8 70.8l-53-41.6c2.5-9.3 3.8-19.1 3.8-29.2 0-28.7-10.8-54.8-28.5-74.7-11.8-13.2-10.7-33.4 2.5-45.2s33.4-10.7 45.2 2.5C447 169.8 464 210.9 464 256m-176-56c26.5 0 48.7 18.4 54.5 43.2l-55-43.2zm-164.5-6.7 54.3 42.8c-1.2 6.5-1.8 13.1-1.8 19.9 0 28.7 10.8 54.8 28.5 74.7 11.8 13.2 10.7 33.4-2.5 45.2s-33.4 10.7-45.2-2.5C129 342.2 112 301.1 112 256c0-22.1 4.1-43.2 11.5-62.7M33 122l51.4 40.5C71.3 190.9 64 222.6 64 256c0 53 18.4 101.6 49.1 140 11.1 13.8 8.8 33.9-5 45s-33.9 8.8-45-5C23.7 386.7 0 324.1 0 256c0-48.4 11.9-94 33-134"
                 />

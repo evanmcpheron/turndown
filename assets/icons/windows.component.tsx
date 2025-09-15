@@ -39,7 +39,7 @@ export const WindowsIcon: React.FC<
         switch (type) {
           case "brands":
             return (
-              <Svg viewBox="0 0 448 512" fill={color}>
+              <Svg viewBox="0 0 448 512"  fill={colors[colorName || "text"]} >
                 <Path d="m0 93.7 183.6-25.3v177.4H0zm0 324.6 183.6 25.3V268.4H0zm203.8 28L448 480V268.4H203.8zm0-380.6v180.1H448V32z" />
               </Svg>
             );

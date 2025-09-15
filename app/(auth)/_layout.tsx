@@ -17,6 +17,5 @@ export default function AuthLayout() {
     return <Redirect href="/" />;
   }
 
-  // Otherwise render auth routes (sign-in, sign-up)
   return <Slot />;
 }

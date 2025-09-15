@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const PigIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const PigIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const PigIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const PigIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const PigIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const PigIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const PigIcon: React.FC<
             return (
               <Svg viewBox="0 0 640 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M513.5 32c8 0 14.5 6.5 14.5 14.5V78c0 19.7-9 37.8-23.6 49.7 6.4 4.9 12.7 10.1 18.6 15.7 17.6-15.9 28.5-38.6 29-63.3h40c8.8 0 16 7.2 16 16v16c0 32.8-24.6 59.8-56.3 63.5l6.8 9c11.5 15.4 26.5 27.9 43.7 36.5l5.8 2.9h8c13.3 0 24 10.7 24 24v96c0 13.3-10.7 24-24 24h-43.5c-22.2 21.2-49.7 36.2-79.8 43.3l-13 45.5c-3.9 13.7-16.4 23.2-30.7 23.2h-33c-17.7 0-32-14.3-32-32v-32H272v32c0 17.7-14.3 32-32 32h-33c-14.3 0-26.8-9.5-30.8-23.2L155 382.4C110.3 358 80 310.5 80 256v-16c0-88.4 71.6-160 160-160h122.4c14.5 0 28.8 1.3 42.7 3.9 8.1-19.5 25.4-34.4 47-39.1l58.4-12.5q1.5-.3 3-.3M476 256a20 20 0 1 0 0-40 20 20 0 1 0 0 40"
                 />

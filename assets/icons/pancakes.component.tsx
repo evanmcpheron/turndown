@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -6,10 +7,21 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
 export const PancakesIcon: React.FC<
-  IconProps & {
+ IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,7 +41,7 @@ export const PancakesIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -40,7 +52,7 @@ export const PancakesIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +65,7 @@ export const PancakesIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +78,7 @@ export const PancakesIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +91,7 @@ export const PancakesIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +104,10 @@ export const PancakesIcon: React.FC<
             return (
               <Svg viewBox="0 0 512 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M0 160c0-9.5 5.3-18.6 14.9-27 2.2 2.5 4.5 4.8 6.8 6.8 10.9 9.6 24.9 17 39.6 22.9 1.2.5 2 1.2 2.4 1.8.1.2.2.3.2.4V213C24.2 198.8 0 180.3 0 160m512 0c0 41-98.7 74.8-225.9 79.5 1.2-4.9 1.9-10.1 1.9-15.5v-32s.1-.1.1-.2c.3-.3.7-.5 1.2-.5 56.2-2.3 107.3-10.4 145.3-22.8 18.8-6.2 36.3-14 49.8-24 4.2-3.1 8.6-7 12.7-11.5 9.7 8.4 14.9 17.5 14.9 27M64 246.7V272c0 7.8 1.4 15.4 4 22.3C25.8 280 0 261 0 240c0-6.5 2.5-12.8 7.2-18.9 15.7 10.3 35.3 18.7 56.8 25.6m110.6 69.2c9.2-9.8 15.4-22.5 17-36.7 9.5 5.6 20.6 8.8 32.4 8.8 16.3 0 31.1-6.1 42.4-16.1 69-.8 132.4-9.9 180.2-24.8 22-6.9 42.2-15.5 58.3-26 4.7 6.1 7.2 12.4 7.2 18.9 0 44.2-114.6 80-256 80-28.5 0-55.8-1.5-81.4-4.1zm330.2-14.8c4.7 6.1 7.2 12.4 7.2 18.9 0 44.2-114.6 80-256 80S0 364.2 0 320c0-6.5 2.5-12.8 7.2-18.9 16.1 10.6 36.2 19.1 58.3 26C115.6 342.8 183 352 256 352s140.4-9.2 190.6-24.9c22-6.9 42.2-15.4 58.3-26zm0 80c4.7 6.1 7.2 12.4 7.2 18.9 0 44.2-114.6 80-256 80S0 444.2 0 400c0-6.5 2.5-12.8 7.2-18.9 16.1 10.6 36.2 19.1 58.3 26C115.6 422.8 183 432 256 432s140.4-9.2 190.6-24.9c22-6.9 42.2-15.4 58.3-26z"
                 />

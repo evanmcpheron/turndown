@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const ForwardStepIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,8 +41,9 @@ export const ForwardStepIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
+
 
   return (
     <StyledIcon ref={domRef} {...internalProperties}>
@@ -38,37 +51,37 @@ export const ForwardStepIcon: React.FC<
         switch (type) {
           case "solid":
             return (
-              <Svg viewBox="0 0 320 512" fill={color}>
+              <Svg viewBox="0 0 320 512"  fill={colors[colorName || "text"]} >
                 <Path d="M52.5 440.6c-9.5 7.9-22.8 9.7-34.1 4.4S0 428.4 0 416V96c0-12.4 7.2-23.7 18.4-29s24.5-3.6 34.1 4.4l192 160L256 241V96c0-17.7 14.3-32 32-32s32 14.3 32 32v320c0 17.7-14.3 32-32 32s-32-14.3-32-32V271l-11.5 9.6z" />
               </Svg>
             );
 
           case "regular":
             return (
-              <Svg viewBox="0 0 320 512" fill={color}>
+              <Svg viewBox="0 0 320 512"  fill={colors[colorName || "text"]} >
                 <Path d="M240 88c0-13.3 10.7-24 24-24s24 10.7 24 24v336c0 13.3-10.7 24-24 24s-24-10.7-24-24V318.9L63.3 442.6c-5.1 3.5-11.1 5.4-17.3 5.4-16.5 0-30-13.5-30-30.1V94.1C16 77.5 29.5 64 46.1 64c6.2 0 12.2 1.9 17.3 5.4L240 193.1zm0 172.3v-8.6L64 128.5v255z" />
               </Svg>
             );
 
           case "light":
             return (
-              <Svg viewBox="0 0 320 512" fill={color}>
+              <Svg viewBox="0 0 320 512"  fill={colors[colorName || "text"]} >
                 <Path d="M256 80c0-8.8 7.2-16 16-16s16 7.2 16 16v352c0 8.8-7.2 16-16 16s-16-7.2-16-16V296.2L77.4 441.8c-5 4-11.2 6.2-17.6 6.2-15.4 0-27.8-12.4-27.8-27.8V91.8C32 76.4 44.4 64 59.8 64c6.4 0 12.6 2.2 17.6 6.2L256 215.8zM64 100.6v310.8L254.7 256z" />
               </Svg>
             );
 
           case "thin":
             return (
-              <Svg viewBox="0 0 320 512" fill={color}>
+              <Svg viewBox="0 0 320 512"  fill={colors[colorName || "text"]} >
                 <Path d="M272 72c0-4.4 3.6-8 8-8s8 3.6 8 8v368c0 4.4-3.6 8-8 8s-8-3.6-8-8V277.6L80.2 441c-5.3 4.5-12 7-19 7-16.1 0-29.2-13.1-29.2-29.2V93.2C32 77.1 45.1 64 61.2 64c6.9 0 13.7 2.5 19 7L272 234.4zm0 184c0-.4-.2-.8-.5-1L69.8 83.2c-2.4-2-5.4-3.2-8.6-3.2C53.9 80 48 85.9 48 93.2v325.6c0 7.3 5.9 13.2 13.2 13.2 3.1 0 6.2-1.1 8.6-3.2L271.5 257c.3-.3.5-.6.5-1" />
               </Svg>
             );
 
           case "duotone":
             return (
-              <Svg viewBox="0 0 320 512" fill={color}>
+              <Svg viewBox="0 0 320 512"  fill={colors[colorName || "text"]} >
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M288 448c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32s-32 14.3-32 32v320c0 17.7 14.3 32 32 32"
                 />

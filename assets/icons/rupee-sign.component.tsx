@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
 import { IconProps } from "@/helpers/types/base/style.types";
@@ -9,7 +10,18 @@ export const RupeeSignIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
   const domRef: TurndownObject = useRef(null);
 
   const { onPress, onMove, onUp, onDown, groupId } = more;
@@ -29,8 +41,9 @@ export const RupeeSignIcon: React.FC<
     haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
+
 
   return (
     <StyledIcon ref={domRef} {...internalProperties}>
@@ -40,7 +53,7 @@ export const RupeeSignIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -53,7 +66,7 @@ export const RupeeSignIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -66,7 +79,7 @@ export const RupeeSignIcon: React.FC<
             re</Svg>
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -79,7 +92,7 @@ export const RupeeSignIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
               </Svg>sName="aps-icon-svg"
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               >
                 <Path
                    
@@ -92,10 +105,10 @@ export const RupeeSignIcon: React.FC<
             return (
               <Svg viewBox="0 0 448 512"
                  
-                fill={color}
+                 fill={colors[colorName || "text"]} 
               </Svg>
                 <Path
-                  fill={color}
+                   fill={colors[colorName || "text"]} 
                   opacity={opacity || 0.5}
                   d="M330 260.4c-6.3 3.3-8.9 7.6-9.5 12-.9 6 0 8.7.4 9.8s1.4 2.6 4.2 4.9c7.2 5.7 18.7 10 37.9 16.8.4.2.9.3 1.3.5 16 5.6 38.7 13.6 55.7 28.1 9.5 8.1 17.9 18.6 23.1 32.3 5.1 13.7 6.1 28.5 3.8 44-4.2 28.1-20.5 49.3-43.8 60.9-22.1 11-48.1 12.5-73.2 8h-.2c-9.3-1.8-20.5-5.7-29.3-9-6-2.3-12.6-4.9-17.7-6.9-2.5-1-4.6-1.8-6.3-2.5-16.5-6.4-24.6-25-18.2-41.4s24.9-24.6 41.4-18.2c2.6 1 5.2 2 7.9 3.1 4.8 1.9 9.8 3.9 15.4 6 8.8 3.3 15.3 5.4 18.7 6 15.7 2.8 26.7.8 32.9-2.3 5-2.5 8-6 9.1-13 1-6.9.2-10.5-.5-12.3-.6-1.7-1.8-3.5-4.5-5.9-6.9-5.8-18.2-10.4-36.9-17-1-.3-2-.7-3-1.1-15.5-5.4-37-13-53.3-25.9-9.5-7.5-18.3-17.6-23.7-31-5.5-13.4-6.6-28-4.4-43.2 8.4-57.1 67-78 116.9-68.9 6.9 1.3 27.3 5.8 35.4 8.4 16.9 5.2 26.3 23.2 21.1 40.1s-23.2 26.3-40.1 21.1c-4.7-1.4-22.3-5.5-27.9-6.5-14.6-2.7-25.8-.4-32.6 3.2z"
                 />

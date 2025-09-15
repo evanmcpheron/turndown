@@ -2,14 +2,11 @@ import { Redirect, Tabs } from "expo-router";
 import React from "react";
 
 import { HapticTab } from "@/components/haptic-tab";
-import { Colors } from "@/constants/theme";
 import { useAuth } from "@/context";
-import { useColorScheme } from "@/hooks/use-color-scheme";
 import { ActivityIndicator, View } from "react-native";
 
 export default function TabLayout() {
   const { user, loading } = useAuth();
-  const colorScheme = useColorScheme();
 
   if (loading) {
     return (
@@ -26,12 +23,12 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarActiveTintColor: "red",
         headerShown: false,
         tabBarButton: HapticTab,
       }}
     >
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="index"
         options={{
           title: "Home",
@@ -44,7 +41,7 @@ export default function TabLayout() {
           title: "Explore",
           tabBarIcon: ({ color }) => <></>,
         }}
-      />
+      /> */}
     </Tabs>
   );
 }
