@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
 
-import { StyledIcon } from "./shared/icon.styled";
-import type { IconProps } from "./shared/icon.types";
-import type { MickeyObject } from "@/helpers/types/base.types";
-import type { Dimensions } from "@/helpers/types/style.types";
 import { usePointerEvent } from "@/helpers/hooks/usePointerEvent.hook";
 import { removeUndefined } from "@/helpers/objects";
+import type { MickeyObject } from "@/helpers/types/base.types";
+import type { Dimensions } from "@/helpers/types/style.types";
+import { StyledIcon } from "./shared/icon.styled";
+import type { IconProps } from "./shared/icon.types";
 
 export const BuromobelexperteIcon: React.FC<
   IconProps & { type: "brands" | Dimensions }
@@ -39,17 +39,9 @@ export const BuromobelexperteIcon: React.FC<
         switch (type) {
           case "brands":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M0 32v128h128V32zm120 120H8V40h112zm40-120v128h128V32zm120 120H168V40h112zm40-120v128h128V32zm120 120H328V40h112zM0 192v128h128V192zm120 120H8V200h112zm40-120v128h128V192zm120 120H168V200h112zm40-120v128h128V192zm120 120H328V200h112zM0 352v128h128V352zm120 120H8V360h112zm40-120v128h128V352zm120 120H168V360h112zm40-120v128h128V352z"
-                />
-              </svg>
+              <Svg viewBox="0 0 448 512" fill={color}>
+                <Path d="M0 32v128h128V32zm120 120H8V40h112zm40-120v128h128V32zm120 120H168V40h112zm40-120v128h128V32zm120 120H328V40h112zM0 192v128h128V192zm120 120H8V200h112zm40-120v128h128V192zm120 120H168V200h112zm40-120v128h128V192zm120 120H328V200h112zM0 352v128h128V352zm120 120H8V360h112zm40-120v128h128V352zm120 120H168V360h112zm40-120v128h128V352z" />
+              </Svg>
             );
 
           default:

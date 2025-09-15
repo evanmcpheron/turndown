@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
 
-import { StyledIcon } from "./shared/icon.styled";
-import type { IconProps } from "./shared/icon.types";
-import type { MickeyObject } from "@/helpers/types/base.types";
-import type { Dimensions } from "@/helpers/types/style.types";
 import { usePointerEvent } from "@/helpers/hooks/usePointerEvent.hook";
 import { removeUndefined } from "@/helpers/objects";
+import type { MickeyObject } from "@/helpers/types/base.types";
+import type { Dimensions } from "@/helpers/types/style.types";
+import { StyledIcon } from "./shared/icon.styled";
+import type { IconProps } from "./shared/icon.types";
 
 export const BlackTieIcon: React.FC<
   IconProps & { type: "brands" | Dimensions }
@@ -39,17 +39,9 @@ export const BlackTieIcon: React.FC<
         switch (type) {
           case "brands":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M0 32v448h448V32zm316.5 325.2L224 445.9l-92.5-88.7 64.5-184-64.5-86.6h184.9L252 173.2z"
-                />
-              </svg>
+              <Svg viewBox="0 0 448 512" fill={color}>
+                <Path d="M0 32v448h448V32zm316.5 325.2L224 445.9l-92.5-88.7 64.5-184-64.5-86.6h184.9L252 173.2z" />
+              </Svg>
             );
 
           default:

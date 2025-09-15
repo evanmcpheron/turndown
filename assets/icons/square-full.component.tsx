@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
-
-import { usePointerEvent } from "@/helpers/hooks/usePointerEvent.hook";
+import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
+import { IconProps } from "@/helpers/types/base/style.types";
+import { usePointerEvent } from "@/hooks/usePointerEvent.hook";
+import React, { useRef } from "react";
+import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
-import type { IconProps } from "./shared/icon.types";
-
 export const SquareFullIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
@@ -38,72 +38,42 @@ export const SquareFullIcon: React.FC<
         switch (type) {
           case "solid":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path className="aps-icon-foreground" d="M0 0h512v512H0z" />
-              </svg>
+              <Svg viewBox="0 0 512 512" fill={color}>
+                <Path d="M0 0h512v512H0z" />
+              </Svg>
             );
 
           case "regular":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M464 48v416H48V48zM48 0H0v512h512V0H48"
-                />
-              </svg>
+              <Svg viewBox="0 0 512 512" fill={color}>
+                <Path d="M464 48v416H48V48zM48 0H0v512h512V0H48" />
+              </Svg>
             );
 
           case "light":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M480 32v448H32V32zM32 0H0v512h512V0H32"
-                />
-              </svg>
+              <Svg viewBox="0 0 512 512" fill={color}>
+                <Path d="M480 32v448H32V32zM32 0H0v512h512V0H32" />
+              </Svg>
             );
 
           case "thin":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M496 16v480H16V16zM16 0H0v512h512V0H16"
-                />
-              </svg>
+              <Svg viewBox="0 0 512 512" fill={color}>
+                <Path d="M496 16v480H16V16zM16 0H0v512h512V0H16" />
+              </Svg>
             );
 
           case "duotone":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path className="aps-icon-background" d="M0 0h512v512H0z" />
-                <path className="aps-icon-foreground" d="" />
-              </svg>
+              <Svg viewBox="0 0 512 512" fill={color}>
+                <Path
+                  fill={color}
+                  opacity={opacity || 0.5}
+                  d="M0 0h512v512H0z"
+                />
+                <Path d="" />
+              </Svg>
             );
 
           default:

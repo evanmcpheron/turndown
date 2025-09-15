@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
 
-import { StyledIcon } from "./shared/icon.styled";
-import type { IconProps } from "./shared/icon.types";
-import type { MickeyObject } from "@/helpers/types/base.types";
-import type { Dimensions } from "@/helpers/types/style.types";
 import { usePointerEvent } from "@/helpers/hooks/usePointerEvent.hook";
 import { removeUndefined } from "@/helpers/objects";
+import type { MickeyObject } from "@/helpers/types/base.types";
+import type { Dimensions } from "@/helpers/types/style.types";
+import { StyledIcon } from "./shared/icon.styled";
+import type { IconProps } from "./shared/icon.types";
 
 export const VuejsIcon: React.FC<
   IconProps & { type: "brands" | Dimensions }
@@ -39,17 +39,9 @@ export const VuejsIcon: React.FC<
         switch (type) {
           case "brands":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M356.9 64.3H280l-56 88.6-48-88.6H0L224 448 448 64.3zm-301.2 32h53.8L224 294.5 338.4 96.3h53.8L224 384.5z"
-                />
-              </svg>
+              <Svg viewBox="0 0 448 512" fill={color}>
+                <Path d="M356.9 64.3H280l-56 88.6-48-88.6H0L224 448 448 64.3zm-301.2 32h53.8L224 294.5 338.4 96.3h53.8L224 384.5z" />
+              </Svg>
             );
 
           default:

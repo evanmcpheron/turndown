@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
-
-import { usePointerEvent } from "@/helpers/hooks/usePointerEvent.hook";
+import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
+import { IconProps } from "@/helpers/types/base/style.types";
+import { usePointerEvent } from "@/hooks/usePointerEvent.hook";
+import React, { useRef } from "react";
+import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
-import type { IconProps } from "./shared/icon.types";
-
 export const SquareFIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
@@ -38,81 +38,42 @@ export const SquareFIcon: React.FC<
         switch (type) {
           case "solid":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm88 96h144c13.3 0 24 10.7 24 24s-10.7 24-24 24H176v64h88c13.3 0 24 10.7 24 24s-10.7 24-24 24h-88v72c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24"
-                />
-              </svg>
+              <Svg viewBox="0 0 448 512" fill={color}>
+                <Path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm88 96h144c13.3 0 24 10.7 24 24s-10.7 24-24 24H176v64h88c13.3 0 24 10.7 24 24s-10.7 24-24 24h-88v72c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24" />
+              </Svg>
             );
 
           case "regular":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M64 80c-8.8 0-16 7.2-16 16v320c0 8.8 7.2 16 16 16h320c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16zM0 96c0-35.3 28.7-64 64-64h320c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64zm152 32h144c13.3 0 24 10.7 24 24s-10.7 24-24 24H176v64h88c13.3 0 24 10.7 24 24s-10.7 24-24 24h-88v72c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24"
-                />
-              </svg>
+              <Svg viewBox="0 0 448 512" fill={color}>
+                <Path d="M64 80c-8.8 0-16 7.2-16 16v320c0 8.8 7.2 16 16 16h320c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16zM0 96c0-35.3 28.7-64 64-64h320c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64zm152 32h144c13.3 0 24 10.7 24 24s-10.7 24-24 24H176v64h88c13.3 0 24 10.7 24 24s-10.7 24-24 24h-88v72c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24" />
+              </Svg>
             );
 
           case "light":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M64 64c-17.7 0-32 14.3-32 32v320c0 17.7 14.3 32 32 32h320c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32zM0 96c0-35.3 28.7-64 64-64h320c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64zm160 32h144c8.8 0 16 7.2 16 16s-7.2 16-16 16H160v80h112c8.8 0 16 7.2 16 16s-7.2 16-16 16H160v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V160c0-17.7 14.3-32 32-32"
-                />
-              </svg>
+              <Svg viewBox="0 0 448 512" fill={color}>
+                <Path d="M64 64c-17.7 0-32 14.3-32 32v320c0 17.7 14.3 32 32 32h320c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32zM0 96c0-35.3 28.7-64 64-64h320c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64zm160 32h144c8.8 0 16 7.2 16 16s-7.2 16-16 16H160v80h112c8.8 0 16 7.2 16 16s-7.2 16-16 16H160v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V160c0-17.7 14.3-32 32-32" />
+              </Svg>
             );
 
           case "thin":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M64 48c-26.5 0-48 21.5-48 48v320c0 26.5 21.5 48 48 48h320c26.5 0 48-21.5 48-48V96c0-26.5-21.5-48-48-48zM0 96c0-35.3 28.7-64 64-64h320c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64zm152 32h160c4.4 0 8 3.6 8 8s-3.6 8-8 8H152c-4.4 0-8 3.6-8 8v88h136c4.4 0 8 3.6 8 8s-3.6 8-8 8H144v120c0 4.4-3.6 8-8 8s-8-3.6-8-8V152c0-13.3 10.7-24 24-24"
-                />
-              </svg>
+              <Svg viewBox="0 0 448 512" fill={color}>
+                <Path d="M64 48c-26.5 0-48 21.5-48 48v320c0 26.5 21.5 48 48 48h320c26.5 0 48-21.5 48-48V96c0-26.5-21.5-48-48-48zM0 96c0-35.3 28.7-64 64-64h320c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64zm152 32h160c4.4 0 8 3.6 8 8s-3.6 8-8 8H152c-4.4 0-8 3.6-8 8v88h136c4.4 0 8 3.6 8 8s-3.6 8-8 8H144v120c0 4.4-3.6 8-8 8s-8-3.6-8-8V152c0-13.3 10.7-24 24-24" />
+              </Svg>
             );
 
           case "duotone":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-background"
+              <Svg viewBox="0 0 448 512" fill={color}>
+                <Path
+                  fill={color}
+                  opacity={opacity || 0.5}
                   d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm88 96h144c13.3 0 24 10.7 24 24s-10.7 24-24 24H176v64h88c13.3 0 24 10.7 24 24s-10.7 24-24 24h-88v72c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24"
                 />
-                <path
-                  className="aps-icon-foreground"
-                  d="M128 152c0-13.3 10.7-24 24-24h144c13.3 0 24 10.7 24 24s-10.7 24-24 24H176v64h88c13.3 0 24 10.7 24 24s-10.7 24-24 24h-88v72c0 13.3-10.7 24-24 24s-24-10.7-24-24V152"
-                />
-              </svg>
+                <Path d="M128 152c0-13.3 10.7-24 24-24h144c13.3 0 24 10.7 24 24s-10.7 24-24 24H176v64h88c13.3 0 24 10.7 24 24s-10.7 24-24 24h-88v72c0 13.3-10.7 24-24 24s-24-10.7-24-24V152" />
+              </Svg>
             );
 
           default:

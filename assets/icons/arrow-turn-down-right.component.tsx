@@ -1,35 +1,32 @@
-import React, { useRef } from "react";
-
-import { StyledIcon } from "./shared/icon.styled";
-import type { IconProps } from "./shared/icon.types";
-import type { MickeyObject } from "@/helpers/types/base.types";
-import type { Dimensions } from "@/helpers/types/style.types";
-import { usePointerEvent } from "@/helpers/hooks/usePointerEvent.hook";
+import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
-
+import { IconProps } from "@/helpers/types/base/style.types";
+import { usePointerEvent } from "@/hooks/usePointerEvent.hook";
+import React, { useRef } from "react";
+import Svg, { Path } from "react-native-svg";
+import { StyledIcon } from "./shared/icon.styled";
 export const ArrowTurnDownRightIcon: React.FC<
   IconProps & {
-    type: "solid" | "regular" | "light" | "thin" | "duotone" | Dimensions;
+    type: "solid" | "regular" | "light" | "thin" | "duotone";
   }
-> = ({ type, size, color, active, className, style, ...more }) => {
-  const domRef: MickeyObject = useRef(null);
+> = ({ type, size, color, active, style, opacity, haptic, ...more }) => {
+  const domRef: TurndownObject = useRef(null);
 
-  const { onPress, onOut, onMove, onUp, onDown, onOver, groupId } = more;
+  const { onPress, onMove, onUp, onDown, groupId } = more;
   const pointerEvents = {
     onPress,
-    onOut,
     onMove,
     onUp,
     onDown,
-    onOver,
     groupId,
   };
 
   usePointerEvent({ element: domRef, active: active, ...pointerEvents });
 
   const internalProperties = removeUndefined({
-    className,
-    style: { ...(style || {}) },
+    style: style || {},
+    pointerEvents,
+    haptic,
     active,
     size,
     color,
@@ -41,81 +38,42 @@ export const ArrowTurnDownRightIcon: React.FC<
         switch (type) {
           case "solid":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64v160c0 53 43 96 96 96h306.7l-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l73.4 73.3H96c-17.7 0-32-14.3-32-32z"
-                />
-              </svg>
+              <Svg viewBox="0 0 512 512" fill={color}>
+                <Path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64v160c0 53 43 96 96 96h306.7l-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l73.4 73.3H96c-17.7 0-32-14.3-32-32z" />
+              </Svg>
             );
 
           case "regular":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M48 56c0-13.3-10.7-24-24-24S0 42.7 0 56v168c0 48.6 39.4 88 88 88h342.1l-87 87c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0L505 305c9.4-9.4 9.4-24.6 0-33.9L377 143c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l87 87H88c-22.1 0-40-17.9-40-40z"
-                />
-              </svg>
+              <Svg viewBox="0 0 512 512" fill={color}>
+                <Path d="M48 56c0-13.3-10.7-24-24-24S0 42.7 0 56v168c0 48.6 39.4 88 88 88h342.1l-87 87c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0L505 305c9.4-9.4 9.4-24.6 0-33.9L377 143c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l87 87H88c-22.1 0-40-17.9-40-40z" />
+              </Svg>
             );
 
           case "light":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M32 48c0-8.8-7.2-16-16-16S0 39.2 0 48v176c0 44.2 35.8 80 80 80h377.4L356.7 404.7c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l128-128c6.2-6.2 6.2-16.4 0-22.6l-128-128c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L457.4 272H80c-26.5 0-48-21.5-48-48z"
-                />
-              </svg>
+              <Svg viewBox="0 0 512 512" fill={color}>
+                <Path d="M32 48c0-8.8-7.2-16-16-16S0 39.2 0 48v176c0 44.2 35.8 80 80 80h377.4L356.7 404.7c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l128-128c6.2-6.2 6.2-16.4 0-22.6l-128-128c-6.2-6.2-16.4-6.2-22.6 0s-6.2 16.4 0 22.6L457.4 272H80c-26.5 0-48-21.5-48-48z" />
+              </Svg>
             );
 
           case "thin":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M16 40c0-4.4-3.6-8-8-8s-8 3.6-8 8v184c0 39.8 32.2 72 72 72h412.7L346.3 434.3c-3.1 3.1-3.1 8.2 0 11.3s8.2 3.1 11.3 0l152-152c3.1-3.1 3.1-8.2 0-11.3l-152-152c-3.1-3.1-8.2-3.1-11.3 0s-3.1 8.2 0 11.3L484.7 280H72c-30.9 0-56-25.1-56-56z"
-                />
-              </svg>
+              <Svg viewBox="0 0 512 512" fill={color}>
+                <Path d="M16 40c0-4.4-3.6-8-8-8s-8 3.6-8 8v184c0 39.8 32.2 72 72 72h412.7L346.3 434.3c-3.1 3.1-3.1 8.2 0 11.3s8.2 3.1 11.3 0l152-152c3.1-3.1 3.1-8.2 0-11.3l-152-152c-3.1-3.1-8.2-3.1-11.3 0s-3.1 8.2 0 11.3L484.7 280H72c-30.9 0-56-25.1-56-56z" />
+              </Svg>
             );
 
           case "duotone":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-background"
+              <Svg viewBox="0 0 512 512" fill={color}>
+                <Path
+                  fill={color}
+                  opacity={opacity || 0.5}
                   d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64v160c0 53 43 96 96 96h306.7l32-32-32-32H96c-17.7 0-32-14.3-32-32z"
                 />
-                <path
-                  className="aps-icon-foreground"
-                  d="M329.4 137.4c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3l-128 128c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L434.7 288 329.4 182.6c-12.5-12.5-12.5-32.8 0-45.3z"
-                />
-              </svg>
+                <Path d="M329.4 137.4c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3l-128 128c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L434.7 288 329.4 182.6c-12.5-12.5-12.5-32.8 0-45.3z" />
+              </Svg>
             );
 
           default:

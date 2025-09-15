@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
-
-import { usePointerEvent } from "@/helpers/hooks/usePointerEvent.hook";
+import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
+import { IconProps } from "@/helpers/types/base/style.types";
+import { usePointerEvent } from "@/hooks/usePointerEvent.hook";
+import React, { useRef } from "react";
+import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
-import type { IconProps } from "./shared/icon.types";
-
 export const PauseIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
@@ -38,78 +38,69 @@ export const PauseIcon: React.FC<
         switch (type) {
           case "solid":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 320 512"
-                className="aps-icon-svg"
+              <Svg viewBox="0 0 320 512"
+                 
                 fill={color}
               >
-                <path
-                  className="aps-icon-foreground"
+                <Path
+                   
                   d="M48 64C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zm192 0c-26.5 0-48 21.5-48 48v288c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48z"
                 />
-              </svg>
+              </Svg>
             );
 
           case "regular":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 320 512"
-                className="aps-icon-svg"
+              <Svg viewBox="0 0 320 512"
+                 
                 fill={color}
               >
-                <path
-                  className="aps-icon-foreground"
+                <Path
+                   
                   d="M48 112v288h48V112zm-48 0c0-26.5 21.5-48 48-48h48c26.5 0 48 21.5 48 48v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48zm224 0v288h48V112zm-48 0c0-26.5 21.5-48 48-48h48c26.5 0 48 21.5 48 48v288c0 26.5-21.5 48-48 48h-48c-26.5 0-48-21.5-48-48z"
                 />
-              </svg>
+              </Svg>
             );
 
           case "light":
-            return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 320 512"
-                className="aps-icon-svg"
+            re</Svg>
+              <Svg viewBox="0 0 320 512"
+                 
                 fill={color}
               >
-                <path
-                  className="aps-icon-foreground"
+                <Path
+                   
                   d="M48 96c-8.8 0-16 7.2-16 16v288c0 8.8 7.2 16 16 16h48c8.8 0 16-7.2 16-16V112c0-8.8-7.2-16-16-16zM0 112c0-26.5 21.5-48 48-48h48c26.5 0 48 21.5 48 48v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48zm224-16c-8.8 0-16 7.2-16 16v288c0 8.8 7.2 16 16 16h48c8.8 0 16-7.2 16-16V112c0-8.8-7.2-16-16-16zm-48 16c0-26.5 21.5-48 48-48h48c26.5 0 48 21.5 48 48v288c0 26.5-21.5 48-48 48h-48c-26.5 0-48-21.5-48-48z"
                 />
-              </svg>
+              </Svg>
             );
 
           case "thin":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 320 512"
-                className="aps-icon-svg"
+              <Svg viewBox="0 0 320 512"
+              </Svg>sName="aps-icon-svg"
                 fill={color}
               >
-                <path
-                  className="aps-icon-foreground"
+                <Path
+                   
                   d="M48 80c-17.7 0-32 14.3-32 32v288c0 17.7 14.3 32 32 32h32c17.7 0 32-14.3 32-32V112c0-17.7-14.3-32-32-32zM0 112c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48zm240-32c-17.7 0-32 14.3-32 32v288c0 17.7 14.3 32 32 32h32c17.7 0 32-14.3 32-32V112c0-17.7-14.3-32-32-32zm-48 32c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48v288c0 26.5-21.5 48-48 48h-32c-26.5 0-48-21.5-48-48z"
                 />
-              </svg>
+              </Svg>
             );
 
           case "duotone":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 320 512"
-                className="aps-icon-svg"
+              <Svg viewBox="0 0 320 512"
+                 
                 fill={color}
-              >
-                <path
-                  className="aps-icon-background"
+              </Svg>
+                <Path
+                  fill={color}
+                  opacity={opacity || 0.5}
                   d="M48 64C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zm192 0c-26.5 0-48 21.5-48 48v288c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48z"
                 />
-                <path className="aps-icon-foreground" d="" />
-              </svg>
+                <Path   d="" />
+              </Svg>
             );
 
           default:
@@ -118,4 +109,4 @@ export const PauseIcon: React.FC<
       })()}
     </StyledIcon>
   );
-};
+};</Svg>

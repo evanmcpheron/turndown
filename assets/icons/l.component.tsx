@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
-
-import { usePointerEvent } from "@/helpers/hooks/usePointerEvent.hook";
+import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
+import { IconProps } from "@/helpers/types/base/style.types";
+import { usePointerEvent } from "@/hooks/usePointerEvent.hook";
+import React, { useRef } from "react";
+import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
-import type { IconProps } from "./shared/icon.types";
-
 export const LIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
@@ -38,78 +38,69 @@ export const LIcon: React.FC<
         switch (type) {
           case "solid":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 320 512"
-                className="aps-icon-svg"
+              <Svg viewBox="0 0 320 512"
+                 
                 fill={color}
               >
-                <path
-                  className="aps-icon-foreground"
+                <Path
+                   
                   d="M64 32c17.7 0 32 14.3 32 32v352h192c17.7 0 32 14.3 32 32s-14.3 32-32 32H64c-17.7 0-32-14.3-32-32V64c0-17.7 14.3-32 32-32"
                 />
-              </svg>
+              </Svg>
             );
 
           case "regular":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 320 512"
-                className="aps-icon-svg"
+              <Svg viewBox="0 0 320 512"
+                 
                 fill={color}
               >
-                <path
-                  className="aps-icon-foreground"
+                <Path
+                   
                   d="M56 32c13.3 0 24 10.7 24 24v376h216c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24V56c0-13.3 10.7-24 24-24"
                 />
-              </svg>
+              </Svg>
             );
 
           case "light":
-            return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 320 512"
-                className="aps-icon-svg"
+            re</Svg>
+              <Svg viewBox="0 0 320 512"
+                 
                 fill={color}
               >
-                <path
-                  className="aps-icon-foreground"
+                <Path
+                   
                   d="M48 32c8.8 0 16 7.2 16 16v400h240c8.8 0 16 7.2 16 16s-7.2 16-16 16H48c-8.8 0-16-7.2-16-16V48c0-8.8 7.2-16 16-16"
                 />
-              </svg>
+              </Svg>
             );
 
           case "thin":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 320 512"
-                className="aps-icon-svg"
+              <Svg viewBox="0 0 320 512"
+              </Svg>sName="aps-icon-svg"
                 fill={color}
               >
-                <path
-                  className="aps-icon-foreground"
+                <Path
+                   
                   d="M40 32c4.4 0 8 3.6 8 8v424h264c4.4 0 8 3.6 8 8s-3.6 8-8 8H48c-8.8 0-16-7.2-16-16V40c0-4.4 3.6-8 8-8"
                 />
-              </svg>
+              </Svg>
             );
 
           case "duotone":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 320 512"
-                className="aps-icon-svg"
+              <Svg viewBox="0 0 320 512"
+                 
                 fill={color}
-              >
-                <path
-                  className="aps-icon-background"
+              </Svg>
+                <Path
+                  fill={color}
+                  opacity={opacity || 0.5}
                   d="M64 32c17.7 0 32 14.3 32 32v352h192c17.7 0 32 14.3 32 32s-14.3 32-32 32H64c-17.7 0-32-14.3-32-32V64c0-17.7 14.3-32 32-32"
                 />
-                <path className="aps-icon-foreground" d="" />
-              </svg>
+                <Path   d="" />
+              </Svg>
             );
 
           default:
@@ -118,4 +109,4 @@ export const LIcon: React.FC<
       })()}
     </StyledIcon>
   );
-};
+};</Svg>

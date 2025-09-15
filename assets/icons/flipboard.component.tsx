@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
 
-import { StyledIcon } from "./shared/icon.styled";
-import type { IconProps } from "./shared/icon.types";
-import type { MickeyObject } from "@/helpers/types/base.types";
-import type { Dimensions } from "@/helpers/types/style.types";
 import { usePointerEvent } from "@/helpers/hooks/usePointerEvent.hook";
 import { removeUndefined } from "@/helpers/objects";
+import type { MickeyObject } from "@/helpers/types/base.types";
+import type { Dimensions } from "@/helpers/types/style.types";
+import { StyledIcon } from "./shared/icon.styled";
+import type { IconProps } from "./shared/icon.types";
 
 export const FlipboardIcon: React.FC<
   IconProps & { type: "brands" | Dimensions }
@@ -39,17 +39,9 @@ export const FlipboardIcon: React.FC<
         switch (type) {
           case "brands":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M0 32v448h448V32zm358.4 179.2h-89.6v89.6h-89.6v89.6H89.6V121.6h268.8z"
-                />
-              </svg>
+              <Svg viewBox="0 0 448 512" fill={color}>
+                <Path d="M0 32v448h448V32zm358.4 179.2h-89.6v89.6h-89.6v89.6H89.6V121.6h268.8z" />
+              </Svg>
             );
 
           default:

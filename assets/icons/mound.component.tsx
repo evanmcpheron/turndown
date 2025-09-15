@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
-
-import { usePointerEvent } from "@/helpers/hooks/usePointerEvent.hook";
+import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
+import { IconProps } from "@/helpers/types/base/style.types";
+import { usePointerEvent } from "@/hooks/usePointerEvent.hook";
+import React, { useRef } from "react";
+import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
-import type { IconProps } from "./shared/icon.types";
-
 export const MoundIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";
@@ -38,78 +38,69 @@ export const MoundIcon: React.FC<
         switch (type) {
           case "solid":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 576 512"
-                className="aps-icon-svg"
+              <Svg viewBox="0 0 576 512"
+                 
                 fill={color}
               >
-                <path
-                  className="aps-icon-foreground"
+                <Path
+                   
                   d="M144.1 179.2C173.8 127.7 228.6 96 288 96s114.2 31.7 143.9 83.2L540.4 368c12.3 21.3-3.1 48-27.7 48H63.3c-24.6 0-40-26.6-27.7-48z"
                 />
-              </svg>
+              </Svg>
             );
 
           case "regular":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 576 512"
-                className="aps-icon-svg"
+              <Svg viewBox="0 0 576 512"
+                 
                 fill={color}
               >
-                <path
-                  className="aps-icon-foreground"
+                <Path
+                   
                   d="M485 368H91l94.8-164.9c21-36.6 60-59.1 102.2-59.1s81.2 22.6 102.2 59.1zM288 96c-59.4 0-114.2 31.7-143.9 83.2L35.6 368c-12.3 21.3 3.1 48 27.7 48h449.4c24.6 0 40-26.6 27.7-48L431.9 179.2C402.2 127.7 347.4 96 288 96"
                 />
-              </svg>
+              </Svg>
             );
 
           case "light":
-            return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 576 512"
-                className="aps-icon-svg"
+            re</Svg>
+              <Svg viewBox="0 0 576 512"
+                 
                 fill={color}
               >
-                <path
-                  className="aps-icon-foreground"
+                <Path
+                   
                   d="M512.7 384H63.3l108.6-188.8C195.8 153.6 240.1 128 288 128s92.2 25.6 116.1 67.2zM288 96c-59.4 0-114.2 31.7-143.9 83.2L35.6 368c-12.3 21.3 3.1 48 27.7 48h449.4c24.6 0 40-26.6 27.7-48L431.9 179.2C402.2 127.7 347.4 96 288 96"
                 />
-              </svg>
+              </Svg>
             );
 
           case "thin":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 576 512"
-                className="aps-icon-svg"
+              <Svg viewBox="0 0 576 512"
+              </Svg>sName="aps-icon-svg"
                 fill={color}
               >
-                <path
-                  className="aps-icon-foreground"
+                <Path
+                   
                   d="M526.6 376c6.1 10.7-1.6 24-13.9 24H63.3c-12.3 0-20-13.3-13.9-24L158 187.2c26.7-46.5 76.3-75.2 130-75.2s103.2 28.7 130 75.2zM288 96c-59.4 0-114.2 31.7-143.9 83.2L35.6 368c-12.3 21.3 3.1 48 27.7 48h449.4c24.6 0 40-26.6 27.7-48L431.9 179.2C402.2 127.7 347.4 96 288 96"
                 />
-              </svg>
+              </Svg>
             );
 
           case "duotone":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 576 512"
-                className="aps-icon-svg"
+              <Svg viewBox="0 0 576 512"
+                 
                 fill={color}
-              >
-                <path
-                  className="aps-icon-background"
+              </Svg>
+                <Path
+                  fill={color}
+                  opacity={opacity || 0.5}
                   d="M144.1 179.2C173.8 127.7 228.6 96 288 96s114.2 31.7 143.9 83.2L540.4 368c12.3 21.3-3.1 48-27.7 48H63.3c-24.6 0-40-26.6-27.7-48z"
                 />
-                <path className="aps-icon-foreground" d="" />
-              </svg>
+                <Path   d="" />
+              </Svg>
             );
 
           default:
@@ -118,4 +109,4 @@ export const MoundIcon: React.FC<
       })()}
     </StyledIcon>
   );
-};
+};</Svg>

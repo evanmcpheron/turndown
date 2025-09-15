@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
 
-import { StyledIcon } from "./shared/icon.styled";
-import type { IconProps } from "./shared/icon.types";
-import type { MickeyObject } from "@/helpers/types/base.types";
-import type { Dimensions } from "@/helpers/types/style.types";
 import { usePointerEvent } from "@/helpers/hooks/usePointerEvent.hook";
 import { removeUndefined } from "@/helpers/objects";
+import type { MickeyObject } from "@/helpers/types/base.types";
+import type { Dimensions } from "@/helpers/types/style.types";
+import { StyledIcon } from "./shared/icon.styled";
+import type { IconProps } from "./shared/icon.types";
 
 export const GoogleDriveIcon: React.FC<
   IconProps & { type: "brands" | Dimensions }
@@ -39,17 +39,9 @@ export const GoogleDriveIcon: React.FC<
         switch (type) {
           case "brands":
             return (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-                className="aps-icon-svg"
-                fill={color}
-              >
-                <path
-                  className="aps-icon-foreground"
-                  d="M339 314.9 175.4 32h161.2l163.6 282.9zm-137.5 23.6L120.9 480h310.5L512 338.5zM154.1 67.4 0 338.5 80.6 480 237 208.8z"
-                />
-              </svg>
+              <Svg viewBox="0 0 512 512" fill={color}>
+                <Path d="M339 314.9 175.4 32h161.2l163.6 282.9zm-137.5 23.6L120.9 480h310.5L512 338.5zM154.1 67.4 0 338.5 80.6 480 237 208.8z" />
+              </Svg>
             );
 
           default:
