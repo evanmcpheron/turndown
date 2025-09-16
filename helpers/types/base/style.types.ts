@@ -12,6 +12,7 @@ export interface DomProperties extends AccessibilityProps {
   style?: StyleProp<ViewStyle | TextStyle | ImageStyle>;
   className?: string;
   nativeID?: string;
+  children?: React.ReactNode | string;
 }
 
 export interface ClickActions {
@@ -98,7 +99,7 @@ export type DisplayType = "none" | "flex" | "inherit";
 export interface BaseFonts {
   font?: MickeyDefaultFontNames; // map to fontFamily
   fontType?: FontType;
-  color?: Colors;
+  color?: keyof SemanticColors;
   size?: FontSize;
   lineHeight?: LineHeightSize;
   display?: DisplayType;

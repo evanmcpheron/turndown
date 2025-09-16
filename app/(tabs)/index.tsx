@@ -1,12 +1,12 @@
-import { StyleSheet, View } from "react-native";
+import { Label } from "@/components/font";
+import { Page } from "@/components/layouts/page/page.layout.component";
 
 const HomeScreen = () => {
-  const styles = StyleSheet.create({
-    container: {
-      backgroundColor: "red",
-    },
-  });
-  return <View style={styles.container}></View>;
+  return (
+    <Page header="Turndown">
+      <Label>Testing</Label>
+    </Page>
+  );
 };
 
 export default HomeScreen;

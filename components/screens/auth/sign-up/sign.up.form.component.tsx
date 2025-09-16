@@ -6,7 +6,7 @@ import { TurndownObject } from "@/helpers";
 import { forwardRef, useImperativeHandle, useState } from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface SignInFormProps {}
+interface SignUpFormProps {}
 
 const formValidationSchema = {
   email: (emailValue: string): ValidationResult => {
@@ -25,28 +25,27 @@ const formValidationSchema = {
   },
 };
 
-export const SignInForm = forwardRef<
+export const SignUpForm = forwardRef<
   { submitData: (callback: (success: boolean) => void) => void },
-  SignInFormProps
+  SignUpFormProps
 >((_props, ref) => {
-  const { signIn } = useAuth();
+  const { signUp } = useAuth();
 
   const [submittingData, setSubmittingData] = useState(false);
   const { submitForm } = useForm({
-    formName: "frmSignIn",
+    formName: "frmSignUp",
     validationModel: formValidationSchema,
     onFormErrors: (_errors) => {
       // console.error('Form Errors:', errors)
     },
   });
 
-  const saveData = async (data: TurndownObject) => {
+  const saveData = async () => {
     try {
-      await signIn(data.email.trim(), data.password);
+      await signUp("email".trim(), "password");
       // go to tabs root and remove back stack
     } catch (e: TurndownObject) {
       console.error(e);
-      return false;
     } finally {
     }
     return true;
@@ -61,12 +60,12 @@ export const SignInForm = forwardRef<
 
       submitForm(async (data, errors) => {
         console.log(
-          `🚀 ~ sign.in.form.component.tsx:64 ~ submitData ~ errors: \n`,
+          `🚀 ~ sign.up.form.component.tsx:63 ~ submitData ~ errors: \n`,
           errors
         );
 
         console.log(
-          `🚀 ~ sign.in.form.component.tsx:69 ~ submitData ~ data: \n`,
+          `🚀 ~ sign.up.form.component.tsx:68 ~ submitData ~ data: \n`,
           data
         );
 
@@ -76,10 +75,10 @@ export const SignInForm = forwardRef<
         //   return;
         // }
 
-        const saveResult = await saveData(data);
+        const saveResult = await saveData();
 
         console.log(
-          `🚀 ~ sign.in.form.component.tsx:82 ~ submitData ~ saveResult: \n`,
+          `🚀 ~ sign.up.form.component.tsx:81 ~ submitData ~ saveResult: \n`,
           saveResult
         );
         if (saveResult) {
@@ -91,16 +90,22 @@ export const SignInForm = forwardRef<
   }));
 
   return (
-    <Form name="frmSignIn">
+    <Form name="frmSignUp" editValues={{ email: "" }}>
       <Input name="email" placeholder="email" label="email" />
       <Input
         name="password"
         type="password"
         placeholder="password"
-        label="password"
+        label="Confirm Password"
+      />
+      <Input
+        name="confirmPassword"
+        type="password"
+        placeholder="confirm password"
+        label="Confirm Password"
       />
     </Form>
   );
 });
 
-SignInForm.displayName = "SignInForm";
+SignUpForm.displayName = "SignUpForm";

@@ -43,7 +43,6 @@ export function getIconSize(props?: TurndownObject): {
   height: NonNullable<ViewStyle["height"]>;
 } {
   const size = normalizeSize((props as any)?.size);
-  console.log(`🚀 ~ icon.helpers.ts:46 ~ getIconSize ~ size: \n`, size);
 
   return { width: size, height: size };
 }

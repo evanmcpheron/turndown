@@ -1,128 +1,54 @@
-import React, { useRef } from "react";
-import type { FontProperties } from "./font.types";
-
 import { useTheme } from "@/context/theme/theme.context";
-import { TurndownObject } from "@/helpers";
-import { removeUndefined } from "@/helpers/objects";
-import { usePointerEvent } from "@/hooks/usePointerEvent.hook";
-import { Switch } from "../misc/switch";
-import {
-  BodyContainer,
-  // H1Container,
-  // H2Container,
-  // H3Container,
-  // H4Container,
-  // H5Container,
-  // H6Container,
-  // LeadContainer,
-  NormalizeLabels,
-} from "./font.styled";
+import React from "react";
+import { Text, TextStyle } from "react-native";
+import { FontProps, Variant } from "./font.types";
 
-const Font: React.FC<FontProperties> = ({
-  children,
-  style,
-  className,
-  active,
-  font,
-  fontType,
-  color,
-  size,
-  weight,
-  display,
-  lineHeight,
-  ...more
-}) => {
-  const domRef: TurndownObject = useRef(null);
-  const extraProps: TurndownObject = more;
-  const {colors} = useTheme()
-
-  const { onPress, onOut, onMove, onUp, onDown, onOver, groupId } = extraProps;
-  const pointerEvents = {
-    onPress,
-    onOut,
-    onMove,
-    onUp,
-    onDown,
-    onOver,
-    groupId,
-  };
-
-  usePointerEvent({ element: domRef, active: active, ...pointerEvents });
-
-  const internalProperties = removeUndefined({
-    className: `mickey-font ${className ? className : ""}`,
-    style: style || {},
-    active,
-    font,
-    fontType,
-    color: color ? color : colors.text,
-    size,
-    weight,
-    lineHeight,
-    display,
-  });
-
-  return (
-    <NormalizeLabels>
-      <Switch>
-       {/* <Switch.Case condition={!fontType}>
-          <BodyContainer ref={domRef} {...internalProperties}>
-            {children}
-          </BodyContainer>
-        </Switch.Case> */}
-        {/* <Switch.Case condition={fontType === "h1"}>
-          <H1Container ref={domRef} {...internalProperties}>
-            {children}
-          </H1Container>
-        </Switch.Case> */}
-        {/* <Switch.Case condition={fontType === "h2"}>
-          <H2Container ref={domRef} {...internalProperties}>
-            {children}
-          </H2Container>
-        </Switch.Case> */}
-        {/* <Switch.Case condition={fontType === "h3"}>
-          <H3Container ref={domRef} {...internalProperties}>
-            {children}
-          </H3Container>
-        </Switch.Case> */}
-        {/* <Switch.Case condition={fontType === "h4"}>
-          <H4Container ref={domRef} {...internalProperties}>
-            {children}
-          </H4Container>
-        </Switch.Case> */}
-        {/* <Switch.Case condition={fontType === "h5"}>
-          <H5Container ref={domRef} {...internalProperties}>
-            {children}
-          </H5Container>
-        </Switch.Case> */}
-        {/* <Switch.Case condition={fontType === "h6"}>
-          <H6Container ref={domRef} {...internalProperties}>
-            {children}
-          </H6Container>
-        </Switch.Case> */}
-        {/* <Switch.Case condition={fontType === "lead"}>
-          <LeadContainer ref={domRef} {...internalProperties}>
-            {children}
-          </LeadContainer>
-        </Switch.Case> */}
-        <Switch.Case condition={fontType === "body"}>
-          <BodyContainer ref={domRef} {...internalProperties}>
-            {children}
-          </BodyContainer>
-        </Switch.Case>
-        {/* <Switch.Case condition={fontType === "small"}>
-          <SmallContainer ref={domRef} {...internalProperties}>
-            {children}
-          </SmallContainer>
-        </Switch.Case>  */}
-        <Switch.Default>
-          <BodyContainer ref={domRef} {...internalProperties}>
-            {children}
-          </BodyContainer>
-        </Switch.Default>
-      </Switch>
-    </NormalizeLabels>
-  );
+const variantStyles: Record<Variant, TextStyle> = {
+  h1: { fontSize: 32, fontWeight: "bold" },
+  h2: { fontSize: 28, fontWeight: "bold" },
+  h3: { fontSize: 24, fontWeight: "bold" },
+  h4: { fontSize: 20, fontWeight: "600" },
+  h5: { fontSize: 18, fontWeight: "600" },
+  h6: { fontSize: 16, fontWeight: "500" },
+  subtitle1: { fontSize: 16, fontWeight: "400" },
+  subtitle2: { fontSize: 14, fontWeight: "400" },
+  body1: { fontSize: 16 },
+  body2: { fontSize: 14 },
+  caption: { fontSize: 12 },
+  overline: { fontSize: 10, textTransform: "uppercase", letterSpacing: 1 },
 };
 
-export { Font as Label };
+export const Label: React.FC<FontProps> = ({
+  variant = "body1",
+  align,
+  color = "text",
+  gutterBottom,
+  noWrap,
+  style,
+  weight,
+  children,
+  ...rest
+}) => {
+  const { colors } = useTheme();
+
+  const baseStyle = variantStyles[variant] || variantStyles.body1;
+
+  const combinedStyle: TextStyle = {
+    ...baseStyle,
+    ...(weight && { fontWeight: weight }),
+    textAlign: align,
+    color: colors[color],
+    marginBottom: gutterBottom ? 8 : 0,
+  };
+
+  return (
+    <Text
+      style={[combinedStyle, style]}
+      numberOfLines={noWrap ? 1 : undefined}
+      ellipsizeMode={noWrap ? "tail" : undefined}
+      {...rest}
+    >
+      {children}
+    </Text>
+  );
+};

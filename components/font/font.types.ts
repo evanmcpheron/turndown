@@ -1,6 +1,38 @@
-import { BaseFonts, ClickActions, DomProperties } from "@/helpers/types/base/style.types";
+import { TurndownObject } from "@/helpers";
+import { SemanticColors } from "@/helpers/theme/general.styles";
+import { TextProps } from "react-native";
 
+export type Variant =
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "h5"
+  | "h6"
+  | "subtitle1"
+  | "subtitle2"
+  | "body1"
+  | "body2"
+  | "caption"
+  | "overline";
 
-export interface FontProperties extends DomProperties, ClickActions, BaseFonts {
-  children?: React.ReactNode;
+export interface FontProps extends TextProps {
+  variant?: Variant;
+  align?: "left" | "center" | "right" | "justify";
+  color?: keyof SemanticColors;
+  gutterBottom?: boolean;
+  noWrap?: boolean;
+  children: React.ReactNode;
+  weight?:
+    | "100"
+    | "200"
+    | "300"
+    | "400"
+    | "500"
+    | "600"
+    | "700"
+    | "800"
+    | "900"
+    | "bold";
+  onPress?: (e: TurndownObject) => void;
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { CalculatorIcon } from "@/assets/icons/calculator.component";
 import { EyeSlashIcon } from "@/assets/icons/eye-slash.component";
@@ -6,7 +6,6 @@ import { EyeIcon } from "@/assets/icons/eye.component";
 import { XmarkIcon } from "@/assets/icons/xmark.component";
 import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
-import React from "react";
 import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import { useForm } from "../form";
 import { useFormErrors, useFormName } from "../form/form.context";
@@ -14,13 +13,12 @@ import { hasOwnProp, validateInternalComponent } from "../form/form.helpers";
 import type { InputProps } from "./input.types";
 
 export const Input: React.FC<InputProps> = ({
-  width,
   onBlur,
   onFocus,
   onChange,
-  onInput,
   onIconClick,
   placeholder,
+  label,
   defaultValue,
   disabled,
   name,
@@ -32,19 +30,24 @@ export const Input: React.FC<InputProps> = ({
   ignoreError,
   value,
   readOnly,
-  numberFormat,
-  ...more
 }) => {
+  console.log(
+    `🚀 ~ input.component.tsx:33 ~ Input ~ autoComplete: \n`,
+    label,
+    autoComplete,
+    minNumber,
+    maxNumber
+  );
+
   const formName = useFormName();
-  const { colors } = useTheme();
+  const { colors, app } = useTheme();
 
   const formErrors = useFormErrors();
   const domRef: TurndownObject = useRef(null);
 
-  const [isFocused, setIsFocused] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isFocused, setIsFocused] = useState(false);
   const [showError, setShowError] = useState<boolean>(false);
-  const [localError, setLocalError] = useState<string | undefined>();
   const [inputValue, setInputValue] = useState<string>(
     value ?? defaultValue ?? ""
   );
@@ -88,10 +91,8 @@ export const Input: React.FC<InputProps> = ({
       inputValue
     );
     if (validateMessage) {
-      setLocalError(validateMessage);
       setShowError(true);
     } else {
-      setLocalError(undefined);
       setShowError(false);
     }
   }, [inputValue]);
@@ -99,14 +100,11 @@ export const Input: React.FC<InputProps> = ({
   useEffect(() => {
     if (formErrors && formErrors.form === formName) {
       if (hasOwnProp(formErrors.errors, name)) {
-        setLocalError(formErrors.errors[name]);
         setShowError(true);
       } else {
-        setLocalError(undefined);
         setShowError(false);
       }
     } else {
-      setLocalError(undefined);
       setShowError(false);
     }
   }, [formErrors]);
@@ -123,10 +121,8 @@ export const Input: React.FC<InputProps> = ({
 
     const errorMsg = validateInternalComponent(formName, name, newValue);
     if (errorMsg) {
-      setLocalError(errorMsg);
       setShowError(true);
     } else {
-      setLocalError(undefined);
       setShowError(false);
     }
   };
@@ -152,25 +148,20 @@ export const Input: React.FC<InputProps> = ({
     if (onChange) onChange({ target: { value: " " } } as TurndownObject);
   };
 
-  const handleKeyDown = (event: TurndownObject) => {
-    if (type === "number") {
-      const regex = new RegExp(
-        /^(-?\d*\.?\d*)$|^(Backspace|Tab|Delete|ArrowLeft|ArrowRight|Minus)$/
-      );
-      if (!event.key.match(regex)) {
-        event.preventDefault();
-      }
-    }
-  };
-
   return (
     <>
       <View
         style={[
           {
+            margin: 0,
+            padding: 0,
             minHeight: 48,
-            borderWidth: 1,
-            borderColor: disabled ? colors.outlineStrong : colors.outline,
+            borderWidth: 1.5,
+            borderColor: disabled
+              ? colors.outlineStrong
+              : isFocused
+              ? colors.primary
+              : colors.outline,
             borderRadius: 8,
             paddingHorizontal: 12,
             justifyContent: "center",
@@ -194,8 +185,7 @@ export const Input: React.FC<InputProps> = ({
           style={[
             {
               color: colors.text,
-              fontSize: 16,
-              lineHeight: 22,
+              fontSize: app.typography.size.lg,
               paddingVertical: 10,
             },
             disabled && { backgroundColor: colors.outline },

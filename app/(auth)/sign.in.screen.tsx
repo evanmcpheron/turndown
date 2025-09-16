@@ -1,7 +1,9 @@
+import { Button } from "@/components/actions";
+import { Label } from "@/components/font";
+import { Page } from "@/components/layouts/page/page.layout.component";
 import { SignInForm } from "@/components/screens/auth";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import React, { useRef } from "react";
-import { Pressable, Text, View } from "react-native";
 
 const SignInScreen = () => {
   const signInFormRef = useRef<{
@@ -9,12 +11,10 @@ const SignInScreen = () => {
   }>(null);
 
   return (
-    <View style={{ flex: 1, padding: 20, justifyContent: "center", gap: 14 }}>
+    <Page header="Sign In">
       <SignInForm ref={signInFormRef} />
-
-      <Pressable
+      <Button
         onPress={() => {
-          console.log(signInFormRef.current);
           if (signInFormRef.current) {
             signInFormRef.current.submitData((success: boolean) => {
               router.replace("/");
@@ -23,16 +23,23 @@ const SignInScreen = () => {
           }
         }}
       >
-        <Text>Sign in</Text>
-      </Pressable>
+        Sign in
+      </Button>
 
-      <Text style={{ textAlign: "center" }}>
+      <Label
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 20,
+        }}
+      >
         New here?{" "}
-        <Link href="/(auth)/sign.up.screen" style={{ fontWeight: "700" }}>
+        <Button variant="link" to={"/(auth)/sign.up.screen"}>
           Create an account
-        </Link>
-      </Text>
-    </View>
+        </Button>
+      </Label>
+    </Page>
   );
 };
 

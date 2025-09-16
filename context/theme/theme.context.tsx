@@ -69,7 +69,6 @@ export function CustomThemeProvider({
   const app: AppTheme = useMemo(() => {
     return effectiveScheme === "dark" ? DarkAppTheme : LightAppTheme;
   }, [effectiveScheme]);
-  console.log(`🚀 ~ theme.context.tsx:72 ~ CustomThemeProvider ~ app: \n`, app);
 
   const nav: Theme = useMemo(() => toNativeTheme(app), [app]);
 

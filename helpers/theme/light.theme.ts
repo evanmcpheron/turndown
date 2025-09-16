@@ -17,6 +17,7 @@ export const LightAppTheme: AppTheme = {
   name: "light",
   colors: {
     background: palette.gray[50],
+    backgroundDisabled: palette.gray[500],
     surface: palette.gray[0],
     surface2: palette.gray[50],
     surface3: palette.gray[100],
