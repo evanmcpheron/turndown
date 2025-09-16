@@ -1,5 +1,6 @@
 import "react-native-reanimated";
 
+import { NoticeHost } from "@/components/actions/notification/notification.host.component";
 import { AuthProvider } from "@/context";
 import {
   CustomThemeProvider as ThemeProvider,
@@ -7,12 +8,16 @@ import {
 } from "@/context/theme/theme.context";
 import { Stack } from "expo-router";
 import { View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function RootLayout() {
   return (
     <AuthProvider>
       <ThemeProvider>
-        <StackLayout />
+        <GestureHandlerRootView>
+          <NoticeHost />
+          <StackLayout />
+        </GestureHandlerRootView>
       </ThemeProvider>
     </AuthProvider>
   );
@@ -20,10 +25,6 @@ export default function RootLayout() {
 
 const StackLayout = () => {
   const { colors } = useTheme();
-  console.log(
-    `🚀 ~ _layout.tsx:24 ~ StackLayout ~ colors: \n`,
-    colors.background
-  );
 
   return (
     <View style={{ flex: 1 }}>

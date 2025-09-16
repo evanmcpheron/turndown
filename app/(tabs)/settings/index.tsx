@@ -1,4 +1,6 @@
 // app/(tabs)/settings.tsx
+import { Button } from "@/components/actions";
+import { showInfoNotification } from "@/components/actions/notification/notification.helper";
 import { Label } from "@/components/font";
 import { Page } from "@/components/layouts/page/page.layout.component";
 import { useAuth } from "@/context";
@@ -16,7 +18,7 @@ import {
   View,
 } from "react-native";
 
-type RowType = "link" | "toggle" | "action";
+type RowType = "link" | "toggle" | "action" | "button-group";
 type SettingRow = {
   key: string;
   label: string;
@@ -42,7 +44,7 @@ type SettingSection = {
 
 export default function SettingsScreen() {
   const router = useRouter();
-  const { colors, setScheme, scheme } = useTheme();
+  const { colors, setScheme, scheme, mode } = useTheme();
   const { signOut, user } = useAuth();
 
   // Local MVP state (replace with your store later)
@@ -62,16 +64,9 @@ export default function SettingsScreen() {
           route: "/settings/profile",
         },
         {
-          key: "contact",
-          label: "Phone & Email",
-          type: "link",
-          route: "/settings/contact",
-        },
-        {
-          key: "password",
-          label: "Password",
-          type: "link",
-          route: "/settings/password",
+          key: "theme",
+          label: "Dark mode",
+          type: "button-group",
         },
       ],
     },
@@ -112,45 +107,14 @@ export default function SettingsScreen() {
       ],
     },
     {
-      title: "Preferences",
-      data: [
-        {
-          key: "theme",
-          label: "Dark mode",
-          type: "toggle",
-          value: scheme === "dark",
-          onToggle: (next) => setScheme(next ? "dark" : "light"),
-        },
-        {
-          key: "haptics",
-          label: "Haptics",
-          type: "toggle",
-          value: haptics,
-          onToggle: setHaptics,
-        },
-        {
-          key: "offline",
-          label: "Offline mode",
-          type: "toggle",
-          value: offlineMode,
-          onToggle: setOfflineMode,
-        },
-      ],
-    },
-    {
       title: "Privacy & Security",
       data: [
         {
           key: "privacy",
           label: "Privacy Policy",
           type: "action",
-          onPress: () => Linking.openURL("https://example.com/privacy"),
-        },
-        {
-          key: "biometric",
-          label: "App Lock (biometrics)",
-          type: "link",
-          route: "/settings/biometric",
+          onPress: () => showInfoNotification("Privacy Policy"),
+          // Linking.openURL("https://example.com/privacy"),
         },
       ],
     },
@@ -169,11 +133,6 @@ export default function SettingsScreen() {
           type: "action",
           trailingText: "0.1.0 (1)",
         },
-      ],
-    },
-    {
-      title: "Danger Zone",
-      data: [
         {
           key: "logout",
           label: "Sign out",
@@ -213,6 +172,29 @@ export default function SettingsScreen() {
               />
             }
           />
+        );
+      case "button-group":
+        return (
+          <View style={{ display: "flex", flexDirection: "row", gap: 8 }}>
+            <Button
+              onPress={() => setScheme("system")}
+              variant={mode === "system" ? "outline" : "filled"}
+            >
+              System
+            </Button>
+            <Button
+              onPress={() => setScheme("dark")}
+              variant={mode === "dark" ? "outline" : "filled"}
+            >
+              Dark
+            </Button>
+            <Button
+              onPress={() => setScheme("light")}
+              variant={mode === "light" ? "outline" : "filled"}
+            >
+              Light
+            </Button>
+          </View>
         );
       case "link":
         return (
@@ -282,7 +264,16 @@ function RowBase({
 }) {
   const { colors } = useTheme();
   return (
-    <View style={[styles.row, { backgroundColor: colors.surface }]}>
+    <View
+      style={[
+        styles.row,
+        {
+          backgroundColor: colors.surface,
+          borderColor: colors.outline,
+          borderWidth: 1,
+        },
+      ]}
+    >
       <Label color={danger ? "danger" : "text"} numberOfLines={1}>
         {label}
       </Label>

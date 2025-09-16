@@ -13,6 +13,7 @@ type ButtonTypes = "outline" | "filled" | "link";
 
 interface ButtonProps {
   onPress?: (value: TurndownObject) => void;
+  height?: number;
   disabled?: boolean;
   to?: TurndownObject | string;
   color?: keyof SemanticColors;
@@ -23,6 +24,7 @@ interface ButtonProps {
 export const Button = ({
   onPress,
   disabled = false,
+  height = 50,
   variant = "filled",
   to = "/",
   color = "primary",
@@ -48,7 +50,7 @@ export const Button = ({
     );
   }
   return (
-    <View>
+    <View style={{ flex: 1, height }}>
       <Switch>
         <Switch.Case condition={variant === "outline"}>
           <TouchableOpacity
@@ -172,6 +174,7 @@ const outlineStyle = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     marginRight: 10,
+    flex: 1,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -185,5 +188,10 @@ const filledStyle = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 8,
     borderWidth: 1,
+    flex: 1,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
   },
 });

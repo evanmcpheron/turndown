@@ -3,7 +3,7 @@ import { Page } from "@/components/layouts/page/page.layout.component";
 
 const HomeScreen = () => {
   return (
-    <Page header="Turndown">
+    <Page header="Dashboard">
       <Label>Testing</Label>
     </Page>
   );

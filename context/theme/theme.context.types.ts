@@ -1,7 +1,7 @@
 import { AppTheme, SemanticColors } from "@/helpers/theme/general.styles";
 import type { Theme } from "@react-navigation/native";
 
-export type Scheme = "light" | "dark";
+export type Scheme = "light" | "dark" | "system";
 export const DEFAULT_THEME_KEY = "@custom-theme/scheme";
 
 export type ThemeOverrides = Partial<{
@@ -11,7 +11,7 @@ export type ThemeOverrides = Partial<{
 
 export type ThemeProviderProps = {
   children: React.ReactNode;
-  mode?: "system" | Scheme;
+  mode?:  Scheme;
   persist?: boolean;
   storageKey?: string;
   overrides?: ThemeOverrides;
@@ -20,7 +20,7 @@ export type ThemeProviderProps = {
 
 export type CustomThemeContextValue = {
   scheme: Scheme;
-  mode: "system" | Scheme;
+  mode:  Scheme;
   app: AppTheme;
   colors: SemanticColors;
   nav: Theme;
