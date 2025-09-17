@@ -1,36 +1,48 @@
-import React, { useRef } from "react";
-
-import { usePointerEvent } from "@/helpers/hooks/usePointerEvent.hook";
+import { useTheme } from "@/context/theme/theme.context";
+import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
-import type { MickeyObject } from "@/helpers/types/base.types";
-import type { Dimensions } from "@/helpers/types/style.types";
+import { IconProps } from "@/helpers/types/base/style.types";
+import { usePointerEvent } from "@/hooks/usePointerEvent.hook";
+import React, { useRef } from "react";
+import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
-import type { IconProps } from "./shared/icon.types";
 
 export const GoogleIcon: React.FC<
-  IconProps & { type: "brands" | Dimensions }
-> = ({ type, size, color, active, className, style, ...more }) => {
-  const domRef: MickeyObject = useRef(null);
+  IconProps & {
+    type: "solid" | "regular" | "light" | "thin" | "duotone";
+  }
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
 
-  const { onPress, onOut, onMove, onUp, onDown, onOver, groupId } = more;
+  const domRef: TurndownObject = useRef(null);
+
+  const { onPress, onMove, onUp, onDown, groupId } = more;
   const pointerEvents = {
     onPress,
-    onOut,
     onMove,
     onUp,
     onDown,
-    onOver,
     groupId,
   };
 
   usePointerEvent({ element: domRef, active: active, ...pointerEvents });
 
   const internalProperties = removeUndefined({
-    className,
-    style: { ...(style || {}) },
+    style: style || {},
+    pointerEvents,
+    haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -39,7 +51,7 @@ export const GoogleIcon: React.FC<
         switch (type) {
           case "brands":
             return (
-              <Svg viewBox="0 0 488 512"  fill={colors[colorName || "text"]} >
+              <Svg viewBox="0 0 488 512" fill={colors[colorName || "text"]}>
                 <Path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4" />
               </Svg>
             );

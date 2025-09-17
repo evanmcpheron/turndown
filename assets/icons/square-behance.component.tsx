@@ -1,36 +1,48 @@
-import React, { useRef } from "react";
-
-import { usePointerEvent } from "@/helpers/hooks/usePointerEvent.hook";
+import { useTheme } from "@/context/theme/theme.context";
+import { TurndownObject } from "@/helpers";
 import { removeUndefined } from "@/helpers/objects";
-import type { MickeyObject } from "@/helpers/types/base.types";
-import type { Dimensions } from "@/helpers/types/style.types";
+import { IconProps } from "@/helpers/types/base/style.types";
+import { usePointerEvent } from "@/hooks/usePointerEvent.hook";
+import React, { useRef } from "react";
+import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
-import type { IconProps } from "./shared/icon.types";
 
 export const SquareBehanceIcon: React.FC<
-  IconProps & { type: "brands" | Dimensions }
-> = ({ type, size, color, active, className, style, ...more }) => {
-  const domRef: MickeyObject = useRef(null);
+  IconProps & {
+    type: "solid" | "regular" | "light" | "thin" | "duotone";
+  }
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
 
-  const { onPress, onOut, onMove, onUp, onDown, onOver, groupId } = more;
+  const domRef: TurndownObject = useRef(null);
+
+  const { onPress, onMove, onUp, onDown, groupId } = more;
   const pointerEvents = {
     onPress,
-    onOut,
     onMove,
     onUp,
     onDown,
-    onOver,
     groupId,
   };
 
   usePointerEvent({ element: domRef, active: active, ...pointerEvents });
 
   const internalProperties = removeUndefined({
-    className,
-    style: { ...(style || {}) },
+    style: style || {},
+    pointerEvents,
+    haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -39,7 +51,7 @@ export const SquareBehanceIcon: React.FC<
         switch (type) {
           case "brands":
             return (
-              <Svg viewBox="0 0 448 512"  fill={colors[colorName || "text"]} >
+              <Svg viewBox="0 0 448 512" fill={colors[colorName || "text"]}>
                 <Path d="M155.3 318.4c17.2 0 31.2-6.1 31.2-25.4 0-19.7-11.7-27.4-30.3-27.5h-46v52.9zm-5.4-129.6h-39.6v44.8H153c15.1 0 25.8-6.6 25.8-22.9 0-17.7-13.7-21.9-28.9-21.9m129.5 74.8h62.2c-1.7-18.5-11.3-29.7-30.5-29.7-18.3 0-30.5 11.4-31.7 29.7M384 32H64C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64m-34.5 153h-77.8v-18.9h77.8zm-155.8 58.7c23.6 6.7 35 27.5 35 51.6 0 39-32.7 55.7-67.6 55.9H68v-192h90.5c32.9 0 61.4 9.3 61.4 47.5 0 19.3-9 28.8-26.2 37m118.7-38.6c43.5 0 67.6 34.3 67.6 75.4 0 1.6-.1 3.3-.2 5 0 .8-.1 1.5-.1 2.2H279.5c0 22.2 11.7 35.3 34.1 35.3 11.6 0 26.5-6.2 30.2-18.1h33.7c-10.4 31.9-31.9 46.8-65.1 46.8-43.8 0-71.1-29.7-71.1-73 0-41.8 28.7-73.6 71.1-73.6" />
               </Svg>
             );

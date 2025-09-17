@@ -1,42 +1,46 @@
-import React, { useRef } from "react";
-
-import { usePointerEvent } from "@/helpers/hooks/usePointerEvent.hook";
 import { removeUndefined } from "@/helpers/objects";
-import type { MickeyObject } from "@/helpers/types/base.types";
-import type { Dimensions } from "@/helpers/types/style.types";
+import { IconProps } from "@/helpers/types/base/style.types";
+import { usePointerEvent } from "@/hooks/usePointerEvent.hook";
+import React, { useRef } from "react";
+import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";
-import type { IconProps } from "./shared/icon.types";
 
-export const NpmIcon: React.FC<IconProps & { type: "brands" | Dimensions }> = ({
+export const NpmIcon: React.FC<
+  IconProps & {
+    type: "brands";
+  }
+> = ({
   type,
   size,
-  color,
+  color: colorName,
   active,
-  className,
   style,
+  opacity,
+  haptic,
   ...more
 }) => {
-  const domRef: MickeyObject = useRef(null);
+  const { colors } = useTheme();
 
-  const { onPress, onOut, onMove, onUp, onDown, onOver, groupId } = more;
+  const domRef: TurndownObject = useRef(null);
+
+  const { onPress, onMove, onUp, onDown, groupId } = more;
   const pointerEvents = {
     onPress,
-    onOut,
     onMove,
     onUp,
     onDown,
-    onOver,
     groupId,
   };
 
   usePointerEvent({ element: domRef, active: active, ...pointerEvents });
 
   const internalProperties = removeUndefined({
-    className,
-    style: { ...(style || {}) },
+    style: style || {},
+    pointerEvents,
+    haptic,
     active,
     size,
-    color,
+    color: colors[colorName || "text"],
   });
 
   return (
@@ -45,7 +49,7 @@ export const NpmIcon: React.FC<IconProps & { type: "brands" | Dimensions }> = ({
         switch (type) {
           case "brands":
             return (
-              <Svg viewBox="0 0 576 512"  fill={colors[colorName || "text"]} >
+              <Svg viewBox="0 0 576 512" fill={colors[colorName || "text"]}>
                 <Path d="M288 288h-32v-64h32zm288-128v192H288v32H160v-32H0V160zm-416 32H32v128h64v-96h32v96h32zm160 0H192v160h64v-32h64zm224 0H352v128h64v-96h32v96h32v-96h32v96h32z" />
               </Svg>
             );

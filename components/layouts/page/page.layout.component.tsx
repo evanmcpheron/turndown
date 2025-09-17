@@ -8,6 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export interface PageProps extends DomProperties {
   header?: string;
+  headerButton?: React.ReactNode | string;
   padding?: number;
   scrollable?: boolean;
   gap?: number;
@@ -21,6 +22,7 @@ export const Page: React.FC<PageProps> = ({
   padding = 10,
   gap = 10,
   scrollable = false,
+  headerButton,
   headerContainerStyle,
   contentContainerStyle,
 }) => {
@@ -38,12 +40,19 @@ export const Page: React.FC<PageProps> = ({
           <Label variant="h1" style={{ textAlign: "center" }}>
             {header}
           </Label>
+          {headerButton && (
+            <View style={{ position: "absolute", top: 34, right: 20 }}>
+              {headerButton}
+            </View>
+          )}
         </View>
       )}
       <Switch>
         <Switch.Case condition={scrollable}>
           <ScrollView
             style={{ flex: 1 }}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
             contentContainerStyle={[
               { padding, flexGrow: 1, gap },
               contentContainerStyle,
@@ -65,6 +74,8 @@ export const Page: React.FC<PageProps> = ({
         <Switch.Default>
           <ScrollView
             style={{ flex: 1 }}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
             contentContainerStyle={[
               { padding, flexGrow: 1 },
               contentContainerStyle,

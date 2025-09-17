@@ -1,15 +1,12 @@
 import { SemanticColors } from "@/helpers/theme/general.styles";
 import {
   AccessibilityProps,
-  ImageStyle,
-  StyleProp,
-  TextStyle,
-  ViewStyle,
+  StyleProp
 } from "react-native";
 import { TurndownObject } from "./base.types";
 
 export interface DomProperties extends AccessibilityProps {
-  style?: StyleProp<ViewStyle | TextStyle | ImageStyle>;
+  style?: StyleProp<TurndownObject>;
   className?: string;
   nativeID?: string;
   children?: React.ReactNode | string;

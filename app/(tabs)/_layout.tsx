@@ -4,8 +4,11 @@ import { Redirect, Tabs } from "expo-router";
 import React from "react";
 import { ActivityIndicator, View } from "react-native";
 
+import { BroomIcon } from "@/assets/icons/broom.component";
+import { ClipboardIcon } from "@/assets/icons/clipboard.component";
+import { CommentIcon } from "@/assets/icons/comment.component";
+import { GaugeIcon } from "@/assets/icons/gauge.component";
 import { GearIcon } from "@/assets/icons/gear.component";
-import { HouseIcon } from "@/assets/icons/house.component";
 import PillTabBar from "@/components/misc/switch/tab.bar.pill.component";
 import { useTheme } from "@/context/theme/theme.context";
 
@@ -31,14 +34,44 @@ export default function TabLayout() {
         headerShown: false,
         sceneStyle: { backgroundColor: colors.background },
       }}
-      tabBar={(props) => <PillTabBar {...props} />}
+      tabBar={(props) => {
+        console.log(props);
+        return <PillTabBar {...props} />;
+      }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: "Home",
           tabBarIcon: () => (
-            <HouseIcon type="duotone" color="primary" size="regular" />
+            <GaugeIcon type="duotone" color="primary" size="regular" />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="turns"
+        options={{
+          title: "Turns",
+          tabBarIcon: () => (
+            <BroomIcon type="duotone" color="primary" size="regular" />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="messages"
+        options={{
+          title: "Messages",
+          tabBarIcon: () => (
+            <CommentIcon type="duotone" color="primary" size="regular" />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="inventory"
+        options={{
+          title: "Inventory",
+          tabBarIcon: () => (
+            <ClipboardIcon type="duotone" color="primary" size="regular" />
           ),
         }}
       />

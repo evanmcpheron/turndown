@@ -1,7 +1,7 @@
 import { Label } from "@/components/font";
 import { Page } from "@/components/layouts/page/page.layout.component";
 
-const HomeScreen = () => {
+const DashboardScreen = () => {
   return (
     <Page header="Dashboard">
       <Label>Testing</Label>
@@ -9,4 +9,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default DashboardScreen;

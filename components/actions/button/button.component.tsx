@@ -7,17 +7,20 @@ import { Switch } from "@/components/misc/switch";
 import { useTheme } from "@/context/theme/theme.context";
 import { TurndownObject } from "@/helpers";
 import { SemanticColors } from "@/helpers/theme/general.styles";
+import { DomProperties } from "@/helpers/types/base/style.types";
 import { router } from "expo-router";
 
 type ButtonTypes = "outline" | "filled" | "link";
 
-interface ButtonProps {
+interface ButtonProps extends DomProperties {
   onPress?: (value: TurndownObject) => void;
   height?: number;
+  width?: number;
   disabled?: boolean;
   to?: TurndownObject | string;
   color?: keyof SemanticColors;
   variant?: ButtonTypes;
+  circle?: boolean;
   children: React.ReactElement | string;
 }
 
@@ -25,9 +28,12 @@ export const Button = ({
   onPress,
   disabled = false,
   height = 50,
+  width,
   variant = "filled",
   to = "/",
   color = "primary",
+  style,
+  circle = false,
   children,
 }: ButtonProps) => {
   const { colors } = useTheme();
@@ -38,19 +44,23 @@ export const Button = ({
         weight="bold"
         onPress={() => !disabled && router.replace(to)}
         color={color}
-        style={{
-          ...(disabled && {
-            color: colors.textMuted,
-            borderColor: colors.outline,
-          }),
-        }}
+        style={[
+          style,
+          { width },
+          {
+            ...(disabled && {
+              color: colors.textMuted,
+              borderColor: colors.outline,
+            }),
+          },
+        ]}
       >
         {children}
       </Label>
     );
   }
   return (
-    <View style={{ flex: 1, height }}>
+    <View style={[style, { flex: 1, height }]}>
       <Switch>
         <Switch.Case condition={variant === "outline"}>
           <TouchableOpacity
@@ -60,6 +70,7 @@ export const Button = ({
               outlineStyle.container,
               {
                 borderColor: colors[color],
+                ...(width && { width }),
               },
               {
                 ...(disabled && {
@@ -90,9 +101,11 @@ export const Button = ({
             onPress={(value) => !disabled && onPress?.(value)}
             style={[
               filledStyle.container,
+              ...(circle ? [{ borderRadius: height / 2 }] : []),
               {
                 borderColor: colors[color],
                 backgroundColor: colors[color],
+                ...(width && { width }),
               },
               {
                 ...(disabled && {
@@ -129,9 +142,11 @@ export const Button = ({
             onPress={(value) => !disabled && onPress?.(value)}
             style={[
               filledStyle.container,
+              ...(circle ? [{ borderRadius: height / 2 }] : []),
               {
                 borderColor: colors[color],
                 backgroundColor: colors[color],
+                ...(width && { width }),
               },
               {
                 ...(disabled && {
