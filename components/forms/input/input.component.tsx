@@ -32,7 +32,7 @@ export const Input: React.FC<InputProps> = ({
   readOnly,
 }) => {
   console.log(
-    `🚀 ~ input.component.tsx:33 ~ Input ~ autoComplete: \n`,
+    `🚀 ~ input.component.tsx:35 ~ Input ~ autoComplete: \n`,
     label,
     autoComplete,
     minNumber,
@@ -138,7 +138,6 @@ export const Input: React.FC<InputProps> = ({
   };
 
   const togglePasswordVisibility = () => {
-    console.log(showPassword);
     setShowPassword((prev) => !prev);
   };
 

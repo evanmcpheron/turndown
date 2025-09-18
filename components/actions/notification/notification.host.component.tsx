@@ -7,7 +7,6 @@ export function NoticeHost() {
   const [current, setCurrent] = useState<NoticePayload | null>(null);
   const queueRef = useRef<NoticePayload[]>([]);
   const showingRef = useRef(false);
-  console.log("");
 
   useEffect(() => {
     return subscribe((payload) => {

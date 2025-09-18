@@ -1,6 +1,7 @@
 import { TurndownObject } from "@/helpers";
 import { DomProperties } from "@/helpers/types/base/style.types";
 import type { ReactNode } from "react";
+import { StyleProp, ViewStyle } from "react-native";
 import { ValidationResult } from "../validations/common.validations";
 
 export interface FormErrors<T extends TurndownObject> {
@@ -14,4 +15,8 @@ export interface FormProps<T extends TurndownObject> extends DomProperties {
   defaultValues?: TurndownObject<T>;
   editValues?: Partial<T>;
   validationModel?: Record<string, (value: TurndownObject) => ValidationResult>;
+  stepperPlacement?: "header" | "footer";
+  stepperContainerStyle?: StyleProp<ViewStyle>;
+  initialStep?: number;
+  hideStepper?: boolean;
 }

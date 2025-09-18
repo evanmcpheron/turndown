@@ -1,13 +1,15 @@
+import { Button } from "@/components/actions";
+import { showErrorNotification } from "@/components/actions/notification/notification.helper";
 import { Form, useForm } from "@/components/forms/form";
+import { getFirstPropertyValue } from "@/components/forms/form/form.helpers";
 import { Input } from "@/components/forms/input";
 import { ValidationResult } from "@/components/forms/validations/common.validations";
 import { useAuth } from "@/context";
 import { TurndownObject } from "@/helpers";
 import { forwardRef, useImperativeHandle, useState } from "react";
-import { View } from "react-native";
 
 interface SignUpFormProps {
-  page: number;
+  onSubmit: () => void;
 }
 
 const formValidationSchema = {
@@ -31,9 +33,8 @@ export const SignUpForm = forwardRef<
   { submitData: (callback: (success: boolean) => void) => void },
   SignUpFormProps
 >((props, ref) => {
+  const { onSubmit } = props;
   const { signUp } = useAuth();
-
-  const { page } = props;
 
   const [submittingData, setSubmittingData] = useState(false);
   const { submitForm } = useForm({
@@ -44,10 +45,15 @@ export const SignUpForm = forwardRef<
     },
   });
 
-  const saveData = async () => {
+  const saveData = async ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => {
     try {
-      await signUp("email".trim(), "password");
-      // go to tabs root and remove back stack
+      await signUp(email.trim(), password);
     } catch (e: TurndownObject) {
       console.error(e);
     } finally {
@@ -63,26 +69,21 @@ export const SignUpForm = forwardRef<
       setSubmittingData(true);
 
       submitForm(async (data, errors) => {
-        console.log(
-          `🚀 ~ sign.up.form.component.tsx:63 ~ submitData ~ errors: \n`,
-          errors
-        );
+        const allErrors = errors;
+
+        if (data.password !== data.confirmPassword)
+          allErrors.matchingPasswords = "Both passwords must match";
+
+        if (allErrors) {
+          showErrorNotification(getFirstPropertyValue(errors));
+          setSubmittingData(false);
+          return;
+        }
+
+        const saveResult = await saveData(data);
 
         console.log(
-          `🚀 ~ sign.up.form.component.tsx:68 ~ submitData ~ data: \n`,
-          data
-        );
-
-        // if (errors) {
-        //   // error notification here
-        //   setSubmittingData(false);
-        //   return;
-        // }
-
-        const saveResult = await saveData();
-
-        console.log(
-          `🚀 ~ sign.up.form.component.tsx:81 ~ submitData ~ saveResult: \n`,
+          `🚀 ~ sign.up.form.component.tsx:86 ~ submitData ~ saveResult: \n`,
           saveResult
         );
         if (saveResult) {
@@ -94,12 +95,12 @@ export const SignUpForm = forwardRef<
   }));
 
   return (
-    <Form name="frmSignUp" editValues={{ email: "" }}>
-      <View style={{ display: page === 0 ? "flex" : "none", gap: 10 }}>
+    <Form name="frmSignUp" editValues={{ email: "" }} initialStep={0}>
+      <Form.Step>
         <Input name="name" placeholder="name" label="name" />
-      </View>
-      <View style={{ display: page === 1 ? "flex" : "none", gap: 10 }}>
         <Input name="email" placeholder="email" label="email" />
+      </Form.Step>
+      <Form.Step>
         <Input
           name="password"
           type="password"
@@ -112,7 +113,8 @@ export const SignUpForm = forwardRef<
           placeholder="confirm password"
           label="Confirm Password"
         />
-      </View>
+        <Button onPress={onSubmit}>Sign Up</Button>
+      </Form.Step>
     </Form>
   );
 });

@@ -35,7 +35,7 @@ type PageStepProps = {
 };
 
 // ---------- Steps context (for children to read/change the step) ----------
-type StepsCtx = {
+export type StepsCtx = {
   current: number;
   total: number;
   next: () => void;
@@ -43,7 +43,7 @@ type StepsCtx = {
   setCurrent: (i: number) => void;
   hasSteps: boolean;
 };
-const StepsContext = React.createContext<StepsCtx | null>(null);
+export const StepsContext = React.createContext<StepsCtx | null>(null);
 
 export const usePageSteps = () => {
   const ctx = React.useContext(StepsContext);

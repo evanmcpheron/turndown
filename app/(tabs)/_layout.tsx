@@ -35,7 +35,6 @@ export default function TabLayout() {
         sceneStyle: { backgroundColor: colors.background },
       }}
       tabBar={(props) => {
-        console.log(props);
         return <PillTabBar {...props} />;
       }}
     >
