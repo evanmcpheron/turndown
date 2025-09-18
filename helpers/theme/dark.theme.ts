@@ -18,6 +18,7 @@ export const DarkAppTheme: AppTheme = {
   name: "dark",
   colors: {
     background: palette.gray[950],
+    onBackground: palette.gray[50],
     backgroundDisabled: palette.gray[500],
     surface: palette.gray[900],
     surface2: palette.gray[800],

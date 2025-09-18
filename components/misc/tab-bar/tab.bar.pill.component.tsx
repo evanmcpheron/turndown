@@ -20,7 +20,7 @@ import { GearIcon } from "@/assets/icons/gear.component";
 import { HouseIcon } from "@/assets/icons/house.component";
 
 const HEIGHT = 64; // pill height
-const INDICATOR_SIZE = HEIGHT;
+const INDICATOR_SIZE = HEIGHT + 5;
 const H_PADDING = 12;
 
 export default function PillTabBar({
@@ -69,7 +69,7 @@ export default function PillTabBar({
         index: GaugeIcon,
         turns: CalendarDaysIcon,
         messages: CommentIcon,
-        inventory: HouseIcon,
+        properties: HouseIcon,
         settings: GearIcon,
       } as Record<string, React.ComponentType<any>>),
     []

@@ -4,9 +4,11 @@ import { ValidationResult } from "@/components/forms/validations/common.validati
 import { useAuth } from "@/context";
 import { TurndownObject } from "@/helpers";
 import { forwardRef, useImperativeHandle, useState } from "react";
+import { View } from "react-native";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface SignUpFormProps {}
+interface SignUpFormProps {
+  page: number;
+}
 
 const formValidationSchema = {
   email: (emailValue: string): ValidationResult => {
@@ -28,8 +30,10 @@ const formValidationSchema = {
 export const SignUpForm = forwardRef<
   { submitData: (callback: (success: boolean) => void) => void },
   SignUpFormProps
->((_props, ref) => {
+>((props, ref) => {
   const { signUp } = useAuth();
+
+  const { page } = props;
 
   const [submittingData, setSubmittingData] = useState(false);
   const { submitForm } = useForm({
@@ -91,19 +95,24 @@ export const SignUpForm = forwardRef<
 
   return (
     <Form name="frmSignUp" editValues={{ email: "" }}>
-      <Input name="email" placeholder="email" label="email" />
-      <Input
-        name="password"
-        type="password"
-        placeholder="password"
-        label="Confirm Password"
-      />
-      <Input
-        name="confirmPassword"
-        type="password"
-        placeholder="confirm password"
-        label="Confirm Password"
-      />
+      <View style={{ display: page === 0 ? "flex" : "none", gap: 10 }}>
+        <Input name="name" placeholder="name" label="name" />
+      </View>
+      <View style={{ display: page === 1 ? "flex" : "none", gap: 10 }}>
+        <Input name="email" placeholder="email" label="email" />
+        <Input
+          name="password"
+          type="password"
+          placeholder="password"
+          label="Confirm Password"
+        />
+        <Input
+          name="confirmPassword"
+          type="password"
+          placeholder="confirm password"
+          label="Confirm Password"
+        />
+      </View>
     </Form>
   );
 });

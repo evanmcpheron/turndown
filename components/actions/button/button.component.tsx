@@ -60,7 +60,7 @@ export const Button = ({
     );
   }
   return (
-    <View style={[style, { flex: 1, height }]}>
+    <View style={[style, { height }]}>
       <Switch>
         <Switch.Case condition={variant === "outline"}>
           <TouchableOpacity

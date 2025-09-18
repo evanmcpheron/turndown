@@ -3,10 +3,10 @@ import { Button } from "@/components/actions";
 import { Label } from "@/components/font";
 import { Page } from "@/components/layouts/page/page.layout.component";
 
-const InventoryScreen = () => {
+const PropertyScreen = () => {
   return (
     <Page
-      header="Inventory"
+      header="Property"
       headerButton={
         <Button width={50} circle>
           <PlusIcon type="solid" size={"regular"} />
@@ -19,4 +19,4 @@ const InventoryScreen = () => {
   );
 };
 
-export default InventoryScreen;
+export default PropertyScreen;

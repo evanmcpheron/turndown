@@ -173,6 +173,7 @@ export const opacity = {
 export type SemanticColors = {
   // Base surfaces & text
   background: string;
+  onBackground: string;
   backgroundDisabled: string;
   surface: string;
   surface2: string;

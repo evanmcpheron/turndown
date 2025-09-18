@@ -6,40 +6,47 @@ import { router } from "expo-router";
 import React, { useRef } from "react";
 
 const SignUpScreen = () => {
+  const [page, setPage] = React.useState(0);
   const signUpFormRef = useRef<{
     submitData: (callback: (success: boolean) => void) => void;
   }>(null);
 
-  return (
-    <Page header="Sign Up">
-      <SignUpForm ref={signUpFormRef} />
-      <Button
-        onPress={() => {
-          console.log(signUpFormRef.current);
-          if (signUpFormRef.current) {
-            signUpFormRef.current.submitData((success: boolean) => {
-              router.replace("/");
-              console.log("success: ", success);
-            });
-          }
-        }}
-      >
-        Sign Up
-      </Button>
+  const onPageChange = (index: number) => {
+    setPage(index);
+  };
 
-      <Label
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 20,
-        }}
-      >
-        Have an account?{" "}
-        <Button variant="link" to={"/(auth)/sign.in.screen"}>
+  return (
+    <Page
+      headerButton={
+        <Button onPress={() => router.replace("/(auth)/sign.in.screen")}>
           Sign In
         </Button>
-      </Label>
+      }
+      header="Sign Up"
+      stepperPlacement="header"
+    >
+      <Page.Step scrollable>
+        <Label>This step scrolls</Label>
+      </Page.Step>
+      <Page.Step>
+        <Label>This step doesn't scroll</Label>
+      </Page.Step>
+
+      <SignUpForm ref={signUpFormRef} page={page} />
+      {page === 2 && (
+        <Button
+          onPress={() => {
+            if (signUpFormRef.current) {
+              signUpFormRef.current.submitData((success: boolean) => {
+                router.replace("/");
+                console.log("success: ", success);
+              });
+            }
+          }}
+        >
+          Sign Up
+        </Button>
+      )}
     </Page>
   );
 };

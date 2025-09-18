@@ -9,7 +9,7 @@ import { ClipboardIcon } from "@/assets/icons/clipboard.component";
 import { CommentIcon } from "@/assets/icons/comment.component";
 import { GaugeIcon } from "@/assets/icons/gauge.component";
 import { GearIcon } from "@/assets/icons/gear.component";
-import PillTabBar from "@/components/misc/switch/tab.bar.pill.component";
+import PillTabBar from "@/components/misc/tab-bar/tab.bar.pill.component";
 import { useTheme } from "@/context/theme/theme.context";
 
 export default function TabLayout() {
@@ -42,7 +42,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: "Dashboard",
           tabBarIcon: () => (
             <GaugeIcon type="duotone" color="primary" size="regular" />
           ),
@@ -67,9 +67,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="inventory"
+        name="properties"
         options={{
-          title: "Inventory",
+          title: "Properties",
           tabBarIcon: () => (
             <ClipboardIcon type="duotone" color="primary" size="regular" />
           ),

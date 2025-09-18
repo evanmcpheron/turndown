@@ -23,17 +23,12 @@ type SettingRow = {
   key: string;
   label: string;
   type: RowType;
-  // optional route or external link
   route?: string;
   href?: string;
-  // optional toggle binding
   value?: boolean;
   onToggle?: (next: boolean) => void;
-  // optional immediate action
   onPress?: () => void;
-  // optional trailing text (e.g., version)
   trailingText?: string;
-  // optional danger styling
   danger?: boolean;
 };
 
@@ -50,8 +45,6 @@ export default function SettingsScreen() {
   // Local MVP state (replace with your store later)
   const [notifJobReminders, setNotifJobReminders] = useState(true);
   const [notifNewAssignments, setNotifNewAssignments] = useState(true);
-  const [haptics, setHaptics] = useState(true);
-  const [offlineMode, setOfflineMode] = useState(false);
 
   const sections: SettingSection[] = [
     {
@@ -71,19 +64,19 @@ export default function SettingsScreen() {
       ],
     },
     {
-      title: "Properties & Team",
+      title: "Templates",
       data: [
         {
-          key: "properties",
-          label: "Manage Properties",
+          key: "checklists",
+          label: "Checklists",
           type: "link",
-          route: "/settings/properties",
+          route: "/settings/checklists",
         },
         {
-          key: "team",
-          label: "Invite Team",
+          key: "inventory",
+          label: "Inventory",
           type: "link",
-          route: "/settings/team",
+          route: "/settings/inventory",
         },
       ],
     },

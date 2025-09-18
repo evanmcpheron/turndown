@@ -1,7 +1,7 @@
 import { useTheme } from "@/context/theme/theme.context";
 import { Stack } from "expo-router";
 
-export default function InventoryStackLayout() {
+export default function PropertyStackLayout() {
   const { colors } = useTheme();
 
   return (
@@ -15,7 +15,7 @@ export default function InventoryStackLayout() {
     >
       <Stack.Screen
         name="index"
-        options={{ headerShown: false, title: "Inventory" }}
+        options={{ headerShown: false, title: "Properties" }}
       />
     </Stack>
   );
