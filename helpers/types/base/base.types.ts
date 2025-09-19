@@ -3,3 +3,5 @@ export type TurndownObject<T = GenericTurndownObject> =
   | Record<string, T>
   | T
   | undefined;
+
+export type Mode = "CREATE" | "EDIT" | null;
