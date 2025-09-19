@@ -11,26 +11,28 @@ const SignUpScreen = () => {
 
   return (
     <Page
-      padding={10}
       headerButton={
         <Button onPress={() => router.replace("/(auth)/sign.in.screen")}>
           Sign In
         </Button>
       }
       header="Sign Up"
-      stepperPlacement="header"
+      footer={
+        <Button
+          onPress={() => {
+            if (signUpFormRef.current) {
+              signUpFormRef.current.submitData((success: boolean) => {
+                router.replace("/");
+                console.log("success: ", success);
+              });
+            }
+          }}
+        >
+          Sign Up
+        </Button>
+      }
     >
-      <SignUpForm
-        ref={signUpFormRef}
-        onSubmit={() => {
-          if (signUpFormRef.current) {
-            signUpFormRef.current.submitData((success: boolean) => {
-              router.replace("/");
-              console.log("success: ", success);
-            });
-          }
-        }}
-      />
+      <SignUpForm ref={signUpFormRef} />
     </Page>
   );
 };

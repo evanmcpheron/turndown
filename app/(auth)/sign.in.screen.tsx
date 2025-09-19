@@ -1,5 +1,4 @@
 import { Button } from "@/components/actions";
-import { Label } from "@/components/font";
 import { Page } from "@/components/layouts/page/page.layout.component";
 import { SignInForm } from "@/components/screens/auth";
 import { router } from "expo-router";
@@ -11,34 +10,29 @@ const SignInScreen = () => {
   }>(null);
 
   return (
-    <Page header="Sign In">
-      <SignInForm ref={signInFormRef} />
-      <Button
-        onPress={() => {
-          if (signInFormRef.current) {
-            signInFormRef.current.submitData((success: boolean) => {
-              router.replace("/");
-              console.log("success: ", success);
-            });
-          }
-        }}
-      >
-        Sign in
-      </Button>
-
-      <Label
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 20,
-        }}
-      >
-        New here?{" "}
-        <Button variant="link" to={"/(auth)/sign.up.screen"}>
-          Create an account
+    <Page
+      header="Sign In"
+      headerButton={
+        <Button onPress={() => router.replace("/(auth)/sign.up.screen")}>
+          Sign Up
         </Button>
-      </Label>
+      }
+      footer={
+        <Button
+          onPress={() => {
+            if (signInFormRef.current) {
+              signInFormRef.current.submitData((success: boolean) => {
+                router.replace("/");
+                console.log("success: ", success);
+              });
+            }
+          }}
+        >
+          Sign in
+        </Button>
+      }
+    >
+      <SignInForm ref={signInFormRef} />
     </Page>
   );
 };

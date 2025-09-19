@@ -252,7 +252,7 @@ export const Page: React.FC<PageProps> & { Step: typeof PageStep } = ({
 
         {stepperPlacement === "footer" && stepperUI}
 
-        {footer && <View>{footer}</View>}
+        {footer && <View style={[{ padding }]}>{footer}</View>}
       </SafeAreaView>
     </StepsContext.Provider>
   );

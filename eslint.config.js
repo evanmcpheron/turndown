@@ -13,6 +13,9 @@ module.exports = defineConfig([
     plugins: { "react-hooks": reactHooks }, // ensure plugin is available in this item
     rules: {
       "react-hooks/exhaustive-deps": "off",
+      "no-empty-pattern": "off",
+      "@typescript-eslint/no-empty-object-type": "off",
+      "react/display-name": "off",
     },
   },
 ]);

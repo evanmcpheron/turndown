@@ -1,8 +1,9 @@
-import { Button } from "@/components/ui/actions/button/button.component";
-import { Typography } from "@/components/ui/typography/typography.component";
-import { globalStyles, withOpacity } from "@/constants/Colors";
+import { Label } from "@/components/font";
 import { ModalProps } from "./modal.layout.component.types";
 
+import { Button } from "@/components/actions";
+import { useTheme } from "@/context/theme/theme.context";
+import { withOpacity } from "@/helpers/theme";
 import React, {
   Children,
   isValidElement,
@@ -15,12 +16,12 @@ import {
   Animated,
   Easing,
   Modal as NativeModal,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export const Modal = ({
   header,
@@ -33,6 +34,7 @@ export const Modal = ({
   children,
 }: ModalProps) => {
   const [hasFooter, setHasFooter] = useState(true);
+  const { app } = useTheme();
   const scaleAnim = useRef(new Animated.Value(0.8)).current;
 
   useEffect(() => {
@@ -71,58 +73,103 @@ export const Modal = ({
       animationType={animationType}
       transparent={isTransparent}
       visible={isOpen}
+      presentationStyle="overFullScreen"
     >
-      <SafeAreaView style={[styles.overlay]}>
+      <SafeAreaProvider
+        style={[
+          {
+            backgroundColor: withOpacity(
+              app.colors.background,
+              app.opacity.medium
+            ),
+          },
+        ]}
+      >
         <Animated.View
           style={[
             styles.container,
-            ,
-            { margin: "20%" },
-            { transform: [{ scale: scaleAnim }] },
+            {
+              transform: [{ scale: scaleAnim }],
+              zIndex: app.zIndex.modal,
+              backgroundColor: app.colors.background,
+              borderRadius: app.radii.lg,
+              overflow: "hidden",
+            },
           ]}
         >
-          <View style={{ maxHeight: "100%" }}>
+          <SafeAreaView
+            style={{ flex: 1, backgroundColor: app.colors.navCard }}
+          >
             {header && (header.primary || header.secondary) && (
-              <View style={styles.header}>
-                {header.primary && (
-                  <Typography variant="h3">{header.primary}</Typography>
-                )}
+              <View
+                style={[
+                  styles.header,
+                  {
+                    padding: app.spacing[4],
+                    borderBottomColor: app.colors.primary,
+                    backgroundColor: app.colors.navCard,
+                  },
+                ]}
+              >
+                {header.primary && <Label variant="h3">{header.primary}</Label>}
                 {header.secondary && (
-                  <Typography variant="subtitle1" style={{ marginTop: 5 }}>
+                  <Label variant="subtitle1" style={{ marginTop: 5 }}>
                     {header.secondary}
-                  </Typography>
+                  </Label>
                 )}
               </View>
             )}
             <ScrollView
               nestedScrollEnabled
               style={[
-                styles.content,
                 {
                   ...(!hasFooter && {
                     borderRadius: 12,
-                    paddingBottom: globalStyles.size.spacing.large,
+                    padding: app.spacing[4],
+                    paddingBottom: app.spacing[4],
                   }),
                 },
                 {
                   ...(!header && {
-                    paddingTop: globalStyles.size.spacing.large,
+                    paddingTop: app.spacing[4],
                   }),
                 },
-                { maxHeight: "100%" },
+                {
+                  maxHeight: "100%",
+                  paddingTop: app.spacing[4],
+                  paddingHorizontal: app.spacing[4],
+                  backgroundColor: app.colors.background,
+                },
               ]}
             >
               {contentChildren}
             </ScrollView>
             {hasFooter && (
-              <View style={styles.actions}>
+              <View
+                style={[
+                  styles.actions,
+                  {
+                    padding: app.spacing[4],
+                    borderTopColor: app.colors.primary,
+                    backgroundColor: app.colors.navCard,
+                  },
+                ]}
+              >
                 {onCancel && (
-                  <Button onPress={onCancel} variant="outline">
+                  <Button
+                    style={{ flex: 1 }}
+                    onPress={onCancel}
+                    variant="outline"
+                  >
                     <Text>Cancel</Text>
                   </Button>
                 )}
                 {onSave && (
-                  <Button disabled={disabled} onPress={onSave}>
+                  <Button
+                    style={{ flex: 1 }}
+                    disabled={disabled}
+                    onPress={onSave}
+                  >
                     <Text>Okay</Text>
                   </Button>
                 )}
@@ -131,9 +178,9 @@ export const Modal = ({
                 })}
               </View>
             )}
-          </View>
+          </SafeAreaView>
         </Animated.View>
-      </SafeAreaView>
+      </SafeAreaProvider>
     </NativeModal>
   );
 };
@@ -145,52 +192,22 @@ interface ModalActionProps {
 Modal.Actions = ({ children }: ModalActionProps) => <>{children}</>;
 
 const styles = StyleSheet.create({
-  dismiss: {
-    position: "absolute",
-    zIndex: 5,
-    flex: 1,
-    backgroundColor: withOpacity(
-      globalStyles.color.grayscale.shade12,
-      globalStyles.color.opacity.medium
-    ),
-    justifyContent: "center",
-    alignItems: "center",
-  },
   overlay: {
     flex: 1,
-    backgroundColor: withOpacity(
-      globalStyles.color.grayscale.shade12,
-      globalStyles.color.opacity.medium
-    ),
     justifyContent: "center",
     alignItems: "center",
   },
   container: {
-    width: "80%",
-    zIndex: globalStyles.zIndex.modal,
-    backgroundColor: globalStyles.color.grayscale.shade0,
-    borderRadius: globalStyles.size.borderRadius.x_large,
-    ...globalStyles.shadow,
+    width: "100%",
+    height: "100%",
   },
-  content: {
-    padding: globalStyles.size.spacing.large,
-  },
+
   header: {
-    padding: globalStyles.size.spacing.large,
-    borderTopRightRadius: globalStyles.size.borderRadius.x_large,
-    borderTopLeftRadius: globalStyles.size.borderRadius.x_large,
-    borderBottomColor: globalStyles.color.border,
-    backgroundColor: globalStyles.color.grayscale.shade1,
     borderBottomWidth: 1,
   },
   actions: {
-    padding: globalStyles.size.spacing.large,
     flexDirection: "row",
     borderTopWidth: 1,
-    backgroundColor: globalStyles.color.grayscale.shade1,
-    borderBottomRightRadius: globalStyles.size.borderRadius.x_large,
-    borderBottomLeftRadius: globalStyles.size.borderRadius.x_large,
-    borderTopColor: globalStyles.color.border,
     justifyContent: "space-between",
   },
 });

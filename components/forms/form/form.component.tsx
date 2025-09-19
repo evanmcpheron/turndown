@@ -98,7 +98,7 @@ const Form = <
               style={{ flex: 1 }}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={[{ padding: 10, flexGrow: 1, gap: 10 }]}
+              contentContainerStyle={[{ flexGrow: 1, gap: 10 }]}
               keyboardShouldPersistTaps="handled"
               keyboardDismissMode="on-drag"
             >
@@ -106,11 +106,7 @@ const Form = <
             </ScrollView>
           </Switch.Case>
           <Switch.Case condition={!false}>
-            <View
-              style={[
-                { flex: 1, padding: 10, justifyContent: "center", gap: 10 },
-              ]}
-            >
+            <View style={[{ flex: 1, justifyContent: "center", gap: 10 }]}>
               {children}
             </View>
           </Switch.Case>
@@ -155,7 +151,7 @@ const Form = <
       </View>
     );
   };
-  console.log(hasSteps, hideStepper);
+
   const stepperUI =
     hasSteps && !hideStepper ? (
       <View

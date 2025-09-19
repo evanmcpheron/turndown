@@ -31,14 +31,6 @@ export const Input: React.FC<InputProps> = ({
   value,
   readOnly,
 }) => {
-  console.log(
-    `🚀 ~ input.component.tsx:35 ~ Input ~ autoComplete: \n`,
-    label,
-    autoComplete,
-    minNumber,
-    maxNumber
-  );
-
   const formName = useFormName();
   const { colors, app } = useTheme();
 
@@ -110,7 +102,7 @@ export const Input: React.FC<InputProps> = ({
   }, [formErrors]);
 
   const handleChange = (e: TurndownObject) => {
-    console.log(e);
+    console.log(`🚀 ~ input.component.tsx:105 ~ handleChange ~ e: \n`, e);
 
     let newValue = e ?? "";
 
@@ -148,80 +140,76 @@ export const Input: React.FC<InputProps> = ({
   };
 
   return (
-    <>
-      <View
+    <View
+      style={[
+        {
+          margin: 0,
+          minHeight: 48,
+          borderWidth: 1.5,
+          borderColor: disabled
+            ? colors.outlineStrong
+            : isFocused
+            ? colors.primary
+            : colors.outline,
+          borderRadius: 8,
+          paddingHorizontal: 12,
+          justifyContent: "center",
+          backgroundColor: disabled ? colors.outline : colors.onPrimary,
+        },
+        !ignoreError && showError && { borderColor: colors.danger },
+      ]}
+    >
+      <TextInput
+        readOnly={readOnly}
+        editable={!disabled}
+        keyboardType={type === "number" ? "numeric" : "default"}
+        onBlur={handleBlur}
+        onFocus={handleFocus}
+        onChangeText={handleChange}
+        secureTextEntry={type === "password" && !showPassword}
+        placeholder={placeholder}
+        placeholderTextColor={colors.textMuted}
+        ref={domRef}
+        value={inputValue}
         style={[
           {
-            margin: 0,
-            padding: 0,
-            minHeight: 48,
-            borderWidth: 1.5,
-            borderColor: disabled
-              ? colors.outlineStrong
-              : isFocused
-              ? colors.primary
-              : colors.outline,
-            borderRadius: 8,
-            paddingHorizontal: 12,
-            justifyContent: "center",
-            backgroundColor: disabled ? colors.outline : colors.onPrimary,
+            color: colors.text,
+            fontSize: app.typography.size.lg,
           },
-          !ignoreError && showError && { borderColor: colors.danger },
+          disabled && { backgroundColor: colors.outline },
         ]}
-      >
-        <TextInput
-          readOnly={readOnly}
-          editable={!disabled}
-          keyboardType={type === "number" ? "numeric" : "default"}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-          onChangeText={handleChange}
-          secureTextEntry={type === "password" && !showPassword}
-          placeholder={placeholder}
-          placeholderTextColor={colors.textMuted}
-          ref={domRef}
-          value={inputValue}
-          style={[
-            {
-              color: colors.text,
-              fontSize: app.typography.size.lg,
-              paddingVertical: 10,
-            },
-            disabled && { backgroundColor: colors.outline },
-          ]}
-        />
-        <View style={styles.adornmentRight}>
-          {type === "password" && (
-            <Pressable
-              onPress={togglePasswordVisibility}
-              hitSlop={8}
-              style={styles.iconBtn}
-            >
-              {showPassword ? (
-                <EyeIcon size="large" type="regular" />
-              ) : (
-                <EyeSlashIcon size="large" type="regular" />
-              )}
-            </Pressable>
-          )}
+      />
+      <View style={styles.adornmentRight}>
+        {type === "password" && (
+          <Pressable
+            onPress={togglePasswordVisibility}
+            hitSlop={8}
+            style={styles.iconBtn}
+          >
+            {showPassword ? (
+              <EyeIcon size="large" type="regular" />
+            ) : (
+              <EyeSlashIcon size="large" type="regular" />
+            )}
+          </Pressable>
+        )}
 
-          {type === "calculation" && (
-            <View>
-              <CalculatorIcon
-                size="large"
-                type={"regular"}
-                onPress={onIconClick}
-              />
-            </View>
-          )}
-          {clear && inputValue !== "" && (
-            <View>
-              <XmarkIcon size="large" type="regular" onPress={clearInput} />
-            </View>
-          )}
-        </View>
+        {type === "calculation" && (
+          <View>
+            <CalculatorIcon
+              size="large"
+              type={"regular"}
+              onPress={onIconClick}
+            />
+          </View>
+        )}
+        {clear && inputValue !== "" && (
+          <View>
+            <XmarkIcon size="large" type="regular" onPress={clearInput} />
+          </View>
+        )}
       </View>
-    </>
+    </View>
   );
 };
 

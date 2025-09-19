@@ -8,6 +8,7 @@ import {
   spacing,
   toNavigationTheme,
   typography,
+  zIndex,
 } from "./general.styles";
 
 /**
@@ -50,6 +51,7 @@ export const DarkAppTheme: AppTheme = {
     navNotification: palette.violet[400],
   },
   typography,
+  zIndex,
   spacing,
   radii,
   elevation,

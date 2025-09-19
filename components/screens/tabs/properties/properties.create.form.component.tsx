@@ -1,40 +1,30 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { showErrorNotification } from "@/components/actions/notification/notification.helper";
+import {
+  Dropdown,
+  SelectOption,
+} from "@/components/forms/dropdown/dropdown.form.component";
 import { Form, useForm } from "@/components/forms/form";
 import { getFirstPropertyValue } from "@/components/forms/form/form.helpers";
 import { Input } from "@/components/forms/input";
-import { ValidationResult } from "@/components/forms/validations/common.validations";
+import { statesAndTerritories } from "@/constants/base.consts";
 import { useAuth } from "@/context";
 import { TurndownObject } from "@/helpers";
 import { forwardRef, useImperativeHandle, useState } from "react";
 
-interface SignInFormProps {}
+interface PropertiesFormProps {}
 
-const formValidationSchema = {
-  email: (emailValue: string): ValidationResult => {
-    const v = (emailValue ?? "").trim();
-    if (!v) return "Email is required.";
-    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-    return isEmail ? undefined : "Enter a valid email address.";
-  },
-  password: (passwordValue: string): ValidationResult => {
-    const v = passwordValue ?? "";
-    if (!v) return "Password is required.";
-    return v.length >= 6
-      ? undefined
-      : "Password must be at least 6 characters.";
-  },
-};
+const formValidationSchema = {};
 
-export const SignInForm = forwardRef<
+export const PropertiesCreateForm = forwardRef<
   { submitData: (callback: (success: boolean) => void) => void },
-  SignInFormProps
+  PropertiesFormProps
 >((_props, ref) => {
-  const { signIn } = useAuth();
+  const { user } = useAuth();
 
   const [submittingData, setSubmittingData] = useState(false);
-  const { submitForm } = useForm({
-    formName: "frmSignIn",
+  const { submitForm, setValue } = useForm({
+    formName: "frmProperties",
     validationModel: formValidationSchema,
     onFormErrors: (_errors) => {
       // console.error('Form Errors:', errors)
@@ -43,10 +33,9 @@ export const SignInForm = forwardRef<
 
   const saveData = async (data: TurndownObject) => {
     try {
-      await signIn(data.email.trim(), data.password);
       return true;
     } catch (_e: TurndownObject) {
-      showErrorNotification("Your email or password is incorrect");
+      showErrorNotification("Something went wrong creating this property");
       return false;
     } finally {
     }
@@ -60,6 +49,11 @@ export const SignInForm = forwardRef<
       setSubmittingData(true);
 
       submitForm(async (data, errors) => {
+        console.log(
+          `🚀 ~ properties.create.form.component.tsx:53 ~ submitData ~ data: \n`,
+          data
+        );
+
         if (errors) {
           showErrorNotification(getFirstPropertyValue(errors));
           setSubmittingData(false);
@@ -77,19 +71,33 @@ export const SignInForm = forwardRef<
   }));
 
   return (
-    <Form
-      name="frmSignIn"
-      editValues={{ email: "evan.mcpheron@icloud.com", password: "password" }}
-    >
-      <Input name="email" placeholder="email" label="email" />
+    <Form name="frmProperties">
+      <Input name="name" placeholder="Nickname" label="Nickname" />
       <Input
-        name="password"
-        type="password"
-        placeholder="password"
-        label="password"
+        name="addressLine1"
+        placeholder="Address Line 1"
+        label="Address Line 1"
       />
+      <Input
+        name="addressLine2"
+        placeholder="Address Line 2"
+        label="Address Line 2"
+      />
+      <Input name="city" placeholder="City" label="City" />
+      {/* STATE */}
+      <Dropdown
+        heading={{ primary: "Select State" }}
+        hasFooter
+        options={statesAndTerritories}
+        onSelect={(option: SelectOption) => setValue("state", option.value)}
+      />
+      <Input
+        name="postalCode"
+        placeholder="Postal Code"
+        label="Postal Code"
+        type="number"
+      />
+      {/* TIMEZONE */}
     </Form>
   );
 });
-
-SignInForm.displayName = "SignInForm";

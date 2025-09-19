@@ -8,6 +8,7 @@ import {
   spacing,
   toNavigationTheme,
   typography,
+  zIndex,
 } from "./general.styles";
 /**
  * Light Theme
@@ -49,6 +50,7 @@ export const LightAppTheme: AppTheme = {
     navNotification: palette.violet[500],
   },
   typography,
+  zIndex,
   spacing,
   radii,
   elevation,

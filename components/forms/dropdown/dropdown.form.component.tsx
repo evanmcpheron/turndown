@@ -1,13 +1,8 @@
-import { globalStyles } from "@/constants/Colors";
-import { MaterialIcons } from "@expo/vector-icons";
+import { ArrowDownIcon } from "@/assets/icons/arrow-down.component";
+import { Label } from "@/components/font";
+import { useTheme } from "@/context/theme/theme.context";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import {
-  Animated,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Animated, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Modal } from "../../layouts/modal/modal.layout.component";
 
 export interface SelectOption {
@@ -39,6 +34,7 @@ export const Dropdown = ({
   placeholder = "Select an option",
 }: DropdownProps) => {
   const emptyOption: SelectOption = { label: "", value: "" };
+  const { app } = useTheme();
 
   const resolvedDefault = useMemo(() => {
     if (defaultValue) return defaultValue;
@@ -98,25 +94,43 @@ export const Dropdown = ({
     <View style={styles.dropdownWrapper}>
       <TouchableOpacity
         disabled={disabled}
-        style={[styles.input, disabled && styles.disabledWrapper]}
+        style={[
+          {
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingVertical: 12,
+            paddingHorizontal: 12,
+            margin: 0,
+            minHeight: 48,
+            borderWidth: 1.5,
+            borderColor: app.colors.outline,
+            borderRadius: 8,
+            backgroundColor: app.colors.onPrimary,
+          },
+          disabled && {
+            // color: app.colors.textMuted,
+            borderColor: app.colors.outlineStrong,
+            backgroundColor: app.colors.backgroundDisabled,
+          },
+        ]}
         onPress={handleOpen}
         activeOpacity={0.7}
       >
-        <Text
+        <Label
           style={[
-            styles.inputText,
-            !selected && styles.placeholderText,
-            disabled && styles.disabledWrapper,
+            !selected && { color: app.colors.textMuted },
+            disabled && {
+              color: app.colors.textMuted,
+              borderColor: app.colors.outlineStrong,
+              backgroundColor: app.colors.backgroundDisabled,
+            },
           ]}
         >
           {selected?.value ? selected.label : placeholder}
-        </Text>
+        </Label>
         <Animated.View style={{ transform: [{ rotate: arrowRotation }] }}>
-          <MaterialIcons
-            name="keyboard-arrow-down"
-            size={20}
-            style={disabled && styles.disabledWrapper}
-          />
+          <ArrowDownIcon type="regular" />
         </Animated.View>
       </TouchableOpacity>
 
@@ -136,19 +150,29 @@ export const Dropdown = ({
               key={`dropdown-selection-${option.value}-${index}`}
               style={[
                 styles.option,
-                selected?.value === option.value && styles.optionSelected,
+                {
+                  borderColor: app.colors.outline,
+                  backgroundColor: app.colors.onPrimary,
+                },
+
+                selected?.value === option.value && {
+                  borderColor: app.colors.primary,
+                  backgroundColor: app.colors.primary,
+                },
               ]}
               onPress={() => handleSelect(option)}
               activeOpacity={0.7}
             >
-              <Text
+              <Label
                 style={[
                   styles.optionText,
-                  selected?.value === option.value && styles.optionTextSelected,
+                  selected?.value === option.value && {
+                    color: app.colors.onPrimary,
+                  },
                 ]}
               >
                 {option.label}
-              </Text>
+              </Label>
             </TouchableOpacity>
           ))}
         </View>
@@ -158,29 +182,6 @@ export const Dropdown = ({
 };
 
 const styles = StyleSheet.create({
-  overlay: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  container: {
-    width: "80%",
-    backgroundColor: globalStyles.color.grayscale.shade0,
-    borderRadius: 12,
-    padding: 20,
-    shadowColor: globalStyles.color.grayscale.shade12,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 5,
-  },
-  disabledWrapper: {
-    color: globalStyles.color.grayscale.shade7,
-    borderColor: globalStyles.color.grayscale.shade4,
-    backgroundColor: globalStyles.color.grayscale.shade4,
-  },
-
   content: {
     marginBottom: 20,
   },
@@ -199,17 +200,12 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 15,
     borderWidth: 1,
-    borderColor: "#ccc",
     borderRadius: 8,
-    backgroundColor: "#fff",
   },
   inputText: {
     fontSize: 16,
-    color: "#333",
   },
-  placeholderText: {
-    color: "#aaa",
-  },
+  placeholderText: {},
 
   option: {
     paddingVertical: 10,
@@ -217,23 +213,17 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     marginBottom: 10,
-    borderColor: globalStyles.color.grayscale.shade9,
-    backgroundColor: globalStyles.color.grayscale.shade9,
   },
   optionText: {
     fontSize: 16,
-    color: globalStyles.color.font.onPrimary,
   },
   optionSelected: {
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: globalStyles.color.primary,
-    backgroundColor: globalStyles.color.primary,
   },
   optionTextSelected: {
-    color: globalStyles.color.font.onPrimary,
     fontWeight: "800",
   },
 });

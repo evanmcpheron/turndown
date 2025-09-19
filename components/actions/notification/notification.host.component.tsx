@@ -20,7 +20,10 @@ export function NoticeHost() {
         // If one is visible, queue the next
         queueRef.current.push(payload);
       } else {
-        console.log("payload", payload);
+        console.log(
+          `🚀 ~ notification.host.component.tsx:24 ~ NoticeHost ~ payload: \n`,
+          payload
+        );
 
         setCurrent(payload);
         showingRef.current = true;

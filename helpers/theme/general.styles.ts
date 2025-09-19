@@ -111,6 +111,14 @@ export const typography = {
   },
 };
 
+export const zIndex = {
+  low: 1,
+  medium: 50,
+  hight: 100,
+  navigation: 1000,
+  modal: 99999,
+};
+
 /**
  * --- Spacing, Radius, Elevation, Opacity ---
  */
@@ -210,6 +218,7 @@ export type AppTheme = {
   name: "light" | "dark";
   colors: SemanticColors;
   typography: typeof typography;
+  zIndex: typeof zIndex;
   spacing: typeof spacing;
   radii: typeof radii;
   elevation: typeof elevation;
