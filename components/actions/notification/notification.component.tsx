@@ -43,15 +43,13 @@ export function Notification({
   type = "info",
   position = "top",
 }: BaseProps) {
-  const { colors: themeColors } = useTheme();
+  const { colors: themeColors, app } = useTheme();
 
   const [mounted, setMounted] = useState(visible);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isTop = position === "top";
 
-  // baseOffset animates the toast from slightly below into place
   const baseOffset = useSharedValue(isTop ? -60 : 60);
-  // dragOffset tracks the user's swipe (only upward/negative)
   const dragOffset = useSharedValue(0);
 
   useEffect(() => {
@@ -73,7 +71,6 @@ export function Notification({
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, isTop]);
 
   const dismiss = (animate = true) => {
@@ -174,9 +171,10 @@ export function Notification({
         pointerEvents="box-none"
         style={[
           styles.container,
+          {
+            zIndex: app.zIndex.modal + 999999999,
+          },
           isTop ? styles.top : styles.bottom,
-          // If you use safe area:
-          // isTop ? { paddingTop: Math.max(insets.top, styles.top.paddingTop as number) } : { paddingBottom: Math.max(insets.bottom, styles.bottom.paddingBottom as number) },
         ]}
       >
         <GestureDetector gesture={pan}>
@@ -226,7 +224,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    zIndex: 9999,
   },
   top: {
     justifyContent: "flex-start",

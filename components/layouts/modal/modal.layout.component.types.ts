@@ -3,7 +3,9 @@ export interface ModalProps {
     primary?: string;
     secondary?: string;
   };
+  saveText?: string;
   isOpen: boolean;
+  isLoading?: boolean;
   onCancel?: () => void;
   onSave?: () => void;
   animationType?: "none" | "slide" | "fade";

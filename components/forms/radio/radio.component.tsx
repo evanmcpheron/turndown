@@ -1,87 +1,173 @@
-import React, { Children, isValidElement, useMemo, useState } from "react";
+import { Label } from "@/components/font";
+import { useTheme } from "@/context/theme/theme.context";
+import { TurndownObject } from "@/helpers";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
-  ScrollView,
   StyleProp,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
   ViewStyle,
 } from "react-native";
-import { RadioItemProps, RadioProps } from "./radio.types";
+import { SelectOption } from "../dropdown/dropdown.form.component";
+import { useForm, useFormErrors, useFormName } from "../form";
+import { hasOwnProp, validateInternalComponent } from "../form/form.helpers";
+import { RadioProps } from "./radio.types";
 
-export const Radio = ({ children }: RadioProps) => {
-  const radios = useMemo(
-    () =>
-      Children.toArray(children)
-        .filter(isValidElement)
-        .filter(
-          (el) => el.type === Radio.Item
-        ) as React.ReactElement<RadioItemProps>[],
-    [children]
-  );
+export const Radio = ({ name, defaultValue, options }: RadioProps) => {
+  const resolvedDefault = useMemo((): string => {
+    if (defaultValue) return defaultValue;
+    const defaultOpt = options.find((o) => o.default)?.value;
+    return defaultOpt ?? "";
+  }, [defaultValue, options]);
 
-  const defaultTab =
-    radios.find((radio) => radio.props.default)?.props.label ??
-    radios[0]?.props.label;
   const [selectedLabel, setSelectedLabel] = useState<string | undefined>(
-    defaultTab
+    resolvedDefault
   );
+  const [showError, setShowError] = useState<boolean>(false);
 
-  const activeTab = radios.find((radio) => radio.props.label === selectedLabel);
+  const formName = useFormName();
+  const { app } = useTheme();
+
+  const formErrors = useFormErrors();
+  const domRef: TurndownObject = useRef(null);
+
+  const { setValue, registerField, deregisterField, subscribe, unsubscribe } =
+    useForm({ formName });
+
+  useEffect(() => {
+    console.log(name, resolvedDefault);
+
+    registerField(name, resolvedDefault);
+
+    const handleValueChange = (newValue: TurndownObject) => {
+      setSelectedLabel(newValue ?? "");
+    };
+
+    if (formName) {
+      subscribe(name, handleValueChange);
+    }
+
+    return () => {
+      deregisterField(name);
+      if (formName) {
+        unsubscribe(name, handleValueChange);
+      }
+    };
+  }, [formName, name]);
+
+  useEffect(() => {
+    if (!formName) {
+      setSelectedLabel(defaultValue ?? "");
+    }
+  }, [defaultValue, formName]);
+
+  useEffect(() => {
+    if (formErrors && formErrors.form === formName) {
+      if (hasOwnProp(formErrors.errors, name)) {
+        setShowError(true);
+      } else {
+        setShowError(false);
+      }
+    } else {
+      setShowError(false);
+    }
+  }, [formErrors]);
+
+  useEffect(() => {
+    const validateMessage = validateInternalComponent(
+      formName,
+      name,
+      selectedLabel
+    );
+    setShowError(!!validateMessage);
+  }, [selectedLabel]);
+
+  const handleSelected = (option: SelectOption) => {
+    setSelectedLabel(option.value);
+    setValue(name, option.value);
+
+    const errorMsg = validateInternalComponent(formName, name, option.value);
+    setShowError(!!errorMsg);
+  };
 
   return (
-    <View style={[styles.container] as StyleProp<ViewStyle>}>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.radiosContainer}
-      >
-        {radios.map((radio, idx) => {
-          const { label, disabled } = radio.props;
-          const isActive = label === selectedLabel;
+    <View style={[styles.container] as StyleProp<ViewStyle>} ref={domRef}>
+      <View style={styles.radiosContainer}>
+        {options.map((option, idx) => {
+          const { label, value } = option;
+          const isActive = value === selectedLabel;
+          const disabled =
+            option.hasOwnProperty("disabled") && (option as any).disabled;
           return (
             <TouchableOpacity
               key={`radio_${idx}_${label}`}
-              onPress={() => !disabled && setSelectedLabel(label)}
+              onPress={() => !disabled && handleSelected(option)}
               disabled={disabled}
               style={[
                 styles.radioItem,
-                isActive && styles.activeTabItem,
+                {
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 10,
+                },
+
                 disabled && styles.disabledTabItem,
               ]}
             >
-              <Text
+              <View
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: app.colors.background,
+                  borderColor: app.colors.primary,
+                  borderWidth: 3,
+                  borderRadius: "50%",
+                  width: 30,
+                  height: 30,
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: isActive
+                      ? app.colors.primary
+                      : app.colors.background,
+                    borderRadius: "50%",
+                    width: 15,
+                    height: 15,
+                  }}
+                ></View>
+              </View>
+              <Label
                 style={[
-                  styles.radioText,
-                  isActive && styles.activeTabText,
-                  disabled && styles.disabledTabText,
+                  isActive && { color: app.colors.primary, fontWeight: "bold" },
+                  disabled && { color: app.colors.textMuted },
                 ]}
               >
                 {label}
-              </Text>
+              </Label>
             </TouchableOpacity>
           );
         })}
-      </ScrollView>
+      </View>
 
-      <View style={styles.contentContainer}>{activeTab?.props.children}</View>
+      {/* Content rendering logic is gone, unless you want to associate children with options */}
+      <View style={styles.contentContainer}>
+        {/* You could render activeOption.value or other custom content */}
+      </View>
     </View>
   );
 };
 
-const RadioItem = ({ children }: RadioItemProps) => <>{children}</>;
-RadioItem.displayName = "RadioItem";
-Radio.Item = RadioItem;
-
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  radiosContainer: { flexDirection: "row" },
-  radioItem: { paddingVertical: 8, paddingHorizontal: 16 },
-  activeTabItem: { borderBottomWidth: 2, borderBottomColor: "#007AFF" },
+  radiosContainer: { flexDirection: "column" },
+  radioItem: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
   disabledTabItem: { opacity: 0.5 },
-  radioText: { fontSize: 16, color: "#333" },
-  activeTabText: { color: "#007AFF", fontWeight: "bold" },
-  disabledTabText: { color: "#999" },
-  contentContainer: { flex: 1, padding: 16 },
+  contentContainer: { flex: 1 },
 });

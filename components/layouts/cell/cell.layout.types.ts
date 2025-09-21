@@ -1,4 +1,4 @@
-import { DomProperties } from "@/types/global.types";
+import { DomProperties } from "@/helpers/types/base/style.types";
 import React from "react";
 import { ViewStyle } from "react-native";
 

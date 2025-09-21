@@ -1,5 +1,5 @@
 import { User } from "@/helpers";
-import { auth, dateToTimestamp } from "@/helpers/firebase";
+import { auth } from "@/helpers/firebase";
 import {
   getUserById,
   postUser,
@@ -63,12 +63,8 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({
         email,
         display_name: name,
         phone_number: "",
-        photo_url:
-          "https://firebasestorage.googleapis.com/v0/b/turndown-6c530.firebasestorage.app/o/default_profile.jpg?alt=media&token=6998d783-d405-4cd6-b66a-1511ffdd6a70",
+        photo_url: "",
         is_active: true,
-        deleted: false,
-        created_at: dateToTimestamp(),
-        updated_at: dateToTimestamp(),
       },
       res?.user?.uid
     );

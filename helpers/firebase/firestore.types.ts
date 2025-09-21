@@ -6,4 +6,9 @@ export interface ReturnData {
   data?: TurndownObject | TurndownObject[];
 }
 
-export type Collections = "Users" | "Properties";
+export type Collections =
+  | "User"
+  | "Property"
+  | "Checklist"
+  | "Room"
+  | "Inventory";

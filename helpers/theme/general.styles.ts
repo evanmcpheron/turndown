@@ -114,7 +114,7 @@ export const typography = {
 export const zIndex = {
   low: 1,
   medium: 50,
-  hight: 100,
+  high: 100,
   navigation: 1000,
   modal: 99999,
 };

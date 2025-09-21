@@ -39,7 +39,6 @@ export default function PillTabBar({
 
   const translateX = useRef(new Animated.Value(0)).current;
 
-  // Animate the circle whenever the selected tab changes or layout updates
   useEffect(() => {
     if (!segmentW) return;
     const targetX =
@@ -66,7 +65,7 @@ export default function PillTabBar({
   const iconFor = useMemo(
     () =>
       ({
-        index: GaugeIcon,
+        dashboard: GaugeIcon,
         turns: CalendarDaysIcon,
         messages: CommentIcon,
         properties: HouseIcon,
@@ -90,7 +89,6 @@ export default function PillTabBar({
         ]}
         onLayout={onLayout}
       >
-        {/* Sliding circle indicator */}
         <Animated.View
           style={[
             styles.indicator,
@@ -122,10 +120,11 @@ export default function PillTabBar({
                 target: route.key,
                 canPreventDefault: true,
               });
-              if (!event.defaultPrevented) {
-                navigation.navigate(route.name);
-                Haptics.selectionAsync().catch(() => {});
-              }
+
+              if (event.defaultPrevented) return;
+
+              navigation.navigate(route.name as never);
+              Haptics.selectionAsync().catch(() => {});
             };
 
             const onLongPress = () => {

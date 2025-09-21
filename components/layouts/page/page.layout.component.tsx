@@ -1,19 +1,29 @@
+import { ChevronLeftIcon } from "@/assets/icons/chevron-left.component";
+import { Button } from "@/components/actions";
 import { Label } from "@/components/font";
+import { TurndownSafeView } from "@/components/layouts/safe-view";
 import { Stepper } from "@/components/layouts/stepper/stepper.layout.component";
+import { TurndownLoader } from "@/components/misc/loader";
 import { Switch } from "@/components/misc/switch";
 import { useTheme } from "@/context/theme/theme.context";
 import { DomProperties } from "@/helpers/types/base/style.types";
+import { router } from "expo-router";
 import React from "react";
 import { ScrollView, StyleProp, View, ViewStyle } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export interface PageProps extends DomProperties {
   header?: string;
   headerButton?: React.ReactNode | string;
   footer?: React.ReactNode;
   padding?: number;
-  scrollable?: boolean; // fallback for steps that don't set their own
+  ignoreTop?: boolean;
+  ignoreBottom?: boolean;
+  ignoreLeft?: boolean;
+  ignoreRight?: boolean;
+  scrollable?: boolean;
   gap?: number;
+  isLoading?: boolean;
+  canGoBack?: boolean;
   headerContainerStyle?: StyleProp<ViewStyle>;
   contentContainerStyle?: StyleProp<ViewStyle>;
 
@@ -78,16 +88,31 @@ export const Page: React.FC<PageProps> & { Step: typeof PageStep } = ({
   gap = 10,
   scrollable = false,
   headerButton,
+  isLoading = false,
   footer,
   headerContainerStyle,
   contentContainerStyle,
-
+  ignoreBottom,
+  canGoBack = false,
+  ignoreLeft,
+  ignoreRight,
+  ignoreTop,
   stepperPlacement = "footer",
   stepperContainerStyle,
   initialStep = 0,
   hideStepper = false,
 }) => {
   const { colors } = useTheme();
+
+  const withBottomPadding = (
+    extra?: StyleProp<ViewStyle>
+  ): StyleProp<ViewStyle> => [
+    extra,
+    {
+      paddingBottom: padding + 40,
+      gap,
+    },
+  ];
 
   // Split children into steps vs. "always-on" children
   const allChildren = React.Children.toArray(children);
@@ -122,10 +147,8 @@ export const Page: React.FC<PageProps> & { Step: typeof PageStep } = ({
     setCurrent((i) => Math.max(i - 1, 0));
   }, []);
 
-  // Render the active step (or fall back to normal content if no steps were provided)
   const renderActive = () => {
     if (!hasSteps) {
-      // No <Page.Step/> children: render everything as before
       return (
         <Switch>
           <Switch.Case condition={scrollable}>
@@ -133,10 +156,9 @@ export const Page: React.FC<PageProps> & { Step: typeof PageStep } = ({
               style={{ flex: 1 }}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={[
+              contentContainerStyle={withBottomPadding([
                 { padding, flexGrow: 1, gap },
-                contentContainerStyle,
-              ]}
+              ])}
               keyboardShouldPersistTaps="handled"
               keyboardDismissMode="on-drag"
             >
@@ -146,7 +168,11 @@ export const Page: React.FC<PageProps> & { Step: typeof PageStep } = ({
           <Switch.Case condition={!scrollable}>
             <View
               style={[
-                { flex: 1, padding, justifyContent: "center", gap },
+                withBottomPadding({
+                  flex: 1,
+                  padding,
+                  gap,
+                }),
                 contentContainerStyle,
               ]}
             >
@@ -178,7 +204,7 @@ export const Page: React.FC<PageProps> & { Step: typeof PageStep } = ({
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={[
-            { padding, flexGrow: 1, gap },
+            withBottomPadding({ padding, flexGrow: 1, gap }),
             active.props.contentContainerStyle ?? contentContainerStyle,
           ]}
           keyboardShouldPersistTaps="handled"
@@ -192,7 +218,12 @@ export const Page: React.FC<PageProps> & { Step: typeof PageStep } = ({
     return (
       <View
         style={[
-          { flex: 1, padding, justifyContent: "center", gap },
+          withBottomPadding({
+            flex: 1,
+            padding,
+            justifyContent: "center",
+            gap,
+          }),
           active.props.contentContainerStyle ?? contentContainerStyle,
         ]}
       >
@@ -223,38 +254,67 @@ export const Page: React.FC<PageProps> & { Step: typeof PageStep } = ({
   };
 
   return (
-    <StepsContext.Provider value={ctxValue}>
-      <SafeAreaView style={{ flex: 1 }}>
-        {header && (
+    <TurndownSafeView
+      ignoreBottom={ignoreBottom}
+      ignoreTop={ignoreTop}
+      ignoreLeft={ignoreLeft}
+      ignoreRight={ignoreRight}
+    >
+      <StepsContext.Provider value={ctxValue}>
+        {(header || canGoBack) && (
           <View
             style={[
               { padding },
-              { borderBottomWidth: 1, borderBottomColor: colors.primary },
+              {
+                borderBottomWidth: 1,
+                borderBottomColor: colors.primary,
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              },
+              { marginBottom: 0 },
               headerContainerStyle,
             ]}
           >
+            {canGoBack ? (
+              <Button
+                variant="outline"
+                width={50}
+                circle
+                onPress={() => {
+                  router.back();
+                }}
+              >
+                <ChevronLeftIcon
+                  color="primary"
+                  type="regular"
+                  size={"small"}
+                />
+              </Button>
+            ) : (
+              <View style={{ height: 50, width: 50 }} />
+            )}
             <Label variant="h1" style={{ textAlign: "center" }}>
               {header}
             </Label>
-            {headerButton && (
-              <View style={{ position: "absolute", top: 34, right: 20 }}>
-                {headerButton}
-              </View>
+            {headerButton ? (
+              <View>{headerButton}</View>
+            ) : (
+              <View style={{ height: 50, width: 50 }} />
             )}
           </View>
         )}
 
-        {stepperPlacement === "header" && (
-          <View style={{ paddingTop: headerButton ? 30 : 0 }}>{stepperUI}</View>
-        )}
+        {stepperPlacement === "header" && <View>{stepperUI}</View>}
 
-        {renderActive()}
+        {isLoading ? <TurndownLoader /> : renderActive()}
 
         {stepperPlacement === "footer" && stepperUI}
 
         {footer && <View style={[{ padding }]}>{footer}</View>}
-      </SafeAreaView>
-    </StepsContext.Provider>
+      </StepsContext.Provider>
+    </TurndownSafeView>
   );
 };
 

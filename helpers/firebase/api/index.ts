@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { Timestamp } from "firebase/firestore";
 
-export * from "./properties";
+export * from "./rooms";
 export * from "./users";
 
 export const dateToTimestamp = (date?: Date): Timestamp => {

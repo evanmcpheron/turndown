@@ -18,7 +18,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from ".";
+import { dateToTimestamp, db } from ".";
 import { TurndownObject } from "../types";
 import { Collections, ReturnData } from "./firestore.types";
 
@@ -29,13 +29,24 @@ export const post = async (
   id?: string
 ): Promise<ReturnData> => {
   try {
+    const dates = dateToTimestamp();
     if (id) {
-      await setDoc(doc(db, coll, id), data);
+      await setDoc(doc(db, coll, id), {
+        ...data,
+        deleted: false,
+        created_at: dates,
+        updated_at: dates,
+      });
       return { success: true, data: { id, data } };
     } else {
       const ref: DocumentReference<DocumentData> = await addDoc(
         collection(db, coll),
-        data
+        {
+          ...data,
+          deleted: false,
+          created_at: dates,
+          updated_at: dates,
+        }
       );
       return { success: true, data: { id: ref.id, ...data } };
     }
@@ -152,8 +163,10 @@ export const update = async (
   data: Partial<TurndownObject>
 ): Promise<ReturnData> => {
   try {
+    const dates = dateToTimestamp();
+
     const docRef = doc(db, coll, id);
-    await updateDoc(docRef, data);
+    await updateDoc(docRef, { ...data, updated_at: dates });
     return { success: true, data: { id, ...data } };
   } catch (error: any) {
     return { success: false, message: error.message };

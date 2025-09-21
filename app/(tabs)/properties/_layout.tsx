@@ -1,3 +1,4 @@
+import { PropertyProvider } from "@/context/property/property.context";
 import { useTheme } from "@/context/theme/theme.context";
 import { Stack } from "expo-router";
 
@@ -5,18 +6,15 @@ export default function PropertyStackLayout() {
   const { colors } = useTheme();
 
   return (
-    <Stack
-      screenOptions={{
-        headerShadowVisible: false,
-        headerTintColor: colors.background,
-        headerStyle: { backgroundColor: colors.background },
-        contentStyle: { backgroundColor: colors.background },
-      }}
-    >
-      <Stack.Screen
-        name="index"
-        options={{ headerShown: false, title: "Properties" }}
+    <PropertyProvider>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          headerTintColor: colors.background,
+          headerStyle: { backgroundColor: colors.background },
+          contentStyle: { backgroundColor: colors.background },
+        }}
       />
-    </Stack>
+    </PropertyProvider>
   );
 }

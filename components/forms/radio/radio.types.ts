@@ -1,10 +1,7 @@
-export interface RadioProps {
-  children: React.ReactNode;
-}
+import { SelectOption } from "../dropdown/dropdown.form.component";
 
-export interface RadioItemProps {
-  label: string;
-  disabled?: boolean;
-  default?: boolean;
-  children?: React.ReactNode;
+export interface RadioProps {
+  name: string;
+  defaultValue?: string;
+  options: SelectOption[];
 }

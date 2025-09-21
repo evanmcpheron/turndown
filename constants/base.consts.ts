@@ -1,5 +1,11 @@
 import { SelectOption } from "@/components/forms/dropdown/dropdown.form.component";
 
+export const defaultImages = {
+  profile:
+    "https://firebasestorage.googleapis.com/v0/b/turndown-6c530.firebasestorage.app/o/defaults%2Fdefault_profile.jpg?alt=media&token=c34d7d86-4c5c-4de8-bd59-d62c5c5b1e85",
+  home: "https://firebasestorage.googleapis.com/v0/b/turndown-6c530.firebasestorage.app/o/defaults%2Fhome-image.jpg?alt=media&token=cc84f968-a0ec-4e5b-8618-022d90274cb5",
+};
+
 export const statesAndTerritories: SelectOption[] = [
   { label: "Alabama", value: "Alabama" },
   { label: "Alaska", value: "Alaska" },

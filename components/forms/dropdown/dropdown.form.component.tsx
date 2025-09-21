@@ -1,9 +1,12 @@
 import { ArrowDownIcon } from "@/assets/icons/arrow-down.component";
 import { Label } from "@/components/font";
 import { useTheme } from "@/context/theme/theme.context";
+import { TurndownObject } from "@/helpers";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Modal } from "../../layouts/modal/modal.layout.component";
+import { useForm, useFormErrors, useFormName } from "../form";
+import { hasOwnProp, validateInternalComponent } from "../form/form.helpers";
 
 export interface SelectOption {
   label: string;
@@ -12,6 +15,7 @@ export interface SelectOption {
 }
 
 interface DropdownProps {
+  name: string;
   options: SelectOption[];
   heading?: {
     primary?: string;
@@ -20,11 +24,12 @@ interface DropdownProps {
   disabled?: boolean;
   placeholder?: string;
   hasFooter?: boolean;
-  onSelect: (option: SelectOption) => void;
-  defaultValue?: SelectOption;
+  onSelect: (option: string) => void;
+  defaultValue?: string;
 }
 
 export const Dropdown = ({
+  name,
   options,
   heading,
   onSelect,
@@ -36,14 +41,75 @@ export const Dropdown = ({
   const emptyOption: SelectOption = { label: "", value: "" };
   const { app } = useTheme();
 
-  const resolvedDefault = useMemo(() => {
+  const [showError, setShowError] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>(defaultValue || "");
+
+  const formName = useFormName();
+
+  const formErrors = useFormErrors();
+  const domRef: TurndownObject = useRef(null);
+
+  const { setValue, registerField, deregisterField, subscribe, unsubscribe } =
+    useForm({ formName });
+
+  useEffect(() => {
+    registerField(name, defaultValue);
+
+    const handleValueChange = (newValue: TurndownObject) => {
+      setInputValue(newValue ?? "");
+    };
+
+    if (formName) {
+      subscribe(name, handleValueChange);
+    }
+
+    return () => {
+      deregisterField(name);
+      if (formName) {
+        unsubscribe(name, handleValueChange);
+      }
+    };
+  }, [formName, name]);
+
+  useEffect(() => {
+    if (!formName) {
+      setInputValue(defaultValue ?? "");
+    }
+  }, [defaultValue, formName]);
+
+  useEffect(() => {
+    setInputValue("");
+  }, []);
+
+  useEffect(() => {
+    if (formErrors && formErrors.form === formName) {
+      if (hasOwnProp(formErrors.errors, name)) {
+        setShowError(true);
+      } else {
+        setShowError(false);
+      }
+    } else {
+      setShowError(false);
+    }
+  }, [formErrors]);
+
+  useEffect(() => {
+    const validateMessage = validateInternalComponent(
+      formName,
+      name,
+      inputValue
+    );
+    setShowError(!!validateMessage);
+  }, [inputValue]);
+
+  const resolvedDefault = useMemo((): string => {
     if (defaultValue) return defaultValue;
-    const defaultOpt = options.find((o) => o.default);
-    return defaultOpt ?? emptyOption;
+    const defaultOpt = options.find((o) => o.default)?.value;
+    return defaultOpt ?? "";
   }, [defaultValue, options]);
 
-  const [selected, setSelected] = useState<SelectOption>(resolvedDefault);
-  const [confirmed, setConfirmed] = useState<SelectOption>(resolvedDefault);
+  const [selected, setSelected] = useState<string>(resolvedDefault);
+  const [confirmed, setConfirmed] = useState<string>(resolvedDefault);
   const [isOpen, setIsOpen] = useState(false);
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
@@ -71,10 +137,11 @@ export const Dropdown = ({
   };
 
   const handleSelect = (option: SelectOption) => {
-    setSelected(option);
+    setSelected(option.value);
     if (!hasFooter) {
-      setConfirmed(option);
-      onSelect(option);
+      setValue(name, option.value);
+      setConfirmed(option.value);
+      onSelect(option.value);
       setIsOpen(false);
     }
   };
@@ -91,7 +158,7 @@ export const Dropdown = ({
   };
 
   return (
-    <View style={styles.dropdownWrapper}>
+    <View style={styles.dropdownWrapper} ref={domRef}>
       <TouchableOpacity
         disabled={disabled}
         style={[
@@ -127,7 +194,7 @@ export const Dropdown = ({
             },
           ]}
         >
-          {selected?.value ? selected.label : placeholder}
+          {selected ? selected : placeholder}
         </Label>
         <Animated.View style={{ transform: [{ rotate: arrowRotation }] }}>
           <ArrowDownIcon type="regular" />
@@ -155,7 +222,7 @@ export const Dropdown = ({
                   backgroundColor: app.colors.onPrimary,
                 },
 
-                selected?.value === option.value && {
+                selected === option.value && {
                   borderColor: app.colors.primary,
                   backgroundColor: app.colors.primary,
                 },
@@ -166,7 +233,7 @@ export const Dropdown = ({
               <Label
                 style={[
                   styles.optionText,
-                  selected?.value === option.value && {
+                  selected === option.value && {
                     color: app.colors.onPrimary,
                   },
                 ]}

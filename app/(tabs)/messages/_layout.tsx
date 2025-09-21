@@ -7,16 +7,11 @@ export default function MessagesStackLayout() {
   return (
     <Stack
       screenOptions={{
-        headerShadowVisible: false,
+        headerShown: false,
         headerTintColor: colors.background,
         headerStyle: { backgroundColor: colors.background },
         contentStyle: { backgroundColor: colors.background },
       }}
-    >
-      <Stack.Screen
-        name="index"
-        options={{ headerShown: false, title: "Messages" }}
-      />
-    </Stack>
+    />
   );
 }

@@ -2,6 +2,8 @@ import { Label } from "@/components/font";
 import { ModalProps } from "./modal.layout.component.types";
 
 import { Button } from "@/components/actions";
+import { NoticeHost } from "@/components/actions/notification/notification.host.component";
+import { TurndownLoader } from "@/components/misc/loader";
 import { useTheme } from "@/context/theme/theme.context";
 import { withOpacity } from "@/helpers/theme";
 import React, {
@@ -18,7 +20,6 @@ import {
   Modal as NativeModal,
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -28,9 +29,11 @@ export const Modal = ({
   isOpen,
   onCancel,
   onSave,
+  isLoading = false,
   disabled = false,
   isTransparent = true,
   animationType = "fade",
+  saveText = "Okay",
   children,
 }: ModalProps) => {
   const [hasFooter, setHasFooter] = useState(true);
@@ -75,6 +78,7 @@ export const Modal = ({
       visible={isOpen}
       presentationStyle="overFullScreen"
     >
+      <NoticeHost />
       <SafeAreaProvider
         style={[
           {
@@ -119,31 +123,35 @@ export const Modal = ({
                 )}
               </View>
             )}
-            <ScrollView
-              nestedScrollEnabled
-              style={[
-                {
-                  ...(!hasFooter && {
-                    borderRadius: 12,
-                    padding: app.spacing[4],
-                    paddingBottom: app.spacing[4],
-                  }),
-                },
-                {
-                  ...(!header && {
+            {isLoading ? (
+              <TurndownLoader />
+            ) : (
+              <ScrollView
+                nestedScrollEnabled
+                style={[
+                  {
+                    ...(!hasFooter && {
+                      borderRadius: 12,
+                      padding: app.spacing[4],
+                      paddingBottom: app.spacing[4],
+                    }),
+                  },
+                  {
+                    ...(!header && {
+                      paddingTop: app.spacing[4],
+                    }),
+                  },
+                  {
+                    maxHeight: "100%",
                     paddingTop: app.spacing[4],
-                  }),
-                },
-                {
-                  maxHeight: "100%",
-                  paddingTop: app.spacing[4],
-                  paddingHorizontal: app.spacing[4],
-                  backgroundColor: app.colors.background,
-                },
-              ]}
-            >
-              {contentChildren}
-            </ScrollView>
+                    paddingHorizontal: app.spacing[4],
+                    backgroundColor: app.colors.background,
+                  },
+                ]}
+              >
+                {contentChildren}
+              </ScrollView>
+            )}
             {hasFooter && (
               <View
                 style={[
@@ -161,16 +169,16 @@ export const Modal = ({
                     onPress={onCancel}
                     variant="outline"
                   >
-                    <Text>Cancel</Text>
+                    Cancel
                   </Button>
                 )}
                 {onSave && (
                   <Button
                     style={{ flex: 1 }}
-                    disabled={disabled}
+                    disabled={disabled || isLoading}
                     onPress={onSave}
                   >
-                    <Text>Okay</Text>
+                    {saveText}
                   </Button>
                 )}
                 {actions.map((action, index) => {

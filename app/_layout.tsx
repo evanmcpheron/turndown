@@ -9,17 +9,23 @@ import {
 import { Stack } from "expo-router";
 import { View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import {
+  initialWindowMetrics,
+  SafeAreaProvider,
+} from "react-native-safe-area-context";
 
 export default function RootLayout() {
   return (
-    <AuthProvider>
-      <ThemeProvider>
-        <GestureHandlerRootView>
-          <NoticeHost />
-          <StackLayout />
-        </GestureHandlerRootView>
-      </ThemeProvider>
-    </AuthProvider>
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <AuthProvider>
+        <ThemeProvider>
+          <GestureHandlerRootView>
+            <NoticeHost />
+            <StackLayout />
+          </GestureHandlerRootView>
+        </ThemeProvider>
+      </AuthProvider>
+    </SafeAreaProvider>
   );
 }
 
@@ -31,6 +37,7 @@ const StackLayout = () => {
       <Stack
         screenOptions={{
           contentStyle: { backgroundColor: colors.background },
+          headerBackVisible: false,
           headerShown: false,
         }}
       />

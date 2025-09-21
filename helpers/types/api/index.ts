@@ -18,7 +18,7 @@ export type IssueType =
   | "missing"
   | "safety"
   | "other";
-export type IssueSeverity = "low" | "medium" | "high";
+export type Severity = "low" | "medium" | "high";
 export type IssueStatus = "open" | "resolved" | "wont_fix";
 export type InventoryLevel = "out" | "low" | "ok";
 export type IntegrationSource = "airbnb" | "vrbo" | "custom";
@@ -34,7 +34,7 @@ export interface Issue {
   type: IssueType;
   title: string;
   description?: string;
-  severity: IssueSeverity;
+  severity: Severity;
   blocks_check_in: boolean;
 
   estimated_cost_cents?: number;

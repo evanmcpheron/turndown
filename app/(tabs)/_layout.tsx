@@ -1,6 +1,6 @@
 // app/(tabs)/_layout.tsx (or wherever your TabLayout lives)
 import { useAuth } from "@/context";
-import { Redirect, Tabs } from "expo-router";
+import { Redirect, router, Tabs } from "expo-router";
 import React from "react";
 import { ActivityIndicator, View } from "react-native";
 
@@ -39,48 +39,78 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="dashboard"
         options={{
           title: "Dashboard",
+          tabBarStyle: { height: 40 },
           tabBarIcon: () => (
             <GaugeIcon type="duotone" color="primary" size="regular" />
           ),
+        }}
+        listeners={{
+          focus: () => {
+            router.replace("/(tabs)/dashboard");
+          },
         }}
       />
       <Tabs.Screen
         name="turns"
         options={{
           title: "Turns",
+          tabBarStyle: { height: 40 },
           tabBarIcon: () => (
             <BroomIcon type="duotone" color="primary" size="regular" />
           ),
+        }}
+        listeners={{
+          focus: () => {
+            router.replace("/(tabs)/turns");
+          },
         }}
       />
       <Tabs.Screen
         name="messages"
         options={{
           title: "Messages",
+          tabBarStyle: { height: 40 },
           tabBarIcon: () => (
             <CommentIcon type="duotone" color="primary" size="regular" />
           ),
+        }}
+        listeners={{
+          focus: () => {
+            router.replace("/(tabs)/messages");
+          },
         }}
       />
       <Tabs.Screen
         name="properties"
         options={{
           title: "Properties",
+          tabBarStyle: { height: 40 },
           tabBarIcon: () => (
             <ClipboardIcon type="duotone" color="primary" size="regular" />
           ),
+        }}
+        listeners={{
+          focus: () => {
+            router.replace("/(tabs)/properties");
+          },
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: "Settings",
+          tabBarStyle: { height: 40 },
           tabBarIcon: () => (
             <GearIcon type="duotone" color="primary" size="regular" />
           ),
+        }}
+        listeners={{
+          focus: () => {
+            router.replace("/(tabs)/settings");
+          },
         }}
       />
     </Tabs>

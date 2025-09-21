@@ -32,11 +32,6 @@ export const Row = ({
       ...(mappedAlignItems ? { alignItems: mappedAlignItems } : {}),
       ...(justifyContent ? { justifyContent } : {}),
       ...(flexWrap ? { flexWrap } : {}),
-      ...(stretchRow
-        ? { width: "100%" }
-        : width !== undefined
-        ? { width }
-        : {}),
       ...(height !== undefined ? { height } : {}),
       ...(minWidth !== undefined ? { minWidth } : {}),
       ...(minHeight !== undefined ? { minHeight } : {}),

@@ -1,4 +1,6 @@
-import { globalStyles } from "@/constants/Colors";
+import { useTheme } from "@/context/theme/theme.context";
+import { AppTheme } from "@/helpers/theme/general.styles";
+import { useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 interface CardProps {
@@ -7,6 +9,8 @@ interface CardProps {
 }
 
 export const Card = ({ title, children }: CardProps) => {
+  const { app } = useTheme();
+  const styles = useMemo(() => turndownExpandableComponentStyles(app), [app]);
   return (
     <View style={styles.container}>
       {title && <Text style={styles.title}>{title}</Text>}
@@ -15,23 +19,27 @@ export const Card = ({ title, children }: CardProps) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: globalStyles.color.background,
-    // margin: globalStyles.size.spacing.medium,
-    borderRadius: globalStyles.size.borderRadius.x_large,
-    padding: globalStyles.size.spacing.medium,
-    alignItems: "center",
-    shadowColor: globalStyles.color.black,
-    shadowOffset: globalStyles.color.shadowOffset.medium,
-    shadowOpacity: globalStyles.color.opacity.high,
-    shadowRadius: globalStyles.size.borderRadius.x_large,
-    elevation: globalStyles.size.elevation.high,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 12,
-    color: "#333",
-  },
-});
+export const turndownExpandableComponentStyles = (theme: AppTheme) => {
+  const iosShadow = {
+    shadowColor: theme.colors.onBackground,
+    shadowOpacity: theme.elevation[2].ios.opacity,
+    shadowRadius: theme.elevation[2].ios.radius,
+    shadowOffset: theme.elevation[2].ios.offset,
+  };
+
+  return StyleSheet.create({
+    container: {
+      flexGrow: 1,
+      backgroundColor: theme.colors.surface,
+      padding: theme.spacing[4],
+      borderRadius: theme.radii.lg,
+      ...iosShadow,
+    },
+    title: {
+      fontSize: 18,
+      fontWeight: "600",
+      marginBottom: 12,
+      color: "#333",
+    },
+  });
+};

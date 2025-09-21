@@ -1,4 +1,4 @@
-import { DomProperties } from "@/types/global.types";
+import { DomProperties } from "@/helpers/types/base/style.types";
 
 export interface RowProps extends DomProperties {
   gap?: number;
