@@ -1,4 +1,4 @@
-import TurndownScreen from "./turns.screen";
+import { TurndownScreen } from "@/screens";
 
 const IndexScreen = () => {
   return <TurndownScreen />;

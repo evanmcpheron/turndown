@@ -1,4 +1,4 @@
-import SettingsScreen from "./settings.screen";
+import { SettingsScreen } from "@/screens";
 
 const IndexScreen = () => {
   return <SettingsScreen />;

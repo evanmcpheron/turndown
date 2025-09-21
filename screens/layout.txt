@@ -1,0 +1,177 @@
+.
+├── auth
+│   ├── index.ts
+│   ├── sign-in
+│   │   ├── components
+│   │   │   └── index.ts
+│   │   ├── forms
+│   │   │   ├── create
+│   │   │   │   └── index.ts
+│   │   │   ├── edit
+│   │   │   │   └── index.ts
+│   │   │   └── index.ts
+│   │   ├── index.ts
+│   │   ├── sign.in.screen.tsx
+│   │   ├── sign.in.styles.ts
+│   │   └── sign.in.types.ts
+│   └── sign-up
+│       ├── components
+│       │   └── index.ts
+│       ├── forms
+│       │   ├── create
+│       │   │   └── index.ts
+│       │   ├── edit
+│       │   │   └── index.ts
+│       │   └── index.ts
+│       ├── index.ts
+│       ├── sign.up.screen.tsx
+│       ├── sign.up.styles.ts
+│       └── sign.up.types.ts
+├── index.ts
+└── tabs
+    ├── dashboard
+    │   ├── components
+    │   │   └── index.ts
+    │   ├── dashboard.screen.tsx
+    │   ├── dashboard.styles.ts
+    │   ├── dashboard.types.ts
+    │   ├── forms
+    │   │   ├── create
+    │   │   │   └── index.ts
+    │   │   ├── edit
+    │   │   │   └── index.ts
+    │   │   └── index.ts
+    │   └── index.ts
+    ├── index.ts
+    ├── messages
+    │   ├── components
+    │   │   └── index.ts
+    │   ├── forms
+    │   │   ├── create
+    │   │   │   └── index.ts
+    │   │   ├── edit
+    │   │   │   └── index.ts
+    │   │   └── index.ts
+    │   ├── index.ts
+    │   ├── messages.screen.tsx
+    │   ├── messages.styles.ts
+    │   └── messages.types.ts
+    ├── properties
+    │   ├── checklists
+    │   │   ├── checklists.screen.tsx
+    │   │   ├── checklists.styles.ts
+    │   │   ├── checklists.types.ts
+    │   │   ├── components
+    │   │   │   └── index.ts
+    │   │   ├── forms
+    │   │   │   ├── create
+    │   │   │   │   └── index.ts
+    │   │   │   ├── edit
+    │   │   │   │   └── index.ts
+    │   │   │   └── index.ts
+    │   │   └── index.ts
+    │   ├── components
+    │   │   └── index.ts
+    │   ├── forms
+    │   │   ├── create
+    │   │   │   └── index.ts
+    │   │   ├── edit
+    │   │   │   └── index.ts
+    │   │   └── index.ts
+    │   ├── [id]
+    │   │   ├── components
+    │   │   │   └── index.ts
+    │   │   ├── forms
+    │   │   │   ├── create
+    │   │   │   │   └── index.ts
+    │   │   │   ├── edit
+    │   │   │   │   └── index.ts
+    │   │   │   └── index.ts
+    │   │   ├── index.ts
+    │   │   ├── property.id.screen.tsx
+    │   │   ├── property.id.styles.ts
+    │   │   └── property.id.types.ts
+    │   ├── index.ts
+    │   ├── inventory
+    │   │   ├── components
+    │   │   │   └── index.ts
+    │   │   ├── forms
+    │   │   │   ├── create
+    │   │   │   │   └── index.ts
+    │   │   │   ├── edit
+    │   │   │   │   └── index.ts
+    │   │   │   └── index.ts
+    │   │   ├── index.ts
+    │   │   ├── inventory.screen.tsx
+    │   │   ├── inventory.styles.ts
+    │   │   └── inventory.types.ts
+    │   ├── properties.screen.tsx
+    │   ├── properties.styles.ts
+    │   ├── properties.types.ts
+    │   ├── rooms
+    │   │   ├── components
+    │   │   │   └── index.ts
+    │   │   ├── forms
+    │   │   │   ├── create
+    │   │   │   │   └── index.ts
+    │   │   │   ├── edit
+    │   │   │   │   └── index.ts
+    │   │   │   └── index.ts
+    │   │   ├── index.ts
+    │   │   ├── rooms.screen.tsx
+    │   │   ├── rooms.styles.ts
+    │   │   └── rooms.types.ts
+    │   └── tasks
+    │       ├── components
+    │       │   └── index.ts
+    │       ├── forms
+    │       │   ├── create
+    │       │   │   └── index.ts
+    │       │   ├── edit
+    │       │   │   └── index.ts
+    │       │   └── index.ts
+    │       ├── index.ts
+    │       ├── tasks.screen.tsx
+    │       ├── tasks.styles.ts
+    │       └── tasks.types.ts
+    ├── settings
+    │   ├── components
+    │   │   └── index.ts
+    │   ├── forms
+    │   │   ├── create
+    │   │   │   └── index.ts
+    │   │   ├── edit
+    │   │   │   └── index.ts
+    │   │   └── index.ts
+    │   ├── index.ts
+    │   ├── profile
+    │   │   ├── components
+    │   │   │   └── index.ts
+    │   │   ├── forms
+    │   │   │   ├── create
+    │   │   │   │   └── index.ts
+    │   │   │   ├── edit
+    │   │   │   │   └── index.ts
+    │   │   │   └── index.ts
+    │   │   ├── index.ts
+    │   │   ├── profile.screen.tsx
+    │   │   ├── profile.styles.ts
+    │   │   └── profile.types.ts
+    │   ├── settings.screen.tsx
+    │   ├── settings.styles.ts
+    │   └── settings.types.ts
+    └── turns
+        ├── components
+        │   └── index.ts
+        ├── forms
+        │   ├── create
+        │   │   └── index.ts
+        │   ├── edit
+        │   │   └── index.ts
+        │   └── index.ts
+        ├── index.ts
+        ├── turns.screen.tsx
+        ├── turns.styles.ts
+        └── turns.types.ts
+
+68 directories, 108 files

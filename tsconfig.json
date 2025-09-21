@@ -3,16 +3,21 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ],
+      "@/*": ["./*"],
+      "@app/*": ["./app/*"],
+      "@screens/*": ["./screens/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@ui/*": ["./src/shared/ui/*"],
+      "@styles/*": ["./src/shared/styles/*"],
+      "@config/*": ["./src/shared/config/*"],
+      "@lib/*": ["./src/shared/lib/*"],
+      "@hooks/*": ["./src/shared/hooks/*"],
+      "@types/*": ["./src/types/*"],
+      "@entities/*": ["./src/entities/*"],
+      "@services/*": ["./src/services/*"],
+      "@features/*": ["./src/features/*"],
       "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }

@@ -1,9 +1,9 @@
 import { User } from "@/helpers";
-import { auth } from "@/helpers/firebase";
 import {
   getUserById,
   postUser,
 } from "@/helpers/firebase/api/users/users.api.helpers";
+import { auth } from "@/src/services";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,

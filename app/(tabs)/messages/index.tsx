@@ -1,4 +1,4 @@
-import MessagesScreen from "./messages.screen";
+import { MessagesScreen } from "@/screens";
 
 const IndexScreen = () => {
   return <MessagesScreen />;

@@ -1,4 +1,4 @@
-import ChecklistsScreen from "./checklists.screen";
+import { ChecklistsScreen } from "@/screens";
 
 const IndexScreen = () => {
   return <ChecklistsScreen />;

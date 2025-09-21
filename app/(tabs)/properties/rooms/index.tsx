@@ -1,4 +1,4 @@
-import RoomsScreen from "./rooms.screen";
+import { RoomsScreen } from "@/screens";
 
 const IndexScreen = () => {
   return <RoomsScreen />;

@@ -1,6 +1,10 @@
 import { showSuccessNotification } from "@/components/actions/notification/notification.helper";
 import { Room } from "@/helpers/types";
-import { get, post, update } from "../../firestore.helper";
+import {
+  get,
+  post,
+  update,
+} from "../../../../src/services/firebase/firestore.helper";
 
 export const getRoomsByPropertyId = async (property_id: string) => {
   try {

@@ -1,0 +1,48 @@
+.
+├── (auth)
+│   ├── _layout.tsx
+│   ├── sign.in.screen.tsx
+│   └── sign.up.screen.tsx
+├── index.tsx
+├── _layout.tsx
+├── layout.txt
+└── (tabs)
+    ├── dashboard
+    │   ├── dashboard.screen.tsx
+    │   ├── index.tsx
+    │   └── _layout.tsx
+    ├── _layout.tsx
+    ├── messages
+    │   ├── index.tsx
+    │   ├── _layout.tsx
+    │   └── messages.screen.tsx
+    ├── properties
+    │   ├── checklists
+    │   │   ├── checklists.screen.tsx
+    │   │   └── index.tsx
+    │   ├── [id].tsx
+    │   ├── index.tsx
+    │   ├── inventory
+    │   │   ├── index.tsx
+    │   │   └── inventory.screen.tsx
+    │   ├── _layout.tsx
+    │   ├── properties.screen.tsx
+    │   ├── rooms
+    │   │   ├── index.tsx
+    │   │   └── rooms.screen.tsx
+    │   └── tasks
+    │       ├── index.tsx
+    │       └── tasks.screen.tsx
+    ├── settings
+    │   ├── index.tsx
+    │   ├── _layout.tsx
+    │   ├── profile
+    │   │   ├── index.tsx
+    │   │   └── profile.screen.tsx
+    │   └── settings.screen.tsx
+    └── turns
+        ├── index.tsx
+        ├── _layout.tsx
+        └── turns.screen.tsx
+
+13 directories, 33 files

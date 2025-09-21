@@ -1,6 +1,10 @@
 import { showSuccessNotification } from "@/components/actions/notification/notification.helper";
 import { Property } from "@/helpers/types";
-import { get, post, update } from "../../firestore.helper";
+import {
+  get,
+  post,
+  update,
+} from "../../../../src/services/firebase/firestore.helper";
 
 export const getPropertiesByUserId = async (user_id: string) => {
   try {

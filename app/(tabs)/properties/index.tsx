@@ -1,7 +1,7 @@
-import PropertyScreen from "./properties.screen";
+import { PropertiesScreen } from "@/screens";
 
 const IndexScreen = () => {
-  return <PropertyScreen />;
+  return <PropertiesScreen />;
 };
 
 export default IndexScreen;

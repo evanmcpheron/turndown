@@ -1,4 +1,4 @@
-import InventoryScreen from "./inventory.screen";
+import { InventoryScreen } from "@/screens";
 
 const IndexScreen = () => {
   return <InventoryScreen />;

@@ -1,4 +1,4 @@
-import TasksScreen from "./tasks.screen";
+import { TasksScreen } from "@/screens";
 
 const IndexScreen = () => {
   return <TasksScreen />;
