@@ -4,7 +4,7 @@ import { useProperty } from "@/screens/tabs/properties/context/property.context"
 import { useAuth } from "@/src/contexts/auth";
 import { roomsApi } from "@/src/services/api/rooms";
 import { showErrorNotification } from "@/src/shared/feedback/notification/notification.helper";
-import { Button } from "@/src/shared/ui/actions/button";
+import { TurndownButton } from "@/src/shared/ui/actions";
 import { Form, useForm } from "@/src/shared/ui/forms/form";
 import { getFirstPropertyValue } from "@/src/shared/ui/forms/form/form.helpers";
 import { Input } from "@/src/shared/ui/forms/input";
@@ -94,7 +94,7 @@ export const RoomCreateForm = forwardRef<
           autoUpload={false}
           showAddButtons={false}
         />
-        <Button
+        <TurndownButton
           onPress={() => {
             if (uploaderRef.current) {
               uploaderRef.current.addFromCamera();
@@ -102,8 +102,8 @@ export const RoomCreateForm = forwardRef<
           }}
         >
           Camera
-        </Button>
-        <Button
+        </TurndownButton>
+        <TurndownButton
           onPress={() => {
             if (uploaderRef.current) {
               uploaderRef.current.addFromLibrary();
@@ -111,7 +111,7 @@ export const RoomCreateForm = forwardRef<
           }}
         >
           Library
-        </Button>
+        </TurndownButton>
       </TurndownSection>
     </Form>
   );

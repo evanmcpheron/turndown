@@ -4,7 +4,6 @@ import { ModalProps } from "./modal.layout.component.types";
 import { useTheme } from "@/src/contexts/theme";
 import { NoticeHost } from "@/src/shared/feedback/notification/notification.host.component";
 import { withOpacity } from "@/src/shared/styles";
-import { Button } from "@/src/shared/ui/actions/button";
 import { TurndownLoader } from "@/src/shared/ui/data-display/loader";
 import React, {
   Children,
@@ -23,6 +22,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { TurndownButton } from "../../actions";
 
 export const Modal = ({
   header,
@@ -164,22 +164,22 @@ export const Modal = ({
                 ]}
               >
                 {onCancel && (
-                  <Button
+                  <TurndownButton
                     style={{ flex: 1 }}
                     onPress={onCancel}
                     variant="outline"
                   >
                     Cancel
-                  </Button>
+                  </TurndownButton>
                 )}
                 {onSave && (
-                  <Button
+                  <TurndownButton
                     style={{ flex: 1 }}
                     disabled={disabled || isLoading}
                     onPress={onSave}
                   >
                     {saveText}
-                  </Button>
+                  </TurndownButton>
                 )}
                 {actions.map((action, index) => {
                   return <View key={index}>{action.props.children}</View>;

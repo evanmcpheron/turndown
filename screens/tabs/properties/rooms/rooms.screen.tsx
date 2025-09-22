@@ -6,7 +6,7 @@ import { useAuth } from "@/src/contexts/auth";
 import { useTheme } from "@/src/contexts/theme";
 import { roomsApi } from "@/src/services/api/rooms";
 import { PlusIcon } from "@/src/shared/icons/plus.component";
-import { Button } from "@/src/shared/ui/actions/button";
+import { TurndownButton } from "@/src/shared/ui/actions";
 import { Label } from "@/src/shared/ui/data-display/font";
 import { Mode } from "@/src/shared/ui/forms";
 import { Modal } from "@/src/shared/ui/surface/modal/modal.layout.component";
@@ -92,7 +92,7 @@ export const RoomsScreen = () => {
           Create your first room to start tracking photos, notes, and
           checklists.
         </Label>
-        <Button
+        <TurndownButton
           onPress={() => {
             setMode("CREATE");
             setIsModalDisplayed(true);
@@ -100,7 +100,7 @@ export const RoomsScreen = () => {
           variant="filled"
         >
           Create Room
-        </Button>
+        </TurndownButton>
       </View>
     ),
     [app]
@@ -112,7 +112,7 @@ export const RoomsScreen = () => {
       header="Rooms"
       canGoBack
       headerButton={
-        <Button
+        <TurndownButton
           width={50}
           circle
           onPress={() => {
@@ -121,7 +121,7 @@ export const RoomsScreen = () => {
           }}
         >
           <PlusIcon type="regular" color="onPrimary" size={"medium"} />
-        </Button>
+        </TurndownButton>
       }
     >
       <FlatList

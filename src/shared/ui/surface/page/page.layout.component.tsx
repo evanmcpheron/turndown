@@ -1,6 +1,5 @@
 import { useTheme } from "@/src/contexts/theme";
 import { ChevronLeftIcon } from "@/src/shared/icons/chevron-left.component";
-import { Button } from "@/src/shared/ui/actions/button";
 import { Label } from "@/src/shared/ui/data-display/font";
 import { TurndownLoader } from "@/src/shared/ui/data-display/loader";
 import { Switch } from "@/src/shared/ui/misc/switch";
@@ -10,6 +9,7 @@ import { DomProperties } from "@/src/types/common/style.types";
 import { router } from "expo-router";
 import React from "react";
 import { ScrollView, StyleProp, View, ViewStyle } from "react-native";
+import { TurndownButton } from "../../actions";
 
 export interface PageProps extends DomProperties {
   header?: string;
@@ -278,7 +278,7 @@ export const Page: React.FC<PageProps> & { Step: typeof PageStep } = ({
             ]}
           >
             {canGoBack ? (
-              <Button
+              <TurndownButton
                 variant="outline"
                 width={50}
                 circle
@@ -291,7 +291,7 @@ export const Page: React.FC<PageProps> & { Step: typeof PageStep } = ({
                   type="regular"
                   size={"small"}
                 />
-              </Button>
+              </TurndownButton>
             ) : (
               <View style={{ height: 50, width: 50 }} />
             )}

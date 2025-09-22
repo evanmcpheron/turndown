@@ -1,4 +1,4 @@
-import { Button } from "@/src/shared/ui/actions/button";
+import { TurndownButton } from "@/src/shared/ui/actions";
 import { Page } from "@/src/shared/ui/surface/page/page.layout.component";
 import { router } from "expo-router";
 import React, { useRef } from "react";
@@ -13,12 +13,14 @@ export const SignInScreen = () => {
     <Page
       header="Sign In"
       headerButton={
-        <Button onPress={() => router.replace("/(auth)/sign.up.screen")}>
+        <TurndownButton
+          onPress={() => router.replace("/(auth)/sign.up.screen")}
+        >
           Sign Up
-        </Button>
+        </TurndownButton>
       }
       footer={
-        <Button
+        <TurndownButton
           onPress={() => {
             if (signInFormRef.current) {
               signInFormRef.current.submitData((success: boolean) => {
@@ -29,7 +31,7 @@ export const SignInScreen = () => {
           }}
         >
           Sign in
-        </Button>
+        </TurndownButton>
       }
     >
       <SignInForm ref={signInFormRef} />

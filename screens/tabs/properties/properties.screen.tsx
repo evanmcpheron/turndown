@@ -4,7 +4,7 @@ import { useAuth } from "@/src/contexts/auth";
 import { useTheme } from "@/src/contexts/theme";
 import { propertiesApi } from "@/src/services/api/properties";
 import { PlusIcon } from "@/src/shared/icons/plus.component";
-import { Button } from "@/src/shared/ui/actions/button";
+import { TurndownButton } from "@/src/shared/ui/actions";
 import { Label } from "@/src/shared/ui/data-display/font";
 import { Mode } from "@/src/shared/ui/forms";
 import { Modal } from "@/src/shared/ui/surface/modal/modal.layout.component";
@@ -96,7 +96,7 @@ export const PropertiesScreen = () => {
           Create your first property to start tracking rooms, checklists, and
           inventory.
         </Label>
-        <Button
+        <TurndownButton
           onPress={() => {
             setMode("CREATE");
             setIsModalDisplayed(true);
@@ -104,7 +104,7 @@ export const PropertiesScreen = () => {
           variant="filled"
         >
           Create Property
-        </Button>
+        </TurndownButton>
       </View>
     ),
     [app]
@@ -115,7 +115,7 @@ export const PropertiesScreen = () => {
       isLoading={isLoading}
       header="Properties"
       headerButton={
-        <Button
+        <TurndownButton
           width={50}
           circle
           onPress={() => {
@@ -124,7 +124,7 @@ export const PropertiesScreen = () => {
           }}
         >
           <PlusIcon type="solid" size={"regular"} />
-        </Button>
+        </TurndownButton>
       }
     >
       <FlatList

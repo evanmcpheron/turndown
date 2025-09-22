@@ -5,7 +5,7 @@ import { roomsApi } from "@/src/services/api/rooms";
 import { defaultImages } from "@/src/shared/config/base.consts";
 import { withOpacity } from "@/src/shared/styles";
 import { AppTheme } from "@/src/shared/styles/general.styles";
-import { Button } from "@/src/shared/ui/actions/button";
+import { TurndownButton } from "@/src/shared/ui/actions";
 import { Label } from "@/src/shared/ui/data-display/font";
 import { TurndownInfoRow } from "@/src/shared/ui/data-display/info-row";
 import { Mode } from "@/src/shared/ui/forms";
@@ -145,7 +145,7 @@ export const PropertyIdScreen = () => {
 
       {/* quick actions */}
       <Row justifyContent="space-between" style={s.actionsRow}>
-        <Button
+        <TurndownButton
           variant="filled-secondary"
           style={{ flex: 1 }}
           onPress={() => {
@@ -154,7 +154,7 @@ export const PropertyIdScreen = () => {
           }}
         >
           Edit
-        </Button>
+        </TurndownButton>
       </Row>
 
       {/* ==== OVERVIEW / STATS ==== */}
@@ -191,7 +191,7 @@ export const PropertyIdScreen = () => {
         title="Checklists"
         hint="Track recurring tasks & compliance"
         right={
-          <Button
+          <TurndownButton
             variant="link-button"
             onPress={() =>
               router.push({
@@ -201,7 +201,7 @@ export const PropertyIdScreen = () => {
             }
           >
             View All
-          </Button>
+          </TurndownButton>
         }
       >
         <ListItem title="Monthly Safety" meta="3 open · due Sep 30" />
@@ -212,7 +212,7 @@ export const PropertyIdScreen = () => {
       <TurndownSection
         title="Rooms"
         right={
-          <Button
+          <TurndownButton
             variant="link-button"
             onPress={() =>
               router.push({
@@ -222,7 +222,7 @@ export const PropertyIdScreen = () => {
             }
           >
             Manage Rooms
-          </Button>
+          </TurndownButton>
         }
       >
         <ChipRow
@@ -242,7 +242,7 @@ export const PropertyIdScreen = () => {
         title="Inventory"
         hint="Key supplies & levels"
         right={
-          <Button
+          <TurndownButton
             variant="link-button"
             onPress={() =>
               router.push({
@@ -252,7 +252,7 @@ export const PropertyIdScreen = () => {
             }
           >
             Open Inventory
-          </Button>
+          </TurndownButton>
         }
       >
         <TurndownInfoRow label="Kureg Pods" quantity={722} />

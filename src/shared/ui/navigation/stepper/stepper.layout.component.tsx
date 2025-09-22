@@ -2,7 +2,6 @@
 import { useTheme } from "@/src/contexts/theme";
 import { AngleLeftIcon } from "@/src/shared/icons/angle-left.component";
 import { AngleRightIcon } from "@/src/shared/icons/angle-right.component";
-import { Button } from "@/src/shared/ui/actions/button";
 import React, { useEffect, useMemo } from "react";
 import {
   AccessibilityState,
@@ -13,6 +12,7 @@ import {
   View,
   ViewStyle,
 } from "react-native";
+import { TurndownButton } from "../../actions";
 
 type StepperProps = {
   total: number;
@@ -55,13 +55,13 @@ export const Stepper: React.FC<StepperProps> = ({
       accessibilityLabel="Progress steps"
       accessibilityRole="tablist"
     >
-      <Button
+      <TurndownButton
         circle
         onPress={() => onChange?.(Math.max(0, current - 1))}
         disabled={current === 0}
       >
         <AngleLeftIcon type="regular" />
-      </Button>
+      </TurndownButton>
       <View
         style={[
           styles.container,
@@ -107,13 +107,13 @@ export const Stepper: React.FC<StepperProps> = ({
         })}
       </View>
 
-      <Button
+      <TurndownButton
         circle
         onPress={() => onChange?.(Math.min(total - 1, current + 1))}
         disabled={current === total - 1}
       >
         <AngleRightIcon type="regular" />
-      </Button>
+      </TurndownButton>
     </View>
   );
 };

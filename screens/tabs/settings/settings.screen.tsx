@@ -4,7 +4,7 @@ import { useTheme } from "@/src/contexts/theme";
 import { showInfoNotification } from "@/src/shared/feedback/notification/notification.helper";
 import { withOpacity } from "@/src/shared/styles";
 import { AppTheme } from "@/src/shared/styles/general.styles";
-import { Button } from "@/src/shared/ui/actions/button";
+import { TurndownButton } from "@/src/shared/ui/actions";
 import { Label } from "@/src/shared/ui/data-display/font";
 import { Page } from "@/src/shared/ui/surface/page/page.layout.component";
 import { TurndownObject } from "@/src/types";
@@ -169,28 +169,28 @@ export const SettingsScreen = () => {
         return (
           <View key={item.key} style={s.btnGroup}>
             <View style={{ flex: 1 }}>
-              <Button
+              <TurndownButton
                 onPress={() => setScheme("system")}
                 variant={mode === "system" ? "outline" : "filled"}
               >
                 System
-              </Button>
+              </TurndownButton>
             </View>
             <View style={{ flex: 1 }}>
-              <Button
+              <TurndownButton
                 onPress={() => setScheme("dark")}
                 variant={mode === "dark" ? "outline" : "filled"}
               >
                 Dark
-              </Button>
+              </TurndownButton>
             </View>
             <View style={{ flex: 1 }}>
-              <Button
+              <TurndownButton
                 onPress={() => setScheme("light")}
                 variant={mode === "light" ? "outline" : "filled"}
               >
                 Light
-              </Button>
+              </TurndownButton>
             </View>
           </View>
         );

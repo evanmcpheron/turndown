@@ -1,5 +1,5 @@
 import { PlusIcon } from "@/src/shared/icons/plus.component";
-import { Button } from "@/src/shared/ui/actions/button";
+import { TurndownButton } from "@/src/shared/ui/actions";
 import { Mode } from "@/src/shared/ui/forms";
 import { Page } from "@/src/shared/ui/surface/page/page.layout.component";
 import { useRef, useState } from "react";
@@ -20,7 +20,7 @@ export const InventoryScreen = () => {
       canGoBack
       isLoading={isLoading}
       headerButton={
-        <Button
+        <TurndownButton
           width={50}
           circle
           onPress={() => {
@@ -29,7 +29,7 @@ export const InventoryScreen = () => {
           }}
         >
           <PlusIcon type="regular" color="onPrimary" size={"medium"} />
-        </Button>
+        </TurndownButton>
       }
     ></Page>
   );

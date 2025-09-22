@@ -11,26 +11,26 @@ import { DomProperties } from "@/src/types/common/style.types";
 import { router } from "expo-router";
 import { normalCase } from "../../../lib/string";
 
-type ButtonTypes =
+type TurndownButtonTypes =
   | "outline"
   | "filled"
   | "link"
   | "link-button"
   | "filled-secondary";
 
-interface ButtonProps extends DomProperties {
+interface TurndownButtonProps extends DomProperties {
   onPress?: (value: TurndownObject) => void;
   height?: number;
   width?: number;
   disabled?: boolean;
   to?: TurndownObject | string;
   color?: keyof SemanticColors;
-  variant?: ButtonTypes;
+  variant?: TurndownButtonTypes;
   circle?: boolean;
   children: React.ReactElement | string;
 }
 
-export const Button = ({
+export const TurndownButton = ({
   onPress,
   disabled = false,
   height = 50,
@@ -41,7 +41,7 @@ export const Button = ({
   style,
   circle = false,
   children,
-}: ButtonProps) => {
+}: TurndownButtonProps) => {
   const { app, colors } = useTheme();
 
   if (variant === "link" || variant === "link-button") {
