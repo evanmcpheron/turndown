@@ -1,4 +1,4 @@
-import { ValidationResult } from "@shared/forms";
+import { ValidationResult } from "@/src/shared/ui/forms";
 
 export const formValidationSchema = {
   email: (emailValue: string): ValidationResult => {

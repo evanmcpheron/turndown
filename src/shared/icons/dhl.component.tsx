@@ -1,6 +1,6 @@
-import { IconProps } from "@/helpers/types/base/style.types";
-import { usePointerEvent } from "@/hooks/usePointerEvent.hook";
+import { usePointerEvent } from "@/src/shared/hooks/usePointerEvent.hook";
 import { removeUndefined } from "@/src/shared/lib/object";
+import { IconProps } from "@/src/types/common/style.types";
 import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { StyledIcon } from "./shared/icon.styled";

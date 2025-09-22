@@ -10,7 +10,7 @@ import { ClipboardIcon } from "@/src/shared/icons/clipboard.component";
 import { CommentIcon } from "@/src/shared/icons/comment.component";
 import { GaugeIcon } from "@/src/shared/icons/gauge.component";
 import { GearIcon } from "@/src/shared/icons/gear.component";
-import PillTabBar from "@/src/shared/ui/misc/tab-bar/tab.bar.pill.component";
+import PillTabBar from "@/src/shared/ui/navigation/tab-bar/tab.bar.pill.component";
 
 export default function TabLayout() {
   const { user, loading } = useAuth();

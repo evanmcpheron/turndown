@@ -1,8 +1,8 @@
 import { useAuth } from "@/src/contexts/auth";
 import { showErrorNotification } from "@/src/shared/feedback/notification/notification.helper";
-import { Form, useForm } from "@/src/shared/forms/form";
-import { getFirstPropertyValue } from "@/src/shared/forms/form/form.helpers";
-import { Input } from "@/src/shared/forms/input";
+import { Form, useForm } from "@/src/shared/ui/forms/form";
+import { getFirstPropertyValue } from "@/src/shared/ui/forms/form/form.helpers";
+import { Input } from "@/src/shared/ui/forms/input";
 import { TurndownObject } from "@/src/types";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { formValidationSchema } from "./sign.up.form.logic";

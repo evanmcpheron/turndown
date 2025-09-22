@@ -1,5 +1,5 @@
-import { Mode } from "@/src/shared/forms";
-import { Page } from "@/src/shared/ui/page/page.layout.component";
+import { Mode } from "@/src/shared/ui/forms";
+import { Page } from "@/src/shared/ui/surface/page/page.layout.component";
 import { useRef, useState } from "react";
 
 export const ProfileScreen = () => {

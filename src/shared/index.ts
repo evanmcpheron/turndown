@@ -1,4 +1,3 @@
-export * from "./forms";
 // export * from './config'
 // export * from './feedback'
 // export * from './icons'

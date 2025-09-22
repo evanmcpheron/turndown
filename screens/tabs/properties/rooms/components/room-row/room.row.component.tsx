@@ -1,7 +1,7 @@
 import { useTheme } from "@/src/contexts/theme";
 import { defaultImages } from "@/src/shared/config/base.consts";
-import { Row } from "@/src/shared/ui/cell/row/row.layout.component";
-import { Label } from "@/src/shared/ui/font";
+import { Label } from "@/src/shared/ui/data-display/font";
+import { Row } from "@/src/shared/ui/surface/cell/row/row.layout.component";
 import { useMemo } from "react";
 import { Image, View } from "react-native";
 import { roomRowStyles } from "./room.row.styled";

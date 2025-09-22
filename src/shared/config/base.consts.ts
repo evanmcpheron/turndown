@@ -1,4 +1,4 @@
-import { SelectOption } from "@/src/shared/forms/dropdown/dropdown.form.component";
+import { SelectOption } from "@/src/shared/ui/forms/dropdown/dropdown.form.component";
 
 export const defaultImages = {
   profile:

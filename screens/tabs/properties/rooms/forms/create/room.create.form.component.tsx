@@ -4,13 +4,13 @@ import { useProperty } from "@/screens/tabs/properties/context/property.context"
 import { useAuth } from "@/src/contexts/auth";
 import { roomsApi } from "@/src/services/api/rooms";
 import { showErrorNotification } from "@/src/shared/feedback/notification/notification.helper";
-import { Form, useForm } from "@/src/shared/forms/form";
-import { getFirstPropertyValue } from "@/src/shared/forms/form/form.helpers";
-import { Input } from "@/src/shared/forms/input";
-import { TurndownPhotoUploader } from "@/src/shared/forms/photo-uploader";
-import { TurndownPhotoUploaderHandle } from "@/src/shared/forms/photo-uploader/turndown.photo.uploader.types";
-import { Button } from "@/src/shared/ui/button";
-import { TurndownSection } from "@/src/shared/ui/section";
+import { Button } from "@/src/shared/ui/actions/button";
+import { Form, useForm } from "@/src/shared/ui/forms/form";
+import { getFirstPropertyValue } from "@/src/shared/ui/forms/form/form.helpers";
+import { Input } from "@/src/shared/ui/forms/input";
+import { TurndownPhotoUploader } from "@/src/shared/ui/forms/photo-uploader";
+import { TurndownPhotoUploaderHandle } from "@/src/shared/ui/forms/photo-uploader/turndown.photo.uploader.types";
+import { TurndownSection } from "@/src/shared/ui/surface/section";
 import { Room, TurndownObject } from "@/src/types";
 import React, {
   forwardRef,

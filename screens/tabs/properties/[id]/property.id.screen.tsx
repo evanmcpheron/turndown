@@ -3,16 +3,16 @@ import { useTheme } from "@/src/contexts/theme";
 import { propertiesApi } from "@/src/services/api/properties";
 import { roomsApi } from "@/src/services/api/rooms";
 import { defaultImages } from "@/src/shared/config/base.consts";
-import { Mode } from "@/src/shared/forms";
 import { withOpacity } from "@/src/shared/styles";
 import { AppTheme } from "@/src/shared/styles/general.styles";
-import { Button } from "@/src/shared/ui/button";
-import { Row } from "@/src/shared/ui/cell/row/row.layout.component";
-import { Label } from "@/src/shared/ui/font";
-import { TurndownInfoRow } from "@/src/shared/ui/info-row";
-import { Modal } from "@/src/shared/ui/modal/modal.layout.component";
-import { Page } from "@/src/shared/ui/page/page.layout.component";
-import { TurndownSection } from "@/src/shared/ui/section";
+import { Button } from "@/src/shared/ui/actions/button";
+import { Label } from "@/src/shared/ui/data-display/font";
+import { TurndownInfoRow } from "@/src/shared/ui/data-display/info-row";
+import { Mode } from "@/src/shared/ui/forms";
+import { Row } from "@/src/shared/ui/surface/cell/row/row.layout.component";
+import { Modal } from "@/src/shared/ui/surface/modal/modal.layout.component";
+import { Page } from "@/src/shared/ui/surface/page/page.layout.component";
+import { TurndownSection } from "@/src/shared/ui/surface/section";
 import { Property } from "@/src/types/models";
 import {
   ExternalPathString,

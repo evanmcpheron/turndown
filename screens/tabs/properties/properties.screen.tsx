@@ -3,12 +3,12 @@ import { useProperty } from "@/screens/tabs/properties/context/property.context"
 import { useAuth } from "@/src/contexts/auth";
 import { useTheme } from "@/src/contexts/theme";
 import { propertiesApi } from "@/src/services/api/properties";
-import { Mode } from "@/src/shared/forms";
 import { PlusIcon } from "@/src/shared/icons/plus.component";
-import { Button } from "@/src/shared/ui/button";
-import { Label } from "@/src/shared/ui/font";
-import { Modal } from "@/src/shared/ui/modal/modal.layout.component";
-import { Page } from "@/src/shared/ui/page/page.layout.component";
+import { Button } from "@/src/shared/ui/actions/button";
+import { Label } from "@/src/shared/ui/data-display/font";
+import { Mode } from "@/src/shared/ui/forms";
+import { Modal } from "@/src/shared/ui/surface/modal/modal.layout.component";
+import { Page } from "@/src/shared/ui/surface/page/page.layout.component";
 import { Property } from "@/src/types/models";
 import { useNavigation } from "expo-router";
 import { useEffect, useMemo, useRef, useState } from "react";

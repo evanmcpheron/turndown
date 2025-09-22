@@ -9,7 +9,7 @@ import { StyledIcon } from "./shared/icon.styled";
 
 export const Icon500px: React.FC<
   IconProps & {
-    type: "solid" | "regular" | "light" | "thin" | "duotone";
+    type: "brands";
   }
 > = ({
   type,

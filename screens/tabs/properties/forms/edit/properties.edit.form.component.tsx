@@ -2,14 +2,14 @@ import { useTheme } from "@/src/contexts/theme";
 import { propertiesApi } from "@/src/services/api/properties";
 import { statesAndTerritories } from "@/src/shared/config/base.consts";
 import { showErrorNotification } from "@/src/shared/feedback/notification/notification.helper";
-import { Dropdown } from "@/src/shared/forms/dropdown/dropdown.form.component";
-import { Form, useForm } from "@/src/shared/forms/form";
-import { getFirstPropertyValue } from "@/src/shared/forms/form/form.helpers";
-import { Input } from "@/src/shared/forms/input";
-import { Radio } from "@/src/shared/forms/radio/radio.component";
 import { removeUndefined } from "@/src/shared/lib/object";
-import { Label } from "@/src/shared/ui/font";
-import { TurndownSection } from "@/src/shared/ui/section";
+import { Label } from "@/src/shared/ui/data-display/font";
+import { Dropdown } from "@/src/shared/ui/forms/dropdown/dropdown.form.component";
+import { Form, useForm } from "@/src/shared/ui/forms/form";
+import { getFirstPropertyValue } from "@/src/shared/ui/forms/form/form.helpers";
+import { Input } from "@/src/shared/ui/forms/input";
+import { Radio } from "@/src/shared/ui/forms/radio/radio.component";
+import { TurndownSection } from "@/src/shared/ui/surface/section";
 import { Property, TurndownObject } from "@/src/types";
 import React, {
   forwardRef,

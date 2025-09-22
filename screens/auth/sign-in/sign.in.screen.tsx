@@ -1,5 +1,5 @@
-import { Button } from "@shared/ui/button";
-import { Page } from "@shared/ui/page/page.layout.component";
+import { Button } from "@/src/shared/ui/actions/button";
+import { Page } from "@/src/shared/ui/surface/page/page.layout.component";
 import { router } from "expo-router";
 import React, { useRef } from "react";
 import { SignInForm } from "./forms";

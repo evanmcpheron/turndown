@@ -1,7 +1,7 @@
-import { Mode } from "@/src/shared/forms";
 import { PlusIcon } from "@/src/shared/icons/plus.component";
-import { Button } from "@/src/shared/ui/button";
-import { Page } from "@/src/shared/ui/page/page.layout.component";
+import { Button } from "@/src/shared/ui/actions/button";
+import { Mode } from "@/src/shared/ui/forms";
+import { Page } from "@/src/shared/ui/surface/page/page.layout.component";
 import { useRef, useState } from "react";
 
 export const TasksScreen = () => {

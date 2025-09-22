@@ -1,8 +1,8 @@
 import { useTheme } from "@/src/contexts/theme";
 import { defaultImages } from "@/src/shared/config/base.consts";
-import { normalCase } from "@/src/shared/forms/form/form.helpers";
+import { normalCase } from "@/src/shared/lib/string";
 import { withOpacity } from "@/src/shared/styles";
-import { Label } from "@/src/shared/ui/font";
+import { Label } from "@/src/shared/ui/data-display/font";
 import { router } from "expo-router";
 import { useMemo } from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
