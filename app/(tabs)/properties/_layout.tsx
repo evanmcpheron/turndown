@@ -1,5 +1,5 @@
-import { PropertyProvider } from "@/context/property/property.context";
-import { useTheme } from "@/context/theme/theme.context";
+import { PropertyProvider } from "@/screens";
+import { useTheme } from "@/src/contexts/theme";
 import { Stack } from "expo-router";
 
 export default function PropertyStackLayout() {

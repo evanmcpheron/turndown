@@ -1,11 +1,11 @@
 import "react-native-reanimated";
 
-import { NoticeHost } from "@/components/actions/notification/notification.host.component";
-import { AuthProvider } from "@/context";
+import { AuthProvider } from "@/src/contexts/auth";
 import {
   CustomThemeProvider as ThemeProvider,
   useTheme,
-} from "@/context/theme/theme.context";
+} from "@/src/contexts/theme";
+import { NoticeHost } from "@/src/shared/feedback/notification/notification.host.component";
 import { Stack } from "expo-router";
 import { View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";

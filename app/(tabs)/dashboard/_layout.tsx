@@ -1,4 +1,4 @@
-import { useTheme } from "@/context/theme/theme.context";
+import { useTheme } from "@/src/contexts/theme";
 import { Stack } from "expo-router";
 
 export default function DashboardStackLayout() {

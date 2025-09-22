@@ -1,0 +1,97 @@
+import { useTheme } from "@/src/contexts/theme";
+import { TurndownObject } from "@/src/types";
+import { IconProps } from "@/src/types/common/style.types";
+import React, { useRef } from "react";
+import Svg, { Path } from "react-native-svg";
+import { usePointerEvent } from "../hooks/usePointerEvent.hook";
+import { removeUndefined } from "../lib/object";
+import { StyledIcon } from "./shared/icon.styled";
+export const FaceLaughIcon: React.FC<
+  IconProps & {
+    type: "solid" | "regular" | "light" | "thin" | "duotone";
+  }
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
+  const domRef: TurndownObject = useRef(null);
+
+  const { onPress, onMove, onUp, onDown, groupId } = more;
+  const pointerEvents = {
+    onPress,
+    onMove,
+    onUp,
+    onDown,
+    groupId,
+  };
+
+  usePointerEvent({ element: domRef, active: active, ...pointerEvents });
+
+  const internalProperties = removeUndefined({
+    style: style || {},
+    pointerEvents,
+    haptic,
+    active,
+    size,
+    color: colors[colorName || "text"],
+  });
+
+  return (
+    <StyledIcon ref={domRef} {...internalProperties}>
+      {(() => {
+        switch (type) {
+          case "solid":
+            return (
+              <Svg viewBox="0 0 512 512" fill={colors[colorName || "text"]}>
+                <Path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512M96.8 314.1c-3.8-13.7 7.4-26.1 21.6-26.1h275.2c14.2 0 25.5 12.4 21.6 26.1C396.2 382 332.1 432 256 432S115.8 382 96.8 314.1M144.4 192a32 32 0 1 1 64 0 32 32 0 1 1-64 0m192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64" />
+              </Svg>
+            );
+
+          case "regular":
+            return (
+              <Svg viewBox="0 0 512 512" fill={colors[colorName || "text"]}>
+                <Path d="M464 256a208 208 0 1 0-416 0 208 208 0 1 0 416 0M0 256a256 256 0 1 1 512 0 256 256 0 1 1-512 0m130.7 57.9c-4.2-13.6 7.1-25.9 21.3-25.9h212.5c14.2 0 25.5 12.4 21.3 25.9C369 368.4 318.2 408 258.2 408s-110.8-39.6-127.5-94.1M144.4 192a32 32 0 1 1 64 0 32 32 0 1 1-64 0m192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64" />
+              </Svg>
+            );
+
+          case "light":
+            return (
+              <Svg viewBox="0 0 512 512" fill={colors[colorName || "text"]}>
+                <Path d="M480 256a224 224 0 1 0-448 0 224 224 0 1 0 448 0M0 256a256 256 0 1 1 512 0 256 256 0 1 1-512 0m256 144c52 0 97.1-32.8 115.7-80H140.3c18.6 47.2 63.7 80 115.7 80M126.5 288h259c14.2 0 25.4 12.3 21.8 26-18.1 68-79 118-151.3 118s-133.2-50-151.3-118c-3.6-13.7 7.6-26 21.8-26m25.9-96a24 24 0 1 1 48 0 24 24 0 1 1-48 0m184-24a24 24 0 1 1 0 48 24 24 0 1 1 0-48" />
+              </Svg>
+            );
+
+          case "thin":
+            return (
+              <Svg viewBox="0 0 512 512" fill={colors[colorName || "text"]}>
+                <Path d="M496 256a240 240 0 1 0-480 0 240 240 0 1 0 480 0M0 256a256 256 0 1 1 512 0 256 256 0 1 1-512 0m256 160c64.7 0 119.5-44.8 135.8-106.1.4-1.4.1-2.5-.9-3.6-1.1-1.2-3-2.3-5.4-2.3h-259c-2.4 0-4.4 1.1-5.4 2.3-1 1.1-1.2 2.2-.9 3.6C136.5 371.2 191.3 416 256 416M126.5 288h259c14.2 0 25.4 12.3 21.8 26-18.1 68-79 118-151.3 118s-133.2-50-151.3-118c-3.6-13.7 7.6-26 21.8-26m33.9-96a16 16 0 1 1 32 0 16 16 0 1 1-32 0m176-16a16 16 0 1 1 0 32 16 16 0 1 1 0-32" />
+              </Svg>
+            );
+
+          case "duotone":
+            return (
+              <Svg viewBox="0 0 512 512" fill={colors[colorName || "text"]}>
+                <Path
+                  fill={colors[colorName || "text"]}
+                  opacity={opacity || 0.5}
+                  d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512M96.8 314.1c-3.8-13.7 7.4-26.1 21.6-26.1h275.2c14.2 0 25.5 12.4 21.6 26.1C396.2 382 332.1 432 256 432S115.8 382 96.8 314.1M144.4 192a32 32 0 1 1 64 0 32 32 0 1 1-64 0m192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64"
+                />
+                <Path d="M176.4 224a32 32 0 1 0 0-64 32 32 0 1 0 0 64m160 0a32 32 0 1 0 0-64 32 32 0 1 0 0 64" />
+              </Svg>
+            );
+
+          default:
+            return null;
+        }
+      })()}
+    </StyledIcon>
+  );
+};

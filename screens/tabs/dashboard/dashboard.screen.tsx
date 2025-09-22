@@ -1,5 +1,5 @@
-import { Page } from "@/components/layouts/page/page.layout.component";
-import { Mode } from "@/helpers/types/base/base.types";
+import { Mode } from "@/src/shared/forms";
+import { Page } from "@/src/shared/ui/page/page.layout.component";
 import { useRef, useState } from "react";
 
 export const DashboardScreen = () => {

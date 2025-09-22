@@ -1,0 +1,65 @@
+import { useTheme } from "@/src/contexts/theme";
+import { TurndownObject } from "@/src/types";
+import { IconProps } from "@/src/types/common/style.types";
+import React, { useRef } from "react";
+import Svg, { Path } from "react-native-svg";
+import { usePointerEvent } from "../hooks/usePointerEvent.hook";
+import { removeUndefined } from "../lib/object";
+import { StyledIcon } from "./shared/icon.styled";
+
+export const GitlabIcon: React.FC<
+  IconProps & {
+    type: "solid" | "regular" | "light" | "thin" | "duotone";
+  }
+> = ({
+  type,
+  size,
+  color: colorName,
+  active,
+  style,
+  opacity,
+  haptic,
+  ...more
+}) => {
+  const { colors } = useTheme();
+
+  const domRef: TurndownObject = useRef(null);
+
+  const { onPress, onMove, onUp, onDown, groupId } = more;
+  const pointerEvents = {
+    onPress,
+    onMove,
+    onUp,
+    onDown,
+    groupId,
+  };
+
+  usePointerEvent({ element: domRef, active: active, ...pointerEvents });
+
+  const internalProperties = removeUndefined({
+    style: style || {},
+    pointerEvents,
+    haptic,
+    active,
+    size,
+    color: colors[colorName || "text"],
+  });
+
+  return (
+    <StyledIcon ref={domRef} {...internalProperties}>
+      {(() => {
+        switch (type) {
+          case "brands":
+            return (
+              <Svg viewBox="0 0 512 512" fill={colors[colorName || "text"]}>
+                <Path d="m503.5 204.6-.7-1.8-69.7-181.78c-1.4-3.57-3.9-6.59-7.2-8.64-2.4-1.55-5.1-2.515-8-2.81s-5.7.083-8.4 1.11c-2.7 1.02-5.1 2.66-7.1 4.78-1.9 2.12-3.3 4.67-4.1 7.44l-47 144H160.8l-47.1-144c-.8-2.77-2.2-5.31-4.1-7.43-2-2.12-4.4-3.75-7.1-4.77a18.1 18.1 0 0 0-8.38-1.113 18.4 18.4 0 0 0-8.04 2.793 18.1 18.1 0 0 0-7.16 8.64L9.267 202.8l-.724 1.8a129.57 129.57 0 0 0-3.52 82c7.747 26.9 24.047 50.7 46.447 67.6l.27.2.59.4 105.97 79.5 52.6 39.7 32 24.2c3.7 1.9 8.3 4.3 13 4.3s9.3-2.4 13-4.3l32-24.2 52.6-39.7 106.7-79.9.3-.3c22.4-16.9 38.7-40.6 45.6-67.5 8.6-27 7.4-55.8-2.6-82" />
+              </Svg>
+            );
+
+          default:
+            return null;
+        }
+      })()}
+    </StyledIcon>
+  );
+};

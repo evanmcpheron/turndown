@@ -16,12 +16,24 @@ import {
   QueryConstraint,
   where as qWhere,
   setDoc,
+  Timestamp,
   updateDoc,
 } from "firebase/firestore";
-import { dateToTimestamp, db } from ".";
 
-import { TurndownObject } from "../../../helpers/types";
+import { TurndownObject } from "@/src/types";
+import dayjs from "dayjs";
+import { db } from "./firbase.init";
 import { Collections, ReturnData } from "./firestore.types";
+
+export const dateToTimestamp = (date?: Date): Timestamp => {
+  const d = dayjs(date || Date.now());
+  return Timestamp.fromDate(d.toDate());
+};
+
+export const timestampToDate = (timestamp?: Timestamp): Date => {
+  const t = timestamp || Timestamp.now();
+  return t.toDate();
+};
 
 // ---------- Create ----------
 export const post = async (

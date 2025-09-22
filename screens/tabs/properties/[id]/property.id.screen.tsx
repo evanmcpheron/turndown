@@ -1,20 +1,19 @@
-import { Button } from "@/components/actions";
-import { Label } from "@/components/font";
-import { Row } from "@/components/layouts/cell/row/row.layout.component";
-import { TurndownInfoRow } from "@/components/layouts/info-row";
-import { Modal } from "@/components/layouts/modal/modal.layout.component";
-import { Page } from "@/components/layouts/page/page.layout.component";
-import { TurndownSection } from "@/components/layouts/section";
-import { PropertiesEditForm } from "@/components/screens/tabs/properties/forms/edit/properties.edit.form.component";
-import { defaultImages } from "@/constants/base.consts";
-import { useProperty } from "@/context/property/property.context";
-import { useTheme } from "@/context/theme/theme.context";
-import { Property } from "@/helpers";
-import { getPropertyById } from "@/helpers/firebase/api/properties/properties.api.helpers";
-import { getRoomsByPropertyId } from "@/helpers/firebase/api/rooms/rooms.api.helpers";
-import { withOpacity } from "@/helpers/theme";
-import { AppTheme } from "@/helpers/theme/general.styles";
-import { Mode } from "@/helpers/types/base/base.types";
+import { useProperty } from "@/screens/tabs/properties/context/property.context";
+import { useTheme } from "@/src/contexts/theme";
+import { propertiesApi } from "@/src/services/api/properties";
+import { roomsApi } from "@/src/services/api/rooms";
+import { defaultImages } from "@/src/shared/config/base.consts";
+import { Mode } from "@/src/shared/forms";
+import { withOpacity } from "@/src/shared/styles";
+import { AppTheme } from "@/src/shared/styles/general.styles";
+import { Button } from "@/src/shared/ui/button";
+import { Row } from "@/src/shared/ui/cell/row/row.layout.component";
+import { Label } from "@/src/shared/ui/font";
+import { TurndownInfoRow } from "@/src/shared/ui/info-row";
+import { Modal } from "@/src/shared/ui/modal/modal.layout.component";
+import { Page } from "@/src/shared/ui/page/page.layout.component";
+import { TurndownSection } from "@/src/shared/ui/section";
+import { Property } from "@/src/types/models";
 import {
   ExternalPathString,
   RelativePathString,
@@ -23,6 +22,7 @@ import {
 } from "expo-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
+import { PropertiesEditForm } from "../forms";
 
 export const PropertyIdScreen = () => {
   const propertiesEditFormRef = useRef<{
@@ -40,8 +40,8 @@ export const PropertyIdScreen = () => {
 
   const fetchProperty = () => {
     setIsLoading(true);
-    getPropertyById(id).then(setProperty);
-    getRoomsByPropertyId(id).then((res) => setRoomsCount(res.length));
+    propertiesApi.getById(id).then(setProperty);
+    roomsApi.getAllByPropertyId(id).then((res) => setRoomsCount(res.length));
 
     setPropertyId(id);
     setIsLoading(false);

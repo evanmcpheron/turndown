@@ -12,10 +12,8 @@
       "@config/*": ["./src/shared/config/*"],
       "@lib/*": ["./src/shared/lib/*"],
       "@hooks/*": ["./src/shared/hooks/*"],
-      "@types/*": ["./src/types/*"],
-      "@entities/*": ["./src/entities/*"],
+      "@turndowntypes/*": ["./src/types/*"],
       "@services/*": ["./src/services/*"],
-      "@features/*": ["./src/features/*"],
       "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
     }
   },

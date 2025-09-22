@@ -1,13 +1,13 @@
 // app/(tabs)/settings.tsx
-import { Button } from "@/components/actions";
-import { showInfoNotification } from "@/components/actions/notification/notification.helper";
-import { Label } from "@/components/font";
-import { Page } from "@/components/layouts/page/page.layout.component";
-import { useAuth } from "@/context";
-import { useTheme } from "@/context/theme/theme.context";
-import { TurndownObject } from "@/helpers";
-import { withOpacity } from "@/helpers/theme";
-import { AppTheme } from "@/helpers/theme/general.styles";
+import { useAuth } from "@/src/contexts/auth";
+import { useTheme } from "@/src/contexts/theme";
+import { showInfoNotification } from "@/src/shared/feedback/notification/notification.helper";
+import { withOpacity } from "@/src/shared/styles";
+import { AppTheme } from "@/src/shared/styles/general.styles";
+import { Button } from "@/src/shared/ui/button";
+import { Label } from "@/src/shared/ui/font";
+import { Page } from "@/src/shared/ui/page/page.layout.component";
+import { TurndownObject } from "@/src/types";
 import { useRouter } from "expo-router";
 import React, { useMemo, useState } from "react";
 import {

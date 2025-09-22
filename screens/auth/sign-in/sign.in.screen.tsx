@@ -1,8 +1,8 @@
-import { Button } from "@/components/actions";
-import { Page } from "@/components/layouts/page/page.layout.component";
-import { SignInForm } from "@/components/screens/auth";
+import { Button } from "@shared/ui/button";
+import { Page } from "@shared/ui/page/page.layout.component";
 import { router } from "expo-router";
 import React, { useRef } from "react";
+import { SignInForm } from "./forms";
 
 export const SignInScreen = () => {
   const signInFormRef = useRef<{

@@ -1,7 +1,7 @@
-import { PlusIcon } from "@/assets/icons/plus.component";
-import { Button } from "@/components/actions";
-import { Page } from "@/components/layouts/page/page.layout.component";
-import { Mode } from "@/helpers/types/base/base.types";
+import { Mode } from "@/src/shared/forms";
+import { PlusIcon } from "@/src/shared/icons/plus.component";
+import { Button } from "@/src/shared/ui/button";
+import { Page } from "@/src/shared/ui/page/page.layout.component";
 import { useRef, useState } from "react";
 
 export const ChecklistsScreen = () => {

@@ -1,4 +1,4 @@
-import { Checklist } from "@/helpers/types/api/checklist.types";
+import { Checklist } from "@/src/types/models/checklist.types";
 
 export const checklistApi = {
   get: async () => {},

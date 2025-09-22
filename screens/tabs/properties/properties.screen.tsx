@@ -1,19 +1,19 @@
-import { PlusIcon } from "@/assets/icons/plus.component";
-import { Button } from "@/components/actions";
-import { Label } from "@/components/font";
-import { Modal } from "@/components/layouts/modal/modal.layout.component";
-import { Page } from "@/components/layouts/page/page.layout.component";
-import { PropertiesCreateForm } from "@/components/screens/tabs/properties/properties.create.form.component";
-import { PropertyRow } from "@/components/screens/tabs/properties/property.row.component"; // renamed export below
-import { useAuth } from "@/context";
-import { useProperty } from "@/context/property/property.context";
-import { useTheme } from "@/context/theme/theme.context";
-import { Property } from "@/helpers";
-import { getPropertiesByUserId } from "@/helpers/firebase/api/properties/properties.api.helpers";
-import { Mode } from "@/helpers/types/base/base.types";
+import { PropertyRow } from "@/screens/tabs/properties/components/property-row/property.row.component"; // renamed export below
+import { useProperty } from "@/screens/tabs/properties/context/property.context";
+import { useAuth } from "@/src/contexts/auth";
+import { useTheme } from "@/src/contexts/theme";
+import { propertiesApi } from "@/src/services/api/properties";
+import { Mode } from "@/src/shared/forms";
+import { PlusIcon } from "@/src/shared/icons/plus.component";
+import { Button } from "@/src/shared/ui/button";
+import { Label } from "@/src/shared/ui/font";
+import { Modal } from "@/src/shared/ui/modal/modal.layout.component";
+import { Page } from "@/src/shared/ui/page/page.layout.component";
+import { Property } from "@/src/types/models";
 import { useNavigation } from "expo-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FlatList, RefreshControl, View } from "react-native";
+import { PropertiesCreateForm } from "./forms";
 
 export const PropertiesScreen = () => {
   const propertiesCreateFormRef = useRef<{
@@ -36,14 +36,13 @@ export const PropertiesScreen = () => {
     setIsLoading(true);
     setPropertyId(null);
     if (user?.id) {
-      const res = await getPropertiesByUserId(user.id);
+      const res = await propertiesApi.getByUserId(user.id);
       setProperties(res);
     } else {
       setProperties([]);
     }
     setIsLoading(false);
   };
-
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -163,4 +162,3 @@ export const PropertiesScreen = () => {
     </Page>
   );
 };
-

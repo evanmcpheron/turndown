@@ -1,20 +1,20 @@
 // rooms.screen.tsx
 
-import { PlusIcon } from "@/assets/icons/plus.component";
-import { Button } from "@/components/actions";
-import { Label } from "@/components/font";
-import { Modal } from "@/components/layouts/modal/modal.layout.component";
-import { Page } from "@/components/layouts/page/page.layout.component";
-import { RoomCreateForm } from "@/components/screens/tabs/properties/rooms/forms/create";
-import { RoomRow } from "@/components/screens/tabs/properties/rooms/rooms.row.component";
-import { useAuth } from "@/context";
-import { useProperty } from "@/context/property/property.context";
-import { useTheme } from "@/context/theme/theme.context";
-import { Room } from "@/helpers";
-import { getRoomsByPropertyId } from "@/helpers/firebase/api/rooms/rooms.api.helpers";
-import { Mode } from "@/helpers/types/base/base.types";
+import { useProperty } from "@/screens/tabs/properties/context/property.context";
+import { RoomRow } from "@/screens/tabs/properties/rooms/components/room-row/room.row.component";
+import { useAuth } from "@/src/contexts/auth";
+import { useTheme } from "@/src/contexts/theme";
+import { roomsApi } from "@/src/services/api/rooms";
+import { Mode } from "@/src/shared/forms";
+import { PlusIcon } from "@/src/shared/icons/plus.component";
+import { Button } from "@/src/shared/ui/button";
+import { Label } from "@/src/shared/ui/font";
+import { Modal } from "@/src/shared/ui/modal/modal.layout.component";
+import { Page } from "@/src/shared/ui/page/page.layout.component";
+import { Room } from "@/src/types/models";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FlatList, RefreshControl, View } from "react-native";
+import { RoomCreateForm } from "./forms";
 
 export const RoomsScreen = () => {
   const { user } = useAuth();
@@ -34,7 +34,7 @@ export const RoomsScreen = () => {
   const fetchRooms = async () => {
     setIsLoading(true);
     if (propertyId) {
-      const res = await getRoomsByPropertyId(propertyId);
+      const res = await roomsApi.getAllByPropertyId(propertyId);
       console.log(`🚀 ~ rooms.screen.tsx:38 ~ fetchRooms ~ res: \n`, res);
 
       setRooms(res ?? []);

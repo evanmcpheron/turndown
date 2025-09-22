@@ -1,4 +1,4 @@
-import { TurndownObject } from "@/helpers";
+import { TurndownObject } from "@/src/types";
 
 export interface ReturnData {
   success: boolean;
@@ -7,8 +7,9 @@ export interface ReturnData {
 }
 
 export type Collections =
-  | "User"
-  | "Property"
   | "Checklist"
+  | "Inventory"
+  | "Message"
+  | "Property"
   | "Room"
-  | "Inventory";
+  | "User";

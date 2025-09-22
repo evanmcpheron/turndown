@@ -1,16 +1,16 @@
 // app/(tabs)/_layout.tsx (or wherever your TabLayout lives)
-import { useAuth } from "@/context";
+import { useAuth } from "@/src/contexts/auth";
 import { Redirect, router, Tabs } from "expo-router";
 import React from "react";
 import { ActivityIndicator, View } from "react-native";
 
-import { BroomIcon } from "@/assets/icons/broom.component";
-import { ClipboardIcon } from "@/assets/icons/clipboard.component";
-import { CommentIcon } from "@/assets/icons/comment.component";
-import { GaugeIcon } from "@/assets/icons/gauge.component";
-import { GearIcon } from "@/assets/icons/gear.component";
-import PillTabBar from "@/components/misc/tab-bar/tab.bar.pill.component";
-import { useTheme } from "@/context/theme/theme.context";
+import { useTheme } from "@/src/contexts/theme";
+import { BroomIcon } from "@/src/shared/icons/broom.component";
+import { ClipboardIcon } from "@/src/shared/icons/clipboard.component";
+import { CommentIcon } from "@/src/shared/icons/comment.component";
+import { GaugeIcon } from "@/src/shared/icons/gauge.component";
+import { GearIcon } from "@/src/shared/icons/gear.component";
+import PillTabBar from "@/src/shared/ui/misc/tab-bar/tab.bar.pill.component";
 
 export default function TabLayout() {
   const { user, loading } = useAuth();
