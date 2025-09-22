@@ -1,4 +1,4 @@
-// turndown.photo.uploader.types.ts
+// photo.uploader.types.ts
 
 export interface TurndownPhotoItem {
   id: string;

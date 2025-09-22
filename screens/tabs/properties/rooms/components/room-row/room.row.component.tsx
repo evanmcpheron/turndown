@@ -4,7 +4,7 @@ import { Label } from "@/src/shared/ui/data-display/font";
 import { Row } from "@/src/shared/ui/surface/cell/row/row.layout.component";
 import { useMemo } from "react";
 import { Image, View } from "react-native";
-import { roomRowStyles } from "./room.row.styled";
+import { roomRowStyles } from "./room.row.styles";
 import { RoomRowProps } from "./room.row.types";
 
 export const RoomRow = ({ room }: RoomRowProps) => {

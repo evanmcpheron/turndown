@@ -1,4 +1,4 @@
-// turndown.photo.uploader.styled.ts
+// photo.uploader.styled.ts
 
 import { withOpacity } from "@/src/shared/styles";
 import { AppTheme } from "@/src/shared/styles/general.styles";

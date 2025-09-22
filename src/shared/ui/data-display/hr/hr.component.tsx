@@ -2,7 +2,7 @@
 
 import { useTheme } from "@/src/contexts/theme";
 import { View } from "react-native";
-import { hrComponentStyles } from "./hr.styled";
+import { hrComponentStyles } from "./hr.styles";
 import { HrProps } from "./hr.types";
 
 export const Hr = ({ marginHorizontal, marginVertical }: HrProps) => {

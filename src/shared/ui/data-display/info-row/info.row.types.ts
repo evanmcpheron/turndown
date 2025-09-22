@@ -1,4 +1,4 @@
-// turndown.info.row.types.ts
+// info.row.types.ts
 
 import { Severity } from "@/src/types";
 

@@ -1,9 +1,9 @@
-// turndown.info.row.styled.ts
+// loader.styled.ts
 
 import { AppTheme } from "@/src/shared/styles/general.styles";
 import { StyleSheet } from "react-native";
 
-export const turndownInfoRowComponentStyles = (theme: AppTheme) => {
+export const turndownLoaderComponentStyles = (theme: AppTheme) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const iosShadow = {
     shadowColor: theme.colors.onBackground,
@@ -14,10 +14,17 @@ export const turndownInfoRowComponentStyles = (theme: AppTheme) => {
 
   return StyleSheet.create({
     container: {
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      borderBottomColor: theme.colors.outline,
-      paddingBottom: 10,
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
     },
-    subtle: { color: theme.colors.textMuted },
+    row: {
+      flexDirection: "row",
+      alignItems: "flex-end",
+      justifyContent: "center",
+    },
+    dot: {
+      borderRadius: 9999,
+    },
   });
 };

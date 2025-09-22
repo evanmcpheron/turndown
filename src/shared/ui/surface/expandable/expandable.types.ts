@@ -1,4 +1,4 @@
-// turndown.expandable.types.ts
+// expandable.types.ts
 
 export interface TurndownExpandableProps {
   header: React.ReactNode;

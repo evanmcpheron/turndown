@@ -1,4 +1,4 @@
-// turndown.photo.uploader.component.tsx
+// photo.uploader.component.tsx
 
 import { useTheme } from "@/src/contexts/theme";
 import { Label } from "@/src/shared/ui/data-display/font";
@@ -18,12 +18,12 @@ import React, {
   useState,
 } from "react";
 import { Image, Pressable, View } from "react-native";
-import { turndownPhotoUploaderComponentStyles } from "./turndown.photo.uploader.styled";
+import { turndownPhotoUploaderComponentStyles } from "./photo.uploader.styles";
 import {
   TurndownPhotoItem,
   TurndownPhotoUploaderHandle,
   TurndownPhotoUploaderProps,
-} from "./turndown.photo.uploader.types";
+} from "./photo.uploader.types";
 
 const storage = getStorage();
 

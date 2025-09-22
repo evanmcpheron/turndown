@@ -1,4 +1,4 @@
-// turndown.pill.types.ts
+// pill.types.ts
 
 import { Severity } from "@/src/types";
 

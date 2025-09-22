@@ -5,7 +5,7 @@ import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
 import { usePointerEvent } from "../hooks/usePointerEvent.hook";
 import { removeUndefined } from "../lib/object";
-import { StyledIcon } from "./shared/icon.styled";
+import { StyledIcon } from "./shared/icon.styles";
 export const ArrowTurnRightIcon: React.FC<
   IconProps & {
     type: "solid" | "regular" | "light" | "thin" | "duotone";

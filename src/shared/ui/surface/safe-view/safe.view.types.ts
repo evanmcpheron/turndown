@@ -1,4 +1,4 @@
-// turndown.safe.view.types.ts
+// safe.view.types.ts
 
 export interface SafeViewProps {
   ignoreTop?: boolean;

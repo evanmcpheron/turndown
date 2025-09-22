@@ -3,7 +3,7 @@ import { removeUndefined } from "@/src/shared/lib/object";
 import { IconProps } from "@/src/types/common/style.types";
 import React, { useRef } from "react";
 import Svg, { Path } from "react-native-svg";
-import { StyledIcon } from "./shared/icon.styled";
+import { StyledIcon } from "./shared/icon.styles";
 
 export const UsbIcon: React.FC<
   IconProps & {

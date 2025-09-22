@@ -1,4 +1,4 @@
-// turndown.section.types.ts
+// section.types.ts
 
 import React from "react";
 

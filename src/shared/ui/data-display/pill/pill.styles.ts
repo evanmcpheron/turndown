@@ -1,4 +1,4 @@
-// turndown.pill.styled.ts
+// pill.styled.ts
 
 import { AppTheme } from "@/src/shared/styles/general.styles";
 import { StyleSheet } from "react-native";

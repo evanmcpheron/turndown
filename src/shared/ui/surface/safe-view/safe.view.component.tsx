@@ -1,11 +1,11 @@
-// turndown.safe.view.component.tsx
+// safe.view.component.tsx
 
 import { useTheme } from "@/src/contexts/theme";
 import { useMemo } from "react";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { safeViewComponentStyles } from "./turndown.safe.view.styled";
-import { SafeViewProps } from "./turndown.safe.view.types";
+import { safeViewComponentStyles } from "./safe.view.styles";
+import { SafeViewProps } from "./safe.view.types";
 
 export const TurndownSafeView = (props: SafeViewProps) => {
   const { ignoreTop, ignoreBottom, ignoreLeft, ignoreRight, children } = props;

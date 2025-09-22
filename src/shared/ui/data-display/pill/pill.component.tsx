@@ -1,11 +1,11 @@
-// turndown.pill.component.tsx
+// pill.component.tsx
 
 import { useTheme } from "@/src/contexts/theme";
 import { Label } from "@/src/shared/ui/data-display/font";
 import { useMemo } from "react";
 import { View } from "react-native";
-import { turndownPillComponentStyles } from "./turndown.pill.styled";
-import { TurndownPillProps } from "./turndown.pill.types";
+import { turndownPillComponentStyles } from "./pill.styles";
+import { TurndownPillProps } from "./pill.types";
 
 export const TurndownPill = ({ severity, label }: TurndownPillProps) => {
   const { app } = useTheme();

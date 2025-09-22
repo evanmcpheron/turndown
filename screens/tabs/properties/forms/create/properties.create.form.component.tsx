@@ -20,7 +20,7 @@ import React, {
 } from "react";
 import { View } from "react-native";
 import { formValidationSchema } from "./properties.create.form.logic";
-import { propertiesCreateFormStyles } from "./properties.create.form.styled";
+import { propertiesCreateFormStyles } from "./properties.create.form.styles";
 import { PropertiesCreateFormProps } from "./properties.create.form.types";
 
 export const PropertiesCreateForm = forwardRef<

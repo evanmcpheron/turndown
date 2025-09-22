@@ -1,4 +1,4 @@
-// turndown.expandable.component.tsx
+// expandable.component.tsx
 
 import { useTheme } from "@/src/contexts/theme";
 import { ChevronDownIcon } from "@/src/shared/icons/chevron-down.component";
@@ -7,8 +7,8 @@ import { Animated, Pressable } from "react-native";
 import { Hr } from "../../data-display/hr";
 import { Card } from "../card/card.layout.component";
 import { Row } from "../cell/row/row.layout.component";
-import { turndownExpandableComponentStyles } from "./turndown.expandable.styled";
-import { TurndownExpandableProps } from "./turndown.expandable.types";
+import { turndownExpandableComponentStyles } from "./expandable.styles";
+import { TurndownExpandableProps } from "./expandable.types";
 
 export const TurndownExpandable = ({
   header,

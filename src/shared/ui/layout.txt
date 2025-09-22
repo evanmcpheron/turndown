@@ -11,29 +11,29 @@
 │   │   └── index.ts
 │   ├── hr
 │   │   ├── hr.component.tsx
-│   │   ├── hr.styled.ts
+│   │   ├── hr.styles.ts
 │   │   ├── hr.types.ts
 │   │   └── index.ts
 │   ├── info-row
 │   │   ├── index.ts
-│   │   ├── turndown.info.row.component.tsx
-│   │   ├── turndown.info.row.styled.ts
-│   │   └── turndown.info.row.types.ts
+│   │   ├── info.row.component.tsx
+│   │   ├── info.row.styles.ts
+│   │   └── info.row.types.ts
 │   ├── loader
 │   │   ├── index.ts
-│   │   ├── turndown.loader.component.tsx
-│   │   ├── turndown.loader.styled.ts
-│   │   └── turndown.loader.types.ts
+│   │   ├── loader.component.tsx
+│   │   ├── loader.styles.ts
+│   │   └── loader.types.ts
 │   └── pill
 │       ├── index.ts
-│       ├── turndown.pill.component.tsx
-│       ├── turndown.pill.styled.ts
-│       └── turndown.pill.types.ts
+│       ├── pill.component.tsx
+│       ├── pill.styles.ts
+│       └── pill.types.ts
 ├── empty-state
-│   ├── index.ts
-│   ├── turndown.empty.state.component.tsx
-│   ├── turndown.empty.state.styled.ts
-│   └── turndown.empty.state.types.ts
+│   ├── empty.state.component.tsx
+│   ├── empty.state.styles.ts
+│   ├── empty.state.types.ts
+│   └── index.ts
 ├── forms
 │   ├── color-picker
 │   │   └── color.picker.component.tsx
@@ -52,13 +52,13 @@
 │   ├── input
 │   │   ├── index.ts
 │   │   ├── input.component.tsx
-│   │   ├── input.styled.ts
+│   │   ├── input.styles.ts
 │   │   └── input.types.ts
 │   ├── photo-uploader
 │   │   ├── index.ts
-│   │   ├── turndown.photo.uploader.component.tsx
-│   │   ├── turndown.photo.uploader.styled.ts
-│   │   └── turndown.photo.uploader.types.ts
+│   │   ├── photo.uploader.component.tsx
+│   │   ├── photo.uploader.styles.ts
+│   │   └── photo.uploader.types.ts
 │   ├── radio
 │   │   ├── radio.component.tsx
 │   │   └── radio.types.ts
@@ -93,10 +93,10 @@
     │       ├── row.layout.component.tsx
     │       └── row.layout.types.ts
     ├── expandable
-    │   ├── index.ts
-    │   ├── turndown.expandable.component.tsx
-    │   ├── turndown.expandable.styled.ts
-    │   └── turndown.expandable.types.ts
+    │   ├── expandable.component.tsx
+    │   ├── expandable.styles.ts
+    │   ├── expandable.types.ts
+    │   └── index.ts
     ├── modal
     │   ├── modal.layout.component.tsx
     │   └── modal.layout.component.types.ts
@@ -104,13 +104,13 @@
     │   └── page.layout.component.tsx
     ├── safe-view
     │   ├── index.ts
-    │   ├── turndown.safe.view.component.tsx
-    │   ├── turndown.safe.view.styled.ts
-    │   └── turndown.safe.view.types.ts
+    │   ├── safe.view.component.tsx
+    │   ├── safe.view.styles.ts
+    │   └── safe.view.types.ts
     └── section
         ├── index.ts
-        ├── turndown.section.component.tsx
-        ├── turndown.section.styled.ts
-        └── turndown.section.types.ts
+        ├── section.component.tsx
+        ├── section.styles.ts
+        └── section.types.ts
 
-
+33 directories, 81 files

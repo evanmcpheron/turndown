@@ -1,3 +1,3 @@
 // index.ts
 
-export { TurndownPill } from './turndown.pill.component'
+export { TurndownPill } from "./pill.component";

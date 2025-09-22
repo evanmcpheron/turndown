@@ -1,3 +1,3 @@
-// turndown.empty.state.types.ts
+// empty.state.types.ts
 
 export interface TurndownEmptyStateProps {}

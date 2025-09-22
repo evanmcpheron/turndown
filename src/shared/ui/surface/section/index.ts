@@ -1,3 +1,3 @@
 // index.ts
 
-export { TurndownSection } from './turndown.section.component'
+export { TurndownSection } from "./section.component";

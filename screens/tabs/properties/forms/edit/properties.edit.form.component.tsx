@@ -20,7 +20,7 @@ import React, {
 } from "react";
 import { View } from "react-native";
 import { formValidationSchema } from "./properties.edit.form.logic";
-import { propertiesEditFormStyles } from "./properties.edit.form.styled";
+import { propertiesEditFormStyles } from "./properties.edit.form.styles";
 import { PropertiesEditFormProps } from "./properties.edit.form.types";
 
 export const PropertiesEditForm = forwardRef<

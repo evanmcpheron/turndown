@@ -15,7 +15,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-import { notificationStyles } from "./notification.styled";
+import { notificationStyles } from "./notification.styles";
 import {
   IN_DURATION,
   NotificationProps,

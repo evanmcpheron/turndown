@@ -1,10 +1,10 @@
-// turndown.loader.component.tsx
+// loader.component.tsx
 
 import { useTheme } from "@/src/contexts/theme";
 import { useEffect, useMemo, useRef } from "react";
 import { Animated, View } from "react-native";
-import { turndownLoaderComponentStyles } from "./turndown.loader.styled";
-import { TurndownLoaderProps } from "./turndown.loader.types";
+import { turndownLoaderComponentStyles } from "./loader.styles";
+import { TurndownLoaderProps } from "./loader.types";
 
 export const TurndownLoader = (_props: TurndownLoaderProps) => {
   const { app } = useTheme();

@@ -1,3 +1,3 @@
 // index.ts
 
-export { TurndownPhotoUploader } from './turndown.photo.uploader.component'
+export { TurndownPhotoUploader } from "./photo.uploader.component";

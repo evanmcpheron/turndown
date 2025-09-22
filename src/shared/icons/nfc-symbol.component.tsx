@@ -7,7 +7,7 @@ import { IconProps } from "@/src/types/common/style.types";
 import { Dimensions } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { usePointerEvent } from "../hooks/usePointerEvent.hook";
-import { StyledIcon } from "./shared/icon.styled";
+import { StyledIcon } from "./shared/icon.styles";
 
 export const NfcSymbolIcon: React.FC<
   IconProps & {

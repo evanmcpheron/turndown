@@ -1,4 +1,4 @@
-// turndown.info.row.component.tsx
+// info.row.component.tsx
 
 import { useTheme } from "@/src/contexts/theme";
 import { Label } from "@/src/shared/ui/data-display/font";
@@ -7,8 +7,8 @@ import { View } from "react-native";
 
 import { Row } from "../../surface/cell/row/row.layout.component";
 import { TurndownPill } from "../pill";
-import { turndownInfoRowComponentStyles } from "./turndown.info.row.styled";
-import { TurndownInfoRowProps } from "./turndown.info.row.types";
+import { turndownInfoRowComponentStyles } from "./info.row.styles";
+import { TurndownInfoRowProps } from "./info.row.types";
 
 export const TurndownInfoRow = ({
   label,

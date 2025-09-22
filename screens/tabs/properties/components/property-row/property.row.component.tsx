@@ -6,7 +6,7 @@ import { Label } from "@/src/shared/ui/data-display/font";
 import { router } from "expo-router";
 import { useMemo } from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
-import { propertyRowStyles } from "./property.row.styled";
+import { propertyRowStyles } from "./property.row.styles";
 import { PropertyRowProps } from "./property.row.types";
 
 export const PropertyRow = ({ property }: PropertyRowProps) => {

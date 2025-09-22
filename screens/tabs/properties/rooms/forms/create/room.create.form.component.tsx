@@ -9,7 +9,7 @@ import { Form, useForm } from "@/src/shared/ui/forms/form";
 import { getFirstPropertyValue } from "@/src/shared/ui/forms/form/form.helpers";
 import { Input } from "@/src/shared/ui/forms/input";
 import { TurndownPhotoUploader } from "@/src/shared/ui/forms/photo-uploader";
-import { TurndownPhotoUploaderHandle } from "@/src/shared/ui/forms/photo-uploader/turndown.photo.uploader.types";
+import { TurndownPhotoUploaderHandle } from "@/src/shared/ui/forms/photo-uploader/photo.uploader.types";
 import { TurndownSection } from "@/src/shared/ui/surface/section";
 import { Room, TurndownObject } from "@/src/types";
 import React, {

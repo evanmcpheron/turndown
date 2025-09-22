@@ -1,12 +1,12 @@
-// turndown.section.component.tsx
+// section.component.tsx
 
 import { useTheme } from "@/src/contexts/theme";
 import { Label } from "@/src/shared/ui/data-display/font";
 import { useMemo } from "react";
 import { View } from "react-native";
 import { Row } from "../cell/row/row.layout.component";
-import { turndownSectionComponentStyles } from "./turndown.section.styled";
-import { TurndownSectionProps } from "./turndown.section.types";
+import { turndownSectionComponentStyles } from "./section.styles";
+import { TurndownSectionProps } from "./section.types";
 
 export const TurndownSection = ({
   title,

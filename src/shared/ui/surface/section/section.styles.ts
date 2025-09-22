@@ -1,10 +1,9 @@
-// turndown.empty.state.styled.ts
+// section.styled.ts
 
 import { AppTheme } from "@/src/shared/styles/general.styles";
 import { StyleSheet } from "react-native";
 
-export const turndownEmptyStateComponentStyles = (theme: AppTheme) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const turndownSectionComponentStyles = (theme: AppTheme) => {
   const iosShadow = {
     shadowColor: theme.colors.onBackground,
     shadowOpacity: theme.elevation[2].ios.opacity,
@@ -14,8 +13,14 @@ export const turndownEmptyStateComponentStyles = (theme: AppTheme) => {
 
   return StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: theme.colors.background,
+      borderRadius: theme.radii.xl,
+      padding: 20,
+      backgroundColor: theme.colors.surface,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: theme.colors.outline,
+      elevation: theme.elevation[1].android,
+      ...iosShadow,
+      gap: 10,
     },
   });
 };

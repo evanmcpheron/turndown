@@ -1,3 +1,3 @@
-// turndown.loader.types.ts
+// loader.types.ts
 
 export interface TurndownLoaderProps {}

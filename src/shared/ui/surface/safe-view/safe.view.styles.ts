@@ -1,4 +1,4 @@
-// turndown.safe.view.styled.ts
+// safe.view.styled.ts
 
 import { AppTheme } from "@/src/shared/styles/general.styles";
 import { StyleSheet } from "react-native";
