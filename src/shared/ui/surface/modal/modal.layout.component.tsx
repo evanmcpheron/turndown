@@ -33,7 +33,7 @@ export const Modal = ({
   onSave,
   fullHeight,
   isLoading = false,
-  scrollable = true,
+  scrollable = false,
   disabled = false,
   isTransparent = true,
   animationType = "fade",

@@ -7,5 +7,6 @@ export interface RowActionProps {
   onEdit?: () => void;
   onDelete?: () => void;
   disabled?: boolean;
+  photo_required?: boolean;
   style?: StyleProp<ViewStyle>;
 }

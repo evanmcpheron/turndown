@@ -15,6 +15,7 @@ interface CardProps {
   title?: string;
   style?: StyleProp<ViewStyle>;
   rounded?: boolean;
+  disablePadding?: boolean;
   secondary?: boolean;
 }
 
@@ -23,6 +24,7 @@ export const Card = ({
   style,
   secondary,
   rounded = true,
+  disablePadding = false,
   children,
 }: CardProps) => {
   const { app } = useTheme();
@@ -49,6 +51,7 @@ export const Card = ({
             borderWidth: 1,
           }),
         },
+        { ...(disablePadding && { padding: 0 }) },
         animatedStyle,
         style,
       ]}

@@ -8,7 +8,6 @@ import { TurndownEmptyState } from "@/src/shared/ui";
 import { TurndownButton } from "@/src/shared/ui/actions";
 import { Label } from "@/src/shared/ui/data-display/font";
 import { RowAction } from "@/src/shared/ui/data-display/row-action";
-import { Mode } from "@/src/shared/ui/forms";
 import { Form, useForm } from "@/src/shared/ui/forms/form";
 import { getFirstPropertyValue } from "@/src/shared/ui/forms/form/form.helpers";
 import { Input } from "@/src/shared/ui/forms/input";
@@ -25,7 +24,6 @@ import React, {
   useState,
 } from "react";
 import { Alert, View } from "react-native";
-import { FlatList, RefreshControl } from "react-native-gesture-handler";
 import { ChecklistsFormRefHandler } from "../checklists.template.types";
 import { ChecklistItemCreateForm } from "../create/checklist-item/checklist-item.create.form.component";
 import { ChecklistItemEditForm } from "./checklist-item/checklist-item.edit.form.component";
@@ -45,8 +43,6 @@ export const ChecklistsTemplateEditForm = forwardRef<
   const [submittingData, setSubmittingData] = useState(false);
   const [isModalDisplayed, setIsModalDisplayed] = useState(false);
   const [editingItem, setEditingItem] = useState<string | null>(null);
-  const modeRef = useRef<Mode>(null);
-  const [refreshing, setRefreshing] = useState(false);
   const [checklistItems, setChecklistItems] = useState<ChecklistItem[]>([]);
   const { submitForm, setValue } = useForm({
     formName: "frmEditChecklists",
@@ -65,12 +61,6 @@ export const ChecklistsTemplateEditForm = forwardRef<
           setChecklistItems(response);
         });
     }
-  };
-
-  const onRefresh = async () => {
-    setRefreshing(true);
-    await fetchChecklistItems();
-    setRefreshing(false);
   };
 
   useEffect(() => {
@@ -120,7 +110,10 @@ export const ChecklistsTemplateEditForm = forwardRef<
       <TurndownSection
         title="Items"
         hint="What items are we going to put in this checklist?"
-        style={{ height: checklistItems.length === 0 ? "auto" : "100%" }}
+        style={{
+          height: checklistItems.length === 0 ? "auto" : "100%",
+          flex: 1,
+        }}
         action={
           checklistItems.length ? (
             <TurndownButton
@@ -137,61 +130,45 @@ export const ChecklistsTemplateEditForm = forwardRef<
           )
         }
       >
-        <FlatList
-          data={checklistItems}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <RowAction
-              text={item.text}
-              onEdit={() => {
-                setEditingItem(item.id);
-              }}
-              onDelete={() => {
-                Alert.alert(
-                  "Delete",
-                  "Are you sure you want to delete this Item?",
-                  [
-                    { text: "Cancel", style: "cancel" },
-                    {
-                      text: "Delete",
-                      style: "destructive",
-                      onPress: async () => {
-                        await checklistItemApi.delete(item.id).then(() => {
-                          setEditingItem(null);
-                          fetchChecklistItems();
-                        });
-                      },
+        {checklistItems.map((item) => (
+          <RowAction
+            key={`checklist_item_${item.id}`}
+            text={item.text}
+            photo_required={item.photo_required}
+            onEdit={() => {
+              setEditingItem(item.id);
+            }}
+            onDelete={() => {
+              Alert.alert(
+                "Delete",
+                "Are you sure you want to delete this Item?",
+                [
+                  { text: "Cancel", style: "cancel" },
+                  {
+                    text: "Delete",
+                    style: "destructive",
+                    onPress: async () => {
+                      await checklistItemApi.delete(item.id).then(() => {
+                        setEditingItem(null);
+                        fetchChecklistItems();
+                      });
                     },
-                  ]
-                );
-              }}
-            />
-          )}
-          ItemSeparatorComponent={() => <View style={{ height: 0 }} />}
-          ListEmptyComponent={
-            <TurndownEmptyState
-              title={"Checklist Items"}
-              description={
-                "Add your first checklist item and start making progress."
-              }
-              buttonText={"Add your first checklist item"}
-              onCreate={() => setIsModalDisplayed(true)}
-            />
-          }
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-              tintColor={app.colors.primary}
-            />
-          }
-          style={{ flexGrow: 1 }}
-          contentContainerStyle={{
-            gap: 10,
-            flexGrow: 1,
-          }}
-          scrollEnabled={checklistItems.length > 0}
-        />
+                  },
+                ]
+              );
+            }}
+          />
+        ))}
+        {checklistItems.length === 0 && (
+          <TurndownEmptyState
+            title={"Checklist Items"}
+            description={
+              "Add your first checklist item and start making progress."
+            }
+            buttonText={"Add your first checklist item"}
+            onCreate={() => setIsModalDisplayed(true)}
+          />
+        )}
       </TurndownSection>
       {editingItem && (
         <BottomDrawer open={!!editingItem} onClose={() => setEditingItem(null)}>
