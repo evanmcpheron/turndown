@@ -24,18 +24,25 @@ import React, {
   useState,
 } from "react";
 import { Alert, View } from "react-native";
-import { ChecklistsFormRefHandler } from "../checklists.template.types";
 import { ChecklistItemCreateForm } from "../create/checklist-item/checklist-item.create.form.component";
 import { ChecklistItemEditForm } from "./checklist-item/checklist-item.edit.form.component";
 import { formValidationSchema } from "./checklists.edit.form.logic";
 import { ChecklistsEditFormProps } from "./checklists.edit.form.types";
 
 export const ChecklistsTemplateEditForm = forwardRef<
-  ChecklistsFormRefHandler,
+  {
+    submitData: (
+      callback: (success: boolean, checklist_id?: string) => void
+    ) => void;
+  },
   ChecklistsEditFormProps
 >(({ selectedId }, ref) => {
-  const checklistsItemCreateFormRef = useRef<ChecklistsFormRefHandler>(null);
-  const checklistsItemEditFormRef = useRef<ChecklistsFormRefHandler>(null);
+  const checklistsItemCreateFormRef = useRef<{
+    submitData: (callback: (success: boolean) => void) => void;
+  }>(null);
+  const checklistsItemEditFormRef = useRef<{
+    submitData: (callback: (success: boolean) => void) => void;
+  }>(null);
 
   const { user } = useAuth();
   const { app } = useTheme();

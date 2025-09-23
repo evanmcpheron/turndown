@@ -13,12 +13,13 @@ import React, {
   useImperativeHandle,
   useState,
 } from "react";
-import { ChecklistsFormRefHandler } from "../../checklists.template.types";
 import { formValidationSchema } from "./checklist-item.edit.form.logic";
 import { ChecklistItemEditFormProps } from "./checklist-item.edit.form.types";
 
 export const ChecklistItemEditForm = forwardRef<
-  ChecklistsFormRefHandler,
+  {
+    submitData: (callback: (success: boolean) => void) => void;
+  },
   ChecklistItemEditFormProps
 >(({ itemId }, ref) => {
   const { user } = useAuth();

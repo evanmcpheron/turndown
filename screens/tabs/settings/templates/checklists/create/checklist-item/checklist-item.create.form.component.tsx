@@ -8,12 +8,13 @@ import { getFirstPropertyValue } from "@/src/shared/ui/forms/form/form.helpers";
 import { Input } from "@/src/shared/ui/forms/input";
 import { TurndownObject } from "@/src/types";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
-import { ChecklistsFormRefHandler } from "../../checklists.template.types";
 import { formValidationSchema } from "./checklist-item.create.form.logic";
 import { ChecklistItemCreateFormProps } from "./checklist-item.create.form.types";
 
 export const ChecklistItemCreateForm = forwardRef<
-  ChecklistsFormRefHandler,
+  {
+    submitData: (callback: (success: boolean) => void) => void;
+  },
   ChecklistItemCreateFormProps
 >(({ checklistId }, ref) => {
   const { user } = useAuth();
