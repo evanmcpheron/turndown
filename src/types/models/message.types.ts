@@ -1,35 +1,28 @@
 import { Timestamp } from "firebase/firestore";
-import { MediaKind } from ".";
+import { MediaKind, MetaData } from ".";
 
-export interface Conversation {
+export interface Conversation extends MetaData {
   id?: string;
   property_id?: string;
   turn_id?: string;
-  created_by_user_id: string;
+  created_by: string;
   is_broadcast: boolean;
   last_message_at?: Timestamp;
-  created_at: Timestamp;
-  updated_at: Timestamp;
 }
 
-export interface Message {
+export interface Message extends MetaData {
   id?: string;
   conversation_id: string;
   property_id?: string;
   turn_id?: string;
 
-  sender_user_id: string;
   text?: string;
   has_attachments: boolean;
-
-  created_at: Timestamp;
-  updated_at: Timestamp;
 }
 
-export interface MessageAttachment {
+export interface MessageAttachment extends MetaData {
   id?: string;
   message_id: string;
   url: string;
   media_kind: MediaKind;
-  created_at: Timestamp;
 }

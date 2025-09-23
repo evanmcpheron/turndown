@@ -114,6 +114,7 @@ export async function get(
     if (typeof idOrOptions === "string") {
       const docRef = doc(db, coll, idOrOptions);
       const snap = await getDoc(docRef);
+
       if (snap.exists()) {
         return { success: true, data: { id: snap.id, ...snap.data() } };
       }
@@ -123,7 +124,7 @@ export async function get(
     const options = idOrOptions as QueryOptions;
     const baseRef = collection(db, coll);
     const constraints: QueryConstraint[] = [];
-
+    options.where?.push({ field: "deleted", op: "==", value: false });
     if (options.where?.length) {
       for (const w of options.where) {
         constraints.push(qWhere(w.field, w.op as any, w.value));
@@ -191,18 +192,12 @@ export const remove = async (
   id: string
 ): Promise<ReturnData> => {
   try {
+    const dates = dateToTimestamp();
+
     const docRef = doc(db, coll, id);
     await updateDoc(docRef, { deleted: true });
-    return { success: true, data: { id, deleted: true } };
+    return { success: true, data: { id, deleted: true, updated_at: dates } };
   } catch (error: any) {
     return { success: false, message: error.message };
   }
-
-  //   try {
-  //     const docRef = doc(db, coll, id);
-  //     await deleteDoc(docRef);
-  //     return { success: true, message: "Document deleted successfully" };
-  //   } catch (error: any) {
-  //     return { success: false, message: error.message };
-  //   }
 };

@@ -1,19 +1,17 @@
 import { Timestamp } from "firebase/firestore";
-import { InventoryLevel } from ".";
+import { InventoryLevel, MetaData } from ".";
 
 // ───────────────────────────── inventory (global catalog)
-export interface InventoryItem {
+export interface InventoryItem extends MetaData {
   id?: string; // e.g., "toilet-paper"
   slug: string;
   label: string;
   unit_label?: string; // "rolls", "pods"
   is_active: boolean;
-  created_at: Timestamp;
-  updated_at: Timestamp;
 }
 
 // ───────────────────────────── property_inventory (per-property settings)
-export interface PropertyInventory {
+export interface PropertyInventory extends MetaData {
   id?: string;
   property_id: string;
   inventory_item_id: string;
@@ -23,13 +21,10 @@ export interface PropertyInventory {
 
   restock_note?: string;
   restock_link?: string;
-
-  created_at: Timestamp;
-  updated_at: Timestamp;
 }
 
 // ───────────────────────────── inventory_counts (per-turn or ad-hoc logs)
-export interface InventoryCount {
+export interface InventoryCount extends MetaData {
   id?: string;
   property_id: string;
   inventory_item_id: string;
@@ -40,6 +35,4 @@ export interface InventoryCount {
 
   counted_at: Timestamp;
   counted_by_user_id: string;
-
-  created_at: Timestamp;
 }

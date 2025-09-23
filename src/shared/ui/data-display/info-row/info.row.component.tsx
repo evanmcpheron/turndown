@@ -5,6 +5,9 @@ import { Label } from "@/src/shared/ui/data-display/font";
 import { useMemo } from "react";
 import { View } from "react-native";
 
+import { PencilIcon } from "@/src/shared/icons/pencil.component";
+import { TrashCanIcon } from "@/src/shared/icons/trash-can.component";
+import { TurndownButton } from "../../actions";
 import { Row } from "../../surface/cell/row/row.layout.component";
 import { TurndownPill } from "../pill";
 import { turndownInfoRowComponentStyles } from "./info.row.styles";
@@ -15,6 +18,8 @@ export const TurndownInfoRow = ({
   value = "-",
   quantity,
   severity = "low",
+  onEdit,
+  onDelete,
 }: TurndownInfoRowProps) => {
   const { app } = useTheme();
   const styles = useMemo(() => turndownInfoRowComponentStyles(app), [app]);
@@ -33,6 +38,17 @@ export const TurndownInfoRow = ({
           {value !== "-" && <Label>{value}</Label>}
           <TurndownPill severity={severity} label={quantity} />
         </View>
+      )}
+
+      {onEdit && (
+        <TurndownButton>
+          <PencilIcon type="regular" color="primary" />
+        </TurndownButton>
+      )}
+      {onDelete && (
+        <TurndownButton>
+          <TrashCanIcon type="regular" color="danger" />
+        </TurndownButton>
       )}
     </Row>
   );

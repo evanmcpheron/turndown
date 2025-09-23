@@ -7,7 +7,7 @@ export const Row = ({
   style,
   rowDirection = "row",
   stretchRow = true,
-  gap = 0,
+  gap = 10,
   alignItems,
   justifyContent,
   width,
@@ -28,6 +28,8 @@ export const Row = ({
 
   const containerStyle: StyleProp<ViewStyle> = [
     {
+      display: "flex",
+      gap,
       flexDirection: rowDirection,
       ...(mappedAlignItems ? { alignItems: mappedAlignItems } : {}),
       ...(justifyContent ? { justifyContent } : {}),
@@ -35,7 +37,6 @@ export const Row = ({
       ...(height !== undefined ? { height } : {}),
       ...(minWidth !== undefined ? { minWidth } : {}),
       ...(minHeight !== undefined ? { minHeight } : {}),
-      marginHorizontal: gap ? -gap / 2 : undefined,
     },
     style,
   ];
@@ -45,7 +46,7 @@ export const Row = ({
     if (React.isValidElement(child)) {
       const childStyle = (child.props as any).style;
       return React.cloneElement<any>(child, {
-        style: [{ marginHorizontal: gap / 2 }, childStyle || {}],
+        style: [{ gap }, childStyle || {}],
       });
     }
     return child;

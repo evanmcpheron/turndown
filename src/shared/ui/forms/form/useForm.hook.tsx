@@ -1,4 +1,5 @@
 import { TurndownObject } from "@/src/types";
+import { hasProperties } from "./form.helpers";
 import { createFormProxy, type FormProxy } from "./form.proxy";
 
 interface UseFormProps {

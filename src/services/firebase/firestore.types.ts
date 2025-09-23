@@ -8,8 +8,10 @@ export interface ReturnData {
 
 export type Collections =
   | "Checklist"
+  | "ChecklistItem"
   | "Inventory"
-  | "Message"
   | "Property"
+  | "Task"
+  | "Message"
   | "Room"
   | "User";

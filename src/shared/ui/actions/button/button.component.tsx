@@ -22,6 +22,7 @@ interface TurndownButtonProps extends DomProperties {
   onPress?: (value: TurndownObject) => void;
   height?: number;
   width?: number;
+  fullWidth?: boolean;
   disabled?: boolean;
   to?: TurndownObject | string;
   color?: keyof SemanticColors;
@@ -35,6 +36,7 @@ export const TurndownButton = ({
   disabled = false,
   height = 50,
   width,
+  fullWidth = false,
   variant = "filled",
   to = "/",
   color = "primary",
@@ -99,7 +101,7 @@ export const TurndownButton = ({
   }
 
   return (
-    <View style={[style, { height }]}>
+    <View style={[style, { height, width: fullWidth ? "100%" : "auto" }]}>
       <Switch>
         <Switch.Case condition={variant === "outline"}>
           <TouchableOpacity
@@ -272,7 +274,6 @@ const outlineStyle = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 8,
     borderWidth: 1,
-    marginRight: 10,
     flex: 1,
     display: "flex",
     alignItems: "center",

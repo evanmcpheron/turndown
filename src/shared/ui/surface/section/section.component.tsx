@@ -4,7 +4,7 @@ import { useTheme } from "@/src/contexts/theme";
 import { Label } from "@/src/shared/ui/data-display/font";
 import { useMemo } from "react";
 import { View } from "react-native";
-import { Row } from "../cell/row/row.layout.component";
+import { Hr } from "../../data-display/hr";
 import { turndownSectionComponentStyles } from "./section.styles";
 import { TurndownSectionProps } from "./section.types";
 
@@ -12,6 +12,7 @@ export const TurndownSection = ({
   title,
   hint,
   right,
+  style,
   children,
 }: TurndownSectionProps) => {
   const { app } = useTheme();
@@ -19,25 +20,35 @@ export const TurndownSection = ({
   const styles = useMemo(() => turndownSectionComponentStyles(app), [app]);
 
   return (
-    <View style={styles.container}>
-      <Row
-        justifyContent="space-between"
-        style={{ marginBottom: app.spacing[2] }}
-      >
-        <View style={{ marginBottom: app.spacing[2] }}>
-          <Label variant="h3">{title}</Label>
-          {!!hint && (
-            <Label
-              variant="subtitle2"
-              style={{ color: app.colors.textMuted, marginTop: 4 }}
-            >
-              {hint}
-            </Label>
-          )}
+    <View style={[styles.container, style]}>
+      {(title || hint) && (
+        <View
+          style={{
+            marginBottom: app.spacing[2],
+          }}
+        >
+          <View>
+            <Label variant="h3">{title}</Label>
+            {!!hint && (
+              <Label
+                variant="subtitle2"
+                style={{
+                  flexWrap: "wrap",
+                  textOverflow: "wrap",
+                  color: app.colors.textMuted,
+                  marginVertical: app.spacing[2],
+                  paddingBottom: app.spacing[2],
+                }}
+              >
+                {hint}
+              </Label>
+            )}
+          </View>
+          <Hr />
         </View>
-        {right}
-      </Row>
-      {children}
+      )}
+      <View>{children}</View>
+      {right && <View>{right}</View>}
     </View>
   );
 };

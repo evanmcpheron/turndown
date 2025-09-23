@@ -2,12 +2,6 @@ import { AppTheme } from "@/src/shared/styles/general.styles";
 import { StyleSheet } from "react-native";
 
 export const propertyRowStyles = (theme: AppTheme) => {
-  const iosShadow = {
-    shadowColor: "#000",
-    shadowOpacity: theme.elevation[1].ios.opacity,
-    shadowRadius: theme.elevation[1].ios.radius,
-    shadowOffset: theme.elevation[1].ios.offset,
-  };
   return StyleSheet.create({
     card: {
       flexDirection: "row",
@@ -19,7 +13,6 @@ export const propertyRowStyles = (theme: AppTheme) => {
       borderWidth: StyleSheet.hairlineWidth,
       borderColor: theme.colors.outline,
       elevation: theme.elevation[1].android,
-      ...iosShadow,
     },
     thumb: {
       width: 56,

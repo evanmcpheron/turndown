@@ -1,10 +1,10 @@
 import { Timestamp } from "firebase/firestore";
-import { ReadinessStatus } from ".";
+import { MetaData, ReadinessStatus } from ".";
 
-export interface Property {
+export interface Property extends MetaData {
   id: string;
   user_id: string; // owner/primary admin (host)
-  nickname: string;
+  name: string;
   address_line1?: string;
   address_line2?: string;
   city?: string;
@@ -27,14 +27,12 @@ export interface Property {
   type: PropertyType; // required → stable bucket
   subtype?: PropertySubType;
   is_active: boolean;
-  created_at: Timestamp;
-  updated_at: Timestamp;
 }
 
-export interface Room {
+export interface Room extends MetaData {
   id: string;
   deleted: boolean;
-  nickname: string;
+  name: string;
   hero_photo?: string;
   photos?: string[];
   property_id: string;

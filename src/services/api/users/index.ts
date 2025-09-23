@@ -13,11 +13,14 @@ export const userApi = {
     }
   },
   post: async (
-    data: Omit<User, "created_at" | "updated_at" | "deleted">,
+    data: Omit<
+      User,
+      "created_at" | "updated_at" | "deleted" | "company_id" | "is_admin"
+    >,
     userId: string
   ) => {
     try {
-      await post("User", data, userId);
+      await post("User", { ...data, company_id: "asdfasdfasdf" }, userId);
       showSuccessNotification("User was successfully created");
     } catch (error) {
       console.error(error);

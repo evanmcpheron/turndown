@@ -25,8 +25,15 @@ export type IntegrationSource = "airbnb" | "vrbo" | "custom";
 export type MemberRole = "host" | "manager" | "cleaner" | "helper";
 export type MediaKind = "image" | "video" | "file";
 
-// ───────────────────────────── issues / damages
-export interface Issue {
+export interface MetaData {
+  company_id: string;
+  deleted: boolean;
+  updated_by: string;
+  created_by: string;
+  created_at: Timestamp;
+  updated_at: Timestamp;
+}
+export interface Issue extends MetaData {
   id?: string;
   property_id: string;
   turn_id?: string;

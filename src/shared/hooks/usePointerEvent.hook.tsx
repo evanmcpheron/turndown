@@ -213,42 +213,6 @@ export const usePointerEvent = (props: ClickProperties) => {
           if (groupId) {
             attr(elemCurrent, "turndown-gid", groupId);
           }
-
-          elemCurrent.removeEventListener("pointerdown", onActionStart, false);
-          elemCurrent.addEventListener("pointerdown", onActionStart, {
-            capture: true,
-            passive: true,
-          });
-
-          elemCurrent.removeEventListener("pointerup", onActionEnd, false);
-          elemCurrent.addEventListener("pointerup", onActionEnd, {
-            capture: true,
-            passive: true,
-          });
-
-          elemCurrent.removeEventListener("click", onActionClick, false);
-          elemCurrent.addEventListener("click", onActionClick, {
-            capture: true,
-            passive: true,
-          });
-
-          elemCurrent.removeEventListener("pointerover", onActionOver, false);
-          elemCurrent.addEventListener("pointerover", onActionOver, {
-            capture: true,
-            passive: true,
-          });
-
-          elemCurrent.removeEventListener("pointermove", onActionMove, false);
-          elemCurrent.addEventListener("pointermove", onActionMove, {
-            capture: true,
-            passive: true,
-          });
-
-          elemCurrent.removeEventListener("pointerleave", onActionLeave, false);
-          elemCurrent.addEventListener("pointerleave", onActionLeave, {
-            capture: true,
-            passive: true,
-          });
         }
       }
     }

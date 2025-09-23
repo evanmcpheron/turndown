@@ -9,6 +9,8 @@ import { NoticeHost } from "@/src/shared/feedback/notification/notification.host
 import { Stack } from "expo-router";
 import { View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+
+import React from "react";
 import {
   initialWindowMetrics,
   SafeAreaProvider,

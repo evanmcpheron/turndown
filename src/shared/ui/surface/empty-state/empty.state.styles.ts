@@ -4,7 +4,6 @@ import { AppTheme } from "@/src/shared/styles/general.styles";
 import { StyleSheet } from "react-native";
 
 export const turndownEmptyStateComponentStyles = (theme: AppTheme) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const iosShadow = {
     shadowColor: theme.colors.onBackground,
     shadowOpacity: theme.elevation[2].ios.opacity,
@@ -14,8 +13,9 @@ export const turndownEmptyStateComponentStyles = (theme: AppTheme) => {
 
   return StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: theme.colors.background,
+      justifyContent: "center",
+      alignItems: "center",
+      gap: 10,
     },
   });
 };

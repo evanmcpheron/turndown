@@ -1,7 +1,9 @@
 import { useTheme } from "@/src/contexts/theme";
 import { AppTheme } from "@/src/shared/styles/general.styles";
 import { useMemo } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Label } from "../../data-display/font";
+import { Hr } from "../../data-display/hr";
 
 interface CardProps {
   children: React.ReactNode;
@@ -10,36 +12,39 @@ interface CardProps {
 
 export const Card = ({ title, children }: CardProps) => {
   const { app } = useTheme();
-  const styles = useMemo(() => turndownExpandableComponentStyles(app), [app]);
+  const styles = useMemo(() => cardComponentStyles(app), [app]);
   return (
     <View style={styles.container}>
-      {title && <Text style={styles.title}>{title}</Text>}
+      {title && (
+        <View>
+          <Label align="center" variant="h3" style={styles.title}>
+            {title}
+          </Label>
+          <Hr marginVertical={10} />
+        </View>
+      )}
       {children}
     </View>
   );
 };
 
-export const turndownExpandableComponentStyles = (theme: AppTheme) => {
-  const iosShadow = {
-    shadowColor: theme.colors.onBackground,
-    shadowOpacity: theme.elevation[2].ios.opacity,
-    shadowRadius: theme.elevation[2].ios.radius,
-    shadowOffset: theme.elevation[2].ios.offset,
-  };
-
+export const cardComponentStyles = (theme: AppTheme) => {
   return StyleSheet.create({
     container: {
-      flexGrow: 1,
-      backgroundColor: theme.colors.surface,
+      // backgroundColor: theme.colors.surface,
+      // padding: theme.spacing[4],
+      // borderRadius: theme.radii.lg,
+
+      gap: theme.spacing[3],
       padding: theme.spacing[4],
-      borderRadius: theme.radii.lg,
-      ...iosShadow,
+      borderRadius: theme.radii.xl,
+      backgroundColor: theme.colors.surface,
+      borderWidth: StyleSheet.hairlineWidth,
+      borderColor: theme.colors.outline,
+      elevation: theme.elevation[1].android,
     },
     title: {
-      fontSize: 18,
-      fontWeight: "600",
-      marginBottom: 12,
-      color: "#333",
+      color: theme.colors.text,
     },
   });
 };

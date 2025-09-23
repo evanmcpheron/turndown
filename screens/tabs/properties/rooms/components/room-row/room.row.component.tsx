@@ -11,7 +11,7 @@ export const RoomRow = ({ room }: RoomRowProps) => {
   const { app } = useTheme();
   const style = useMemo(() => roomRowStyles(app), [app]);
 
-  const { nickname, photos, hero_photo } = room;
+  const { name, photos, hero_photo } = room;
 
   return (
     <View>
@@ -35,7 +35,7 @@ export const RoomRow = ({ room }: RoomRowProps) => {
           numberOfLines={1}
           style={{ marginBottom: app.spacing[1] }}
         >
-          {nickname || "Room"}
+          {name || "Room"}
         </Label>
       </Row>
       <View>

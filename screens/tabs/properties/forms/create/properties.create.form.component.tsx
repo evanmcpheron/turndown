@@ -73,7 +73,7 @@ export const PropertiesCreateForm = forwardRef<
         title="Identity"
         hint="How should we refer to this property?"
       >
-        <Input name="nickname" placeholder="Nickname" label="Nickname" />
+        <Input name="name" placeholder="Name" label="Name" />
       </TurndownSection>
 
       <TurndownSection

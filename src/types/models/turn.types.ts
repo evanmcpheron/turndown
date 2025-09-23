@@ -1,8 +1,8 @@
 import { Timestamp } from "firebase/firestore";
-import { ReadinessStatus, TurnStatus } from ".";
+import { MetaData, ReadinessStatus, TurnStatus } from ".";
 
 // ───────────────────────────── turns (work blocks between checkout→check-in)
-export interface Turn {
+export interface Turn extends MetaData {
   id?: string;
   property_id: string;
   booking_id?: string;
@@ -22,13 +22,10 @@ export interface Turn {
 
   notes?: string;
   proof_pack_url?: string;
-
-  created_at: Timestamp;
-  updated_at: Timestamp;
 }
 
 // ───────────────────────────── turn_tasks (flattened checklist runtime)
-export interface TurnTask {
+export interface TurnTask extends MetaData {
   id?: string;
   turn_id: string;
   property_id: string;
@@ -36,12 +33,8 @@ export interface TurnTask {
   checklist_item_id?: string; // origin template item
   title: string;
   room_label?: string;
-  required_photo: boolean;
+  photo_required: boolean;
 
   status: "todo" | "done" | "skipped";
   completed_at?: Timestamp;
-  completed_by_user_id?: string;
-
-  created_at: Timestamp;
-  updated_at: Timestamp;
 }

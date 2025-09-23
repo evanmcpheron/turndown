@@ -37,12 +37,12 @@ export const RoomCreateForm = forwardRef<
     onFormErrors: () => {},
   });
 
-  const saveData = async ({ nickname }: TurndownObject) => {
+  const saveData = async ({ name }: TurndownObject) => {
     try {
       if (uploaderRef.current && propertyId) {
         uploaderRef.current.uploadAll().then(async (response) => {
           const cleaned = {
-            nickname,
+            name,
             photos: response,
           } as Room;
 
@@ -85,7 +85,7 @@ export const RoomCreateForm = forwardRef<
   return (
     <Form name="frmCreateRoom">
       <TurndownSection title="Identity" hint="What should we call this room?">
-        <Input name="nickname" placeholder="Nickname" label="Nickname" />
+        <Input name="name" placeholder="Name" label="Name" />
         <TurndownPhotoUploader
           ref={uploaderRef}
           userId={user?.id}

@@ -15,7 +15,7 @@ export const PropertyRow = ({ property }: PropertyRowProps) => {
 
   const {
     id,
-    nickname,
+    name,
     address_line1,
     address_line2,
     city,
@@ -72,7 +72,7 @@ export const PropertyRow = ({ property }: PropertyRowProps) => {
           numberOfLines={1}
           style={{ marginBottom: app.spacing[1] }}
         >
-          {nickname || "Property"}
+          {name || "Property"}
         </Label>
         {!!addressCompact && (
           <Label

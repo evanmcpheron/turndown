@@ -15,6 +15,8 @@ export const turndownPillComponentStyles = (theme: AppTheme) => {
   return StyleSheet.create({
     container: {
       flex: 1,
+      display: "flex",
+      justifyContent: "center",
       minWidth: 50,
       height: 30,
       borderWidth: 2,
@@ -22,6 +24,7 @@ export const turndownPillComponentStyles = (theme: AppTheme) => {
       paddingHorizontal: 5,
       borderRadius: 100,
       paddingVertical: 3,
+      alignItems: "center",
     },
     label: {
       textAlign: "center",

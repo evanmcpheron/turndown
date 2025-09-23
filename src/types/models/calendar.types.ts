@@ -1,8 +1,8 @@
 import { Timestamp } from "firebase/firestore";
-import { BookingStatus, IntegrationSource } from ".";
+import { BookingStatus, IntegrationSource, MetaData } from ".";
 
 // ───────────────────────────── bookings (from iCal/email/manual)
-export interface Booking {
+export interface Booking extends MetaData {
   id?: string;
   property_id: string;
   source: IntegrationSource | "manual";
@@ -11,23 +11,19 @@ export interface Booking {
   check_in_at: Timestamp;
   check_out_at: Timestamp;
   status: BookingStatus;
-  created_at: Timestamp;
-  updated_at: Timestamp;
 }
 
 // ───────────────────────────── property_calendar_links (iCal ingestion)
-export interface PropertyCalendarLink {
+export interface PropertyCalendarLink extends MetaData {
   id?: string;
   property_id: string;
   source: IntegrationSource;
   ical_url: string;
   is_active: boolean;
   last_fetch_at?: Timestamp;
-  created_at: Timestamp;
-  updated_at: Timestamp;
 }
 
-export interface ActivityEvent {
+export interface ActivityEvent extends MetaData {
   id?: string;
   property_id: string;
   turn_id?: string;
@@ -45,6 +41,4 @@ export interface ActivityEvent {
     | "message_posted";
   actor_user_id?: string;
   message?: string; // short human-readable detail
-
-  created_at: Timestamp;
 }

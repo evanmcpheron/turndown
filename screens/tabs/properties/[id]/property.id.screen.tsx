@@ -100,7 +100,7 @@ export const PropertyIdScreen = () => {
       <View style={s.hero}>
         <View style={s.heroLeft}>
           <Label variant="h2" style={s.title}>
-            {property?.nickname ?? "Property"}
+            {property?.name ?? "Property"}
           </Label>
           <View style={s.tagRow}>
             <Tag

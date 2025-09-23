@@ -19,7 +19,7 @@ export const propertiesApi = {
     try {
       const response = await get("Property", property_id);
 
-      return response?.data || [];
+      return response?.data || null;
     } catch (error) {
       console.error(error);
       return [];

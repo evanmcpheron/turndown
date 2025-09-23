@@ -16,7 +16,9 @@ import React, {
 import {
   Animated,
   Easing,
+  KeyboardAvoidingView,
   Modal as NativeModal,
+  Platform,
   ScrollView,
   StyleSheet,
   View,
@@ -30,6 +32,7 @@ export const Modal = ({
   onCancel,
   onSave,
   isLoading = false,
+  scrollable = true,
   disabled = false,
   isTransparent = true,
   animationType = "fade",
@@ -76,12 +79,15 @@ export const Modal = ({
       animationType={animationType}
       transparent={isTransparent}
       visible={isOpen}
-      presentationStyle="overFullScreen"
+      presentationStyle={isTransparent ? "overFullScreen" : "formSheet"}
     >
       <NoticeHost />
       <SafeAreaProvider
         style={[
           {
+            flex: 0,
+            justifyContent: "center",
+            alignItems: "center",
             backgroundColor: withOpacity(
               app.colors.background,
               app.opacity.medium
@@ -89,105 +95,105 @@ export const Modal = ({
           },
         ]}
       >
-        <Animated.View
-          style={[
-            styles.container,
-            {
-              transform: [{ scale: scaleAnim }],
-              zIndex: app.zIndex.modal,
-              backgroundColor: app.colors.background,
-              borderRadius: app.radii.lg,
-              overflow: "hidden",
-            },
-          ]}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.container}
         >
-          <SafeAreaView
-            style={{ flex: 1, backgroundColor: app.colors.navCard }}
+          <Animated.View
+            style={[
+              styles.container,
+              {
+                transform: [{ scale: scaleAnim }],
+                zIndex: app.zIndex.modal,
+                backgroundColor: app.colors.background,
+                borderRadius: app.radii.lg,
+                overflow: "hidden",
+              },
+            ]}
           >
-            {header && (header.primary || header.secondary) && (
-              <View
-                style={[
-                  styles.header,
-                  {
-                    padding: app.spacing[4],
-                    borderBottomColor: app.colors.primary,
-                    backgroundColor: app.colors.navCard,
-                  },
-                ]}
-              >
-                {header.primary && <Label variant="h3">{header.primary}</Label>}
-                {header.secondary && (
-                  <Label variant="subtitle1" style={{ marginTop: 5 }}>
-                    {header.secondary}
-                  </Label>
-                )}
-              </View>
-            )}
-            {isLoading ? (
-              <TurndownLoader />
-            ) : (
-              <ScrollView
-                nestedScrollEnabled
-                style={[
-                  {
-                    ...(!hasFooter && {
-                      borderRadius: 12,
+            <SafeAreaView
+              style={{ flex: 1, backgroundColor: app.colors.navCard }}
+            >
+              {header && (header.primary || header.secondary) && (
+                <View
+                  style={[
+                    styles.header,
+                    {
                       padding: app.spacing[4],
-                      paddingBottom: app.spacing[4],
-                    }),
-                  },
-                  {
-                    ...(!header && {
-                      paddingTop: app.spacing[4],
-                    }),
-                  },
-                  {
-                    maxHeight: "100%",
+                      borderBottomColor: app.colors.primary,
+                      backgroundColor: app.colors.navCard,
+                    },
+                  ]}
+                >
+                  {header.primary && (
+                    <Label variant="h3">{header.primary}</Label>
+                  )}
+                  {header.secondary && (
+                    <Label variant="subtitle1" style={{ marginTop: 5 }}>
+                      {header.secondary}
+                    </Label>
+                  )}
+                </View>
+              )}
+              {isLoading ? (
+                <TurndownLoader />
+              ) : (
+                <ScrollView
+                  nestedScrollEnabled
+                  keyboardShouldPersistTaps="handled"
+                  scrollEnabled={scrollable}
+                  bounces={scrollable}
+                  showsVerticalScrollIndicator={scrollable}
+                  contentContainerStyle={{
+                    ...(!hasFooter && { paddingBottom: app.spacing[4] }),
+                    ...(!header && { paddingTop: app.spacing[4] }),
                     paddingTop: app.spacing[4],
                     paddingHorizontal: app.spacing[4],
-                    backgroundColor: app.colors.background,
-                  },
-                ]}
-              >
-                {contentChildren}
-              </ScrollView>
-            )}
-            {hasFooter && (
-              <View
-                style={[
-                  styles.actions,
-                  {
-                    padding: app.spacing[4],
-                    borderTopColor: app.colors.primary,
-                    backgroundColor: app.colors.navCard,
-                  },
-                ]}
-              >
-                {onCancel && (
-                  <TurndownButton
-                    style={{ flex: 1 }}
-                    onPress={onCancel}
-                    variant="outline"
-                  >
-                    Cancel
-                  </TurndownButton>
-                )}
-                {onSave && (
-                  <TurndownButton
-                    style={{ flex: 1 }}
-                    disabled={disabled || isLoading}
-                    onPress={onSave}
-                  >
-                    {saveText}
-                  </TurndownButton>
-                )}
-                {actions.map((action, index) => {
-                  return <View key={index}>{action.props.children}</View>;
-                })}
-              </View>
-            )}
-          </SafeAreaView>
-        </Animated.View>
+                    paddingBottom: app.spacing[4],
+                  }} // 👈 move padding here
+                  style={{ backgroundColor: app.colors.background }}
+                >
+                  {contentChildren}
+                </ScrollView>
+              )}
+              {hasFooter && (
+                <View
+                  style={[
+                    styles.actions,
+                    {
+                      padding: app.spacing[4],
+                      gap: 10,
+                      borderTopColor: app.colors.primary,
+                      backgroundColor: app.colors.navCard,
+                    },
+                  ]}
+                >
+                  {onCancel && (
+                    <TurndownButton
+                      style={{ flex: 1 }}
+                      onPress={onCancel}
+                      variant="outline"
+                    >
+                      Cancel
+                    </TurndownButton>
+                  )}
+                  {onSave && (
+                    <TurndownButton
+                      style={{ flex: 1 }}
+                      disabled={disabled || isLoading}
+                      onPress={onSave}
+                    >
+                      {saveText}
+                    </TurndownButton>
+                  )}
+                  {actions.map((action, index) => {
+                    return <View key={index}>{action.props.children}</View>;
+                  })}
+                </View>
+              )}
+            </SafeAreaView>
+          </Animated.View>
+        </KeyboardAvoidingView>
       </SafeAreaProvider>
     </NativeModal>
   );

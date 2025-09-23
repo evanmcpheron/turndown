@@ -7,4 +7,6 @@ export interface TurndownInfoRowProps {
   value?: string;
   quantity?: number;
   severity?: Severity;
+  onEdit?: () => void;
+  onDelete?: () => void;
 }

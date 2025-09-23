@@ -1,25 +1,18 @@
-import { Timestamp } from "firebase/firestore";
+import { MetaData } from ".";
 
-// ───────────────────────────── checklist templates (global or per property)
-export interface Checklist {
-  id?: string;
+export type ChecklistScope = "global" | "property";
+
+export interface Checklist extends MetaData {
+  id: string;
   name: string;
-  scope: "global" | "property";
-  property_id?: string; // set when scope === 'property'
-  is_default: boolean; // default for its scope (property/global)
-  is_express: boolean; // express-mode variant
-  created_by_user_id: string;
-  created_at: Timestamp;
-  updated_at: Timestamp;
+  property_id?: string;
+  is_template: boolean;
 }
 
-export interface ChecklistItem {
-  id?: string;
+export interface ChecklistItem extends MetaData {
+  id: string;
   checklist_id: string;
-  order_index: number;
-  title: string;
-  room_label?: string;
-  required_photo: boolean;
-  created_at: Timestamp;
-  updated_at: Timestamp;
+  text: string;
+  room_id?: string;
+  photo_required: boolean;
 }
