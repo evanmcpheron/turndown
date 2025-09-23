@@ -1,45 +1,60 @@
-import { useTheme } from "@/src/contexts/theme";
 import { checklistItemApi } from "@/src/services";
 import { Label } from "@/src/shared/ui/data-display/font";
 import { TurndownPill } from "@/src/shared/ui/data-display/pill";
 import { Card } from "@/src/shared/ui/surface/card/card.layout.component";
 import { Cell } from "@/src/shared/ui/surface/cell/cell.layout.component";
 import { Row } from "@/src/shared/ui/surface/cell/row/row.layout.component";
-import { useEffect, useMemo, useState } from "react";
+import { SwipeRow } from "@/src/shared/ui/surface/swipe-row";
+import { SwipeAction } from "@/src/shared/ui/surface/swipe-row/swipe.row.types";
+import { useEffect, useState } from "react";
 import { Pressable } from "react-native";
-import { checklistsRowStyles } from "./checklist.row.styles";
 import { ChecklistRowProps } from "./checklist.row.types";
 
-export const ChecklistRow = ({ name, id, onPress }: ChecklistRowProps) => {
-  const { app } = useTheme();
-  const styles = useMemo(() => checklistsRowStyles(app), [app]);
+export const ChecklistRow = ({
+  name,
+  id,
+  onEdit,
+  onDelete,
+}: ChecklistRowProps) => {
+  const [isSwiping, setIsSwiping] = useState(false);
 
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (id) {
       checklistItemApi.getAllByChecklistId(id).then((response) => {
-        console.log(
-          `🚀 ~ checklist.row.component.tsx:18 ~ ChecklistRow ~ response: \n`,
-          response
-        );
         setCount(response.length);
       });
     }
   }, [id]);
 
+  const rightActions: SwipeAction[] = [
+    {
+      severity: "danger",
+      icon: <Label color="onDanger">Delete</Label>,
+      onPress: () => onDelete?.(),
+      width: 88,
+    },
+  ];
+
   return (
-    <Pressable onPress={onPress}>
-      <Card>
-        <Row justifyContent="space-between" alignItems="center">
-          <Cell>
-            <Label>{name}</Label>
-          </Cell>
-          <Cell height={35}>
-            <TurndownPill label={`${count}`} severity={"low"} />
-          </Cell>
-        </Row>
-      </Card>
-    </Pressable>
+    <SwipeRow
+      rightActions={rightActions}
+      onSwipeStart={() => setIsSwiping(true)}
+      onSwipeEnd={() => setIsSwiping(false)}
+    >
+      <Pressable onPress={onEdit}>
+        <Card secondary rounded={!isSwiping}>
+          <Row justifyContent="space-between" alignItems="center">
+            <Cell>
+              <Label>{name}</Label>
+            </Cell>
+            <Cell height={35}>
+              <TurndownPill label={`${count}`} severity={"low"} />
+            </Cell>
+          </Row>
+        </Card>
+      </Pressable>
+    </SwipeRow>
   );
 };

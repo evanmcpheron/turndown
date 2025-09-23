@@ -5,7 +5,6 @@ import {
   CustomThemeProvider as ThemeProvider,
   useTheme,
 } from "@/src/contexts/theme";
-import { NoticeHost } from "@/src/shared/feedback/notification/notification.host.component";
 import { Stack } from "expo-router";
 import { View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -22,7 +21,7 @@ export default function RootLayout() {
       <AuthProvider>
         <ThemeProvider>
           <GestureHandlerRootView>
-            <NoticeHost />
+            {/* <NoticeHost /> */}
             <StackLayout />
           </GestureHandlerRootView>
         </ThemeProvider>

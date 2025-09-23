@@ -28,7 +28,7 @@ interface TurndownButtonProps extends DomProperties {
   color?: keyof SemanticColors;
   variant?: TurndownButtonTypes;
   circle?: boolean;
-  children: React.ReactElement | string;
+  children: React.ReactNode | string;
 }
 
 export const TurndownButton = ({

@@ -7,7 +7,7 @@ import { StyleProp } from "react-native";
 export interface TurndownSectionProps {
   title?: string;
   hint?: string;
-  right?: React.ReactNode;
+  action?: React.ReactNode;
   style?: StyleProp<TurndownObject>;
   children: React.ReactNode;
 }

@@ -1,5 +1,4 @@
 import { useAuth } from "@/src/contexts/auth";
-import { useTheme } from "@/src/contexts/theme";
 import { checklistItemApi } from "@/src/services";
 import { showErrorNotification } from "@/src/shared/feedback/notification/notification.helper";
 import { removeUndefined } from "@/src/shared/lib/object";
@@ -8,15 +7,9 @@ import { Form, useForm } from "@/src/shared/ui/forms/form";
 import { getFirstPropertyValue } from "@/src/shared/ui/forms/form/form.helpers";
 import { Input } from "@/src/shared/ui/forms/input";
 import { TurndownObject } from "@/src/types";
-import React, {
-  forwardRef,
-  useImperativeHandle,
-  useMemo,
-  useState,
-} from "react";
-import { ChecklistsFormRefHandler } from "../../../checklists.template.types";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
+import { ChecklistsFormRefHandler } from "../../checklists.template.types";
 import { formValidationSchema } from "./checklist-item.create.form.logic";
-import { checklistItemsCreateFormStyles } from "./checklist-item.create.form.styles";
 import { ChecklistItemCreateFormProps } from "./checklist-item.create.form.types";
 
 export const ChecklistItemCreateForm = forwardRef<
@@ -24,12 +17,9 @@ export const ChecklistItemCreateForm = forwardRef<
   ChecklistItemCreateFormProps
 >(({ checklistId }, ref) => {
   const { user } = useAuth();
-  const { app } = useTheme();
-
-  const styles = useMemo(() => checklistItemsCreateFormStyles(app), [app]);
 
   const [submittingData, setSubmittingData] = useState(false);
-  const { submitForm, setValue } = useForm({
+  const { submitForm } = useForm({
     formName: "frmCreateChecklistItem",
     validationModel: formValidationSchema,
     onFormErrors: () => {},
@@ -40,7 +30,7 @@ export const ChecklistItemCreateForm = forwardRef<
       if (!user) return false;
       const cleaned = removeUndefined(data);
 
-      const response = await checklistItemApi.post(
+      await checklistItemApi.post(
         { ...cleaned, checklist_id: checklistId },
         user?.id
       );

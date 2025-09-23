@@ -8,5 +8,8 @@ export const hrComponentStyles = (color: string) =>
       borderBottomColor: color,
       borderBottomWidth: 1,
       width: "100%",
+      height: 1,
+      margin: 0,
+      padding: 0,
     },
   });

@@ -1,5 +1,4 @@
 import { useAuth } from "@/src/contexts/auth";
-import { useTheme } from "@/src/contexts/theme";
 import { checklistApi } from "@/src/services";
 import { showErrorNotification } from "@/src/shared/feedback/notification/notification.helper";
 import { removeUndefined } from "@/src/shared/lib/object";
@@ -8,15 +7,9 @@ import { getFirstPropertyValue } from "@/src/shared/ui/forms/form/form.helpers";
 import { Input } from "@/src/shared/ui/forms/input";
 import { TurndownSection } from "@/src/shared/ui/surface/section";
 import { TurndownObject } from "@/src/types";
-import React, {
-  forwardRef,
-  useImperativeHandle,
-  useMemo,
-  useState,
-} from "react";
-import { ChecklistsFormRefHandler } from "../../checklists.template.types";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
+import { ChecklistsFormRefHandler } from "../checklists.template.types";
 import { formValidationSchema } from "./checklists.create.form.logic";
-import { checklistsCreateFormStyles } from "./checklists.create.form.styles";
 import { ChecklistsCreateFormProps } from "./checklists.create.form.types";
 
 export const ChecklistsTemplateCreateForm = forwardRef<
@@ -24,9 +17,6 @@ export const ChecklistsTemplateCreateForm = forwardRef<
   ChecklistsCreateFormProps
 >((_props, ref) => {
   const { user } = useAuth();
-  const { app } = useTheme();
-
-  const styles = useMemo(() => checklistsCreateFormStyles(app), [app]);
 
   const [submittingData, setSubmittingData] = useState(false);
   const { submitForm } = useForm({
@@ -40,7 +30,7 @@ export const ChecklistsTemplateCreateForm = forwardRef<
       if (!user) return { success: false, id: null };
       const cleaned = removeUndefined(data);
       const response = await checklistApi.post(
-        { ...cleaned, is_template: true },
+        { ...cleaned, is_template: true, company_id: "asdfasdfasdf" },
         user?.id
       );
 

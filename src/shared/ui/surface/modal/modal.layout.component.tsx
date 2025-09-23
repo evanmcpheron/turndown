@@ -31,6 +31,7 @@ export const Modal = ({
   isOpen,
   onCancel,
   onSave,
+  fullHeight,
   isLoading = false,
   scrollable = true,
   disabled = false,
@@ -81,23 +82,23 @@ export const Modal = ({
       visible={isOpen}
       presentationStyle={isTransparent ? "overFullScreen" : "formSheet"}
     >
-      <NoticeHost />
-      <SafeAreaProvider
-        style={[
-          {
-            flex: 0,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: withOpacity(
-              app.colors.background,
-              app.opacity.medium
-            ),
-          },
-        ]}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
       >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={styles.container}
+        <NoticeHost />
+        <SafeAreaProvider
+          style={[
+            {
+              flex: 0,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: withOpacity(
+                app.colors.background,
+                app.opacity.medium
+              ),
+            },
+          ]}
         >
           <Animated.View
             style={[
@@ -150,7 +151,8 @@ export const Modal = ({
                     paddingTop: app.spacing[4],
                     paddingHorizontal: app.spacing[4],
                     paddingBottom: app.spacing[4],
-                  }} // 👈 move padding here
+                    ...(fullHeight && { flex: 1 }),
+                  }}
                   style={{ backgroundColor: app.colors.background }}
                 >
                   {contentChildren}
@@ -193,8 +195,8 @@ export const Modal = ({
               )}
             </SafeAreaView>
           </Animated.View>
-        </KeyboardAvoidingView>
-      </SafeAreaProvider>
+        </SafeAreaProvider>
+      </KeyboardAvoidingView>
     </NativeModal>
   );
 };

@@ -47,6 +47,7 @@ export const checklistItemApi = {
     try {
       await update("ChecklistItem", item_id, data);
     } catch (error) {
+      console.error(error);
       showErrorNotification("Something went wrong updating checklist item.");
     }
   },

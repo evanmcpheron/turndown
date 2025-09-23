@@ -13,5 +13,6 @@ export interface ModalProps {
   isTransparent?: boolean;
   scrollable?: boolean;
   disabled?: boolean;
-  children: React.ReactElement;
+  fullHeight?: boolean;
+  children?: React.ReactNode | React.ReactNode[];
 }

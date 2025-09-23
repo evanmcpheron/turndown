@@ -20,7 +20,7 @@ export const TurndownEmptyState = ({
   const styles = useMemo(() => turndownEmptyStateComponentStyles(app), [app]);
 
   return (
-    <Card title={`No ${title} yet`}>
+    <Card secondary title={`No ${title} yet`}>
       <View style={styles.container}>
         <Label style={{ color: app.colors.textMuted, textAlign: "center" }}>
           {description}

@@ -38,7 +38,6 @@ export const Cell = ({
 const styles = StyleSheet.create({
   flexContainer: {
     display: "flex",
-    flex: 1,
     position: "relative",
   },
 });

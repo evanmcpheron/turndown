@@ -1,17 +1,23 @@
 // bottom.drawer.component.tsx
 
 import { useTheme } from "@/src/contexts/theme";
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Animated,
   Dimensions,
   Easing,
+  Keyboard,
+  KeyboardEvent,
   Modal,
   PanResponder,
+  Platform,
   Pressable,
   StyleSheet,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { bottomDrawerComponentStyles } from "./bottom.drawer.styled";
 import { BottomDrawerProps } from "./bottom.drawer.types";
 
@@ -23,8 +29,8 @@ export const BottomDrawer = ({
   backdropOpacity = 0.4,
 }: BottomDrawerProps) => {
   const { app } = useTheme();
-
   const styles = useMemo(() => bottomDrawerComponentStyles(app), [app]);
+  const insets = useSafeAreaInsets();
 
   const win = Dimensions.get("window");
   const sheetHeight = useMemo(
@@ -33,8 +39,11 @@ export const BottomDrawer = ({
   );
 
   const y = useRef(new Animated.Value(sheetHeight)).current;
-
   const currentY = useRef(sheetHeight);
+
+  // NEW: track keyboard height
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+  const bottomOffset = Math.max(0, keyboardHeight - insets.bottom);
 
   useEffect(() => {
     const id = y.addListener(({ value }) => (currentY.current = value));
@@ -48,18 +57,16 @@ export const BottomDrawer = ({
       duration: 220,
       easing: Easing.out(Easing.cubic),
       useNativeDriver: true,
-    }).start(() => {
-      // If we animated closed ourselves (e.g., parent toggled), nothing else to do
-    });
+    }).start();
   }, [open, sheetHeight, y]);
 
-  // Simple drag-to-close
+  // Drag-to-close
   const panResponder = useMemo(
     () =>
       PanResponder.create({
-        onMoveShouldSetPanResponder: (_, g) => Math.abs(g.dy) > 6, // start on vertical drag
+        onMoveShouldSetPanResponder: (_, g) => Math.abs(g.dy) > 6,
         onPanResponderMove: (_, g) => {
-          const next = Math.max(0, Math.min(sheetHeight, g.dy)); // clamp
+          const next = Math.max(0, Math.min(sheetHeight, g.dy));
           y.setValue(next);
         },
         onPanResponderRelease: (_, g) => {
@@ -80,6 +87,26 @@ export const BottomDrawer = ({
     [onClose, sheetHeight, y]
   );
 
+  // NEW: keyboard listeners — move the whole sheet up
+  useEffect(() => {
+    const showEvent =
+      Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow";
+    const hideEvent =
+      Platform.OS === "ios" ? "keyboardWillHide" : "keyboardDidHide";
+
+    const onShow = (e: KeyboardEvent) => {
+      setKeyboardHeight(e.endCoordinates?.height ?? 0);
+    };
+    const onHide = () => setKeyboardHeight(0);
+
+    const subShow = Keyboard.addListener(showEvent, onShow);
+    const subHide = Keyboard.addListener(hideEvent, onHide);
+    return () => {
+      subShow.remove();
+      subHide.remove();
+    };
+  }, []);
+
   const backdropStyle = {
     opacity: y.interpolate({
       inputRange: [0, sheetHeight],
@@ -94,6 +121,8 @@ export const BottomDrawer = ({
       transparent
       animationType="none"
       onRequestClose={onClose}
+      statusBarTranslucent
+      presentationStyle="overFullScreen"
     >
       <Animated.View
         style={[StyleSheet.absoluteFill, styles.backdrop, backdropStyle]}
@@ -102,7 +131,10 @@ export const BottomDrawer = ({
       </Animated.View>
 
       <Animated.View
-        style={[styles.sheet, { transform: [{ translateY: y }] }]}
+        style={[
+          styles.sheet,
+          { bottom: bottomOffset, transform: [{ translateY: y }] },
+        ]}
         {...panResponder.panHandlers}
       >
         <SafeAreaView style={styles.content} edges={["bottom"] as any}>

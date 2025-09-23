@@ -24,12 +24,12 @@ export const Row = ({
       ? "flex-end"
       : alignItems;
 
-  const flexWrap = rowWrap === "initial" ? undefined : rowWrap;
+  const flexWrap = rowWrap === "initial" ? "nowrap" : rowWrap;
+
+  const supportsGap = true;
 
   const containerStyle: StyleProp<ViewStyle> = [
     {
-      display: "flex",
-      gap,
       flexDirection: rowDirection,
       ...(mappedAlignItems ? { alignItems: mappedAlignItems } : {}),
       ...(justifyContent ? { justifyContent } : {}),
@@ -37,20 +37,36 @@ export const Row = ({
       ...(height !== undefined ? { height } : {}),
       ...(minWidth !== undefined ? { minWidth } : {}),
       ...(minHeight !== undefined ? { minHeight } : {}),
+      ...(width !== undefined && typeof width !== "number"
+        ? { width, flexGrow: 0, flexShrink: 0 }
+        : width !== undefined
+        ? { flexBasis: width as number, flexGrow: 0, flexShrink: 0 }
+        : {}),
+      ...(stretchRow ? { width: "100%" } : {}),
+      ...(supportsGap ? { gap } : {}),
     },
     style,
   ];
 
-  // Apply half-gap margin to each child, casting to allow style prop
-  const spacedChildren = React.Children.map(children, (child) => {
-    if (React.isValidElement(child)) {
-      const childStyle = (child.props as any).style;
-      return React.cloneElement<any>(child, {
-        style: [{ gap }, childStyle || {}],
+  const spacedChildren = supportsGap
+    ? children
+    : React.Children.map(children, (child) => {
+        if (!React.isValidElement(child)) return child;
+
+        const isRow = rowDirection.startsWith("row");
+        const isColumn = rowDirection.startsWith("column");
+
+        const childMarginStyle: ViewStyle = isRow
+          ? { marginRight: gap }
+          : isColumn
+          ? { marginBottom: gap }
+          : {};
+
+        const existing = (child.props as any).style;
+        return React.cloneElement(child as any, {
+          style: [childMarginStyle, existing],
+        });
       });
-    }
-    return child;
-  });
 
   return (
     <View style={containerStyle} {...rest}>

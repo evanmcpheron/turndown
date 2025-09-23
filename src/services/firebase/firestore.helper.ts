@@ -195,7 +195,7 @@ export const remove = async (
     const dates = dateToTimestamp();
 
     const docRef = doc(db, coll, id);
-    await updateDoc(docRef, { deleted: true });
+    await updateDoc(docRef, { deleted: true, updated_at: "dates" });
     return { success: true, data: { id, deleted: true, updated_at: dates } };
   } catch (error: any) {
     return { success: false, message: error.message };

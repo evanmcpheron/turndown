@@ -3,7 +3,7 @@ import {
   showSuccessNotification,
 } from "@/src/shared/feedback/notification/notification.helper";
 import { Checklist } from "@/src/types/models/checklist.types";
-import { get, post } from "../../firebase";
+import { get, post, remove, update } from "../../firebase";
 
 export const checklistApi = {
   get: async () => {},
@@ -29,6 +29,7 @@ export const checklistApi = {
 
       return response?.data || null;
     } catch (error) {
+      console.error(error);
       showErrorNotification("Something went wrong fetching this Checklist");
     }
   },
@@ -39,7 +40,7 @@ export const checklistApi = {
         created_by: user_id,
         updated_by: user_id,
       });
-      showSuccessNotification("Property was successfully created");
+      showSuccessNotification("Checklist was successfully created");
       return response;
     } catch (error) {
       showErrorNotification("Something went wrong creating this Checklist");
@@ -47,6 +48,22 @@ export const checklistApi = {
       console.error(error);
     }
   },
-  updateById: async (data: Partial<Checklist>, checklist_id: string) => {},
-  deleteById: async (checklist_id: string) => {},
+  update: async (data: Partial<Checklist>, checklist_id: string) => {
+    try {
+      await update("Checklist", checklist_id, data);
+      showSuccessNotification("Successfully edited checklist.");
+    } catch (error) {
+      console.error(error);
+      showErrorNotification("Something went wrong updating checklist.");
+    }
+  },
+  delete: async (checklist_id: string) => {
+    try {
+      await remove("Checklist", checklist_id);
+      showSuccessNotification("Successfully deleted checklist");
+    } catch (error) {
+      showErrorNotification("Something went wrong deleting this Checklist");
+      console.error(error);
+    }
+  },
 };

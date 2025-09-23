@@ -39,6 +39,9 @@ export const Label: React.FC<FontProps> = ({
     textAlign: align,
     color: colors[color],
     marginBottom: gutterBottom ? 8 : 0,
+    // flexGrow: 1,
+    // flexShrink: 1,
+    // flexBasis: 0,
   };
 
   return (

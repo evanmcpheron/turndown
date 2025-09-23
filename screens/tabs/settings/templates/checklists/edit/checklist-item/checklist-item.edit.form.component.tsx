@@ -1,5 +1,4 @@
 import { useAuth } from "@/src/contexts/auth";
-import { useTheme } from "@/src/contexts/theme";
 import { checklistItemApi } from "@/src/services";
 import { showErrorNotification } from "@/src/shared/feedback/notification/notification.helper";
 import { removeUndefined } from "@/src/shared/lib/object";
@@ -12,12 +11,10 @@ import React, {
   forwardRef,
   useEffect,
   useImperativeHandle,
-  useMemo,
   useState,
 } from "react";
-import { ChecklistsFormRefHandler } from "../../../checklists.template.types";
+import { ChecklistsFormRefHandler } from "../../checklists.template.types";
 import { formValidationSchema } from "./checklist-item.edit.form.logic";
-import { checklistItemsEditFormStyles } from "./checklist-item.edit.form.styles";
 import { ChecklistItemEditFormProps } from "./checklist-item.edit.form.types";
 
 export const ChecklistItemEditForm = forwardRef<
@@ -25,9 +22,6 @@ export const ChecklistItemEditForm = forwardRef<
   ChecklistItemEditFormProps
 >(({ itemId }, ref) => {
   const { user } = useAuth();
-  const { app } = useTheme();
-
-  const styles = useMemo(() => checklistItemsEditFormStyles(app), [app]);
 
   const [submittingData, setSubmittingData] = useState(false);
   const { submitForm, setValue } = useForm({
