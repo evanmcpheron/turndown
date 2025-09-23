@@ -23,9 +23,6 @@ export const PropertyRow = ({ property }: PropertyRowProps) => {
     postal_code,
     photo_url,
     is_active,
-    type,
-    open_issues_count,
-    low_stock_count,
     readiness_status,
   } = property;
 
@@ -87,19 +84,12 @@ export const PropertyRow = ({ property }: PropertyRowProps) => {
         {/* Tags */}
         <View style={s.tags}>
           <Tag text={statusText} tone={statusTone} />
-          {!!type && <Tag text={normalCase(type)} tone="neutral" />}
           {!!readiness_status && (
             <Tag
               text={`Readiness: ${normalCase(readiness_status)}`}
               tone={readinessTone as any}
             />
           )}
-        </View>
-
-        {/* Quick stats */}
-        <View style={s.stats}>
-          <Pill text={`Issues ${open_issues_count ?? 0}`} />
-          <Pill text={`Low Stock ${low_stock_count ?? 0}`} />
         </View>
       </View>
 

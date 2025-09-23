@@ -1,40 +1,49 @@
 import { Timestamp } from "firebase/firestore";
-import { MetaData, ReadinessStatus, TurnStatus } from ".";
+import { MetaData, ReadinessStatus, Severity } from ".";
+export type IssueType =
+  | "damage"
+  | "maintenance"
+  | "stain"
+  | "missing"
+  | "safety"
+  | "other";
+export type TurnStatus =
+  | "pending"
+  | "assigned"
+  | "in_progress"
+  | "completed"
+  | "canceled";
+export type IssueStatus = "open" | "resolved" | "wont_fix";
 
-// ───────────────────────────── turns (work blocks between checkout→check-in)
 export interface Turn extends MetaData {
   id?: string;
   property_id: string;
-  booking_id?: string;
-
-  scheduled_start_at: Timestamp; // usually checkout time
-  scheduled_end_at: Timestamp; // usually next check-in time
-
+  scheduled_start_at: Timestamp;
+  scheduled_end_at: Timestamp;
   status: TurnStatus;
   readiness_status: ReadinessStatus;
-
+  checklist_id?: string;
   assigned_user_id?: string;
   started_at?: Timestamp;
   finished_at?: Timestamp;
-
   ready_marked_at?: Timestamp;
-  ready_marked_by_user_id?: string;
-
+  ready_marked_by?: string;
   notes?: string;
   proof_pack_url?: string;
 }
 
-// ───────────────────────────── turn_tasks (flattened checklist runtime)
-export interface TurnTask extends MetaData {
+export interface Issue extends MetaData {
   id?: string;
-  turn_id: string;
   property_id: string;
-
-  checklist_item_id?: string; // origin template item
+  turn_id?: string;
+  type: IssueType;
   title: string;
-  room_label?: string;
-  photo_required: boolean;
-
-  status: "todo" | "done" | "skipped";
-  completed_at?: Timestamp;
+  description?: string;
+  severity: Severity;
+  blocks_check_in: boolean;
+  estimated_cost?: number;
+  status: IssueStatus;
+  reported_by: string;
+  resolved_at?: Timestamp;
+  resolved_by?: string;
 }

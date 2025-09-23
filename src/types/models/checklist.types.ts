@@ -5,6 +5,7 @@ export type ChecklistScope = "global" | "property";
 export interface Checklist extends MetaData {
   id: string;
   name: string;
+  room_id?: string;
   property_id?: string;
   is_template: boolean;
 }

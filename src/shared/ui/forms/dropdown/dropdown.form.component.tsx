@@ -9,7 +9,7 @@ import { useForm, useFormErrors, useFormName } from "../form";
 import { hasOwnProp, validateInternalComponent } from "../form/form.helpers";
 
 export interface SelectOption {
-  label: string;
+  label: string | React.ReactNode;
   value: string;
   default?: boolean;
 }

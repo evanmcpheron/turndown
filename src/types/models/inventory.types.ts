@@ -1,38 +1,32 @@
 import { Timestamp } from "firebase/firestore";
-import { InventoryLevel, MetaData } from ".";
+import { MetaData } from ".";
+export type InventoryLevel = "out" | "low" | "ok";
 
-// ───────────────────────────── inventory (global catalog)
 export interface InventoryItem extends MetaData {
-  id?: string; // e.g., "toilet-paper"
+  id?: string;
   slug: string;
   label: string;
-  unit_label?: string; // "rolls", "pods"
+  unit_label?: string;
   is_active: boolean;
 }
 
-// ───────────────────────────── property_inventory (per-property settings)
 export interface PropertyInventory extends MetaData {
   id?: string;
   property_id: string;
   inventory_item_id: string;
-
-  threshold: number; // owner-defined critical threshold
+  threshold: number;
   is_critical: boolean;
-
   restock_note?: string;
   restock_link?: string;
 }
 
-// ───────────────────────────── inventory_counts (per-turn or ad-hoc logs)
 export interface InventoryCount extends MetaData {
   id?: string;
   property_id: string;
   inventory_item_id: string;
-
-  turn_id?: string; // set when done during a turn
-  level: InventoryLevel; // ok/low/out (quick stepper)
-  value_count?: number; // optional exact count if captured
-
+  turn_id?: string;
+  level: InventoryLevel;
+  value_count?: number;
   counted_at: Timestamp;
   counted_by_user_id: string;
 }
