@@ -3,13 +3,21 @@ import { defaultImages } from "@/src/shared/config/base.consts";
 import { normalCase } from "@/src/shared/lib/string";
 import { withOpacity } from "@/src/shared/styles";
 import { Label } from "@/src/shared/ui/data-display/font";
-import { router } from "expo-router";
-import { useMemo } from "react";
+import { Card } from "@/src/shared/ui/surface/card/card.layout.component";
+import { Row } from "@/src/shared/ui/surface/cell/row/row.layout.component";
+import { SwipeRow } from "@/src/shared/ui/surface/swipe-row";
+import { SwipeAction } from "@/src/shared/ui/surface/swipe-row/swipe.row.types";
+import { useMemo, useState } from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import { propertyRowStyles } from "./property.row.styles";
 import { PropertyRowProps } from "./property.row.types";
 
-export const PropertyRow = ({ property }: PropertyRowProps) => {
+export const PropertyRow = ({
+  property,
+  onDelete,
+  onEdit,
+}: PropertyRowProps) => {
+  const [isSwiping, setIsSwiping] = useState(false);
   const { app } = useTheme();
   const s = useMemo(() => propertyRowStyles(app), [app]);
 
@@ -44,62 +52,78 @@ export const PropertyRow = ({ property }: PropertyRowProps) => {
       ? "warn"
       : "neutral";
 
+  const rightActions: SwipeAction[] = [
+    {
+      severity: "danger",
+      icon: <Label color="onDanger">Delete</Label>,
+      onPress: () => onDelete?.(),
+      width: 88,
+    },
+  ];
+
   return (
-    <Pressable
-      onPress={() =>
-        router.push({ pathname: "/properties/[id]", params: { id } })
-      }
-      style={({ pressed }) => [s.card, pressed && { opacity: 0.95 }]}
+    <SwipeRow
+      rightActions={rightActions}
+      onSwipeStart={() => setIsSwiping(true)}
+      onSwipeEnd={() => setIsSwiping(false)}
     >
-      {/* Thumbnail */}
-      <View style={s.thumb}>
-        <Image
-          source={{
-            uri:
-              (photo_url || "").trim() !== "" ? photo_url : defaultImages.home,
-          }}
-          style={s.thumbImg}
-        />
-      </View>
+      <Pressable onPress={onEdit}>
+        <Card secondary rounded={!isSwiping}>
+          <Row justifyContent="space-between" alignItems="center">
+            {/* Thumbnail */}
+            <View style={s.thumb}>
+              <Image
+                source={{
+                  uri:
+                    (photo_url || "").trim() !== ""
+                      ? photo_url
+                      : defaultImages.home,
+                }}
+                style={s.thumbImg}
+              />
+            </View>
 
-      {/* Main */}
-      <View style={s.main}>
-        <Label
-          variant="h3"
-          numberOfLines={1}
-          style={{ marginBottom: app.spacing[1] }}
-        >
-          {name || "Property"}
-        </Label>
-        {!!addressCompact && (
-          <Label
-            variant="subtitle2"
-            numberOfLines={1}
-            style={{ color: app.colors.textMuted }}
-          >
-            {addressCompact}
-          </Label>
-        )}
+            {/* Main */}
+            <View style={s.main}>
+              <Label
+                variant="h3"
+                numberOfLines={1}
+                style={{ marginBottom: app.spacing[1] }}
+              >
+                {name || "Property"}
+              </Label>
+              {!!addressCompact && (
+                <Label
+                  variant="subtitle2"
+                  numberOfLines={1}
+                  style={{ color: app.colors.textMuted }}
+                >
+                  {addressCompact}
+                </Label>
+              )}
 
-        {/* Tags */}
-        <View style={s.tags}>
-          <Tag text={statusText} tone={statusTone} />
-          {!!readiness_status && (
-            <Tag
-              text={`Readiness: ${normalCase(readiness_status)}`}
-              tone={readinessTone as any}
-            />
-          )}
-        </View>
-      </View>
+              {/* Tags */}
+              <View style={s.tags}>
+                <Tag text={statusText} tone={statusTone} />
+                {!!readiness_status && (
+                  <Tag
+                    text={`Readiness: ${normalCase(readiness_status)}`}
+                    tone={readinessTone as any}
+                  />
+                )}
+              </View>
+            </View>
 
-      {/* Chevron */}
-      <View style={s.chevron}>
-        <Label variant="h3" style={{ color: app.colors.textMuted }}>
-          ›
-        </Label>
-      </View>
-    </Pressable>
+            {/* Chevron */}
+            <View style={s.chevron}>
+              <Label variant="h3" style={{ color: app.colors.textMuted }}>
+                ›
+              </Label>
+            </View>
+          </Row>
+        </Card>
+      </Pressable>
+    </SwipeRow>
   );
 };
 

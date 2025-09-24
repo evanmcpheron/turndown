@@ -1,49 +1,46 @@
-import { useProperty } from "@/screens/tabs/properties/context/property.context";
 import { useTheme } from "@/src/contexts/theme";
 import { propertiesApi } from "@/src/services/api/properties";
 import { roomsApi } from "@/src/services/api/rooms";
-import { defaultImages } from "@/src/shared/config/base.consts";
 import { withOpacity } from "@/src/shared/styles";
 import { AppTheme } from "@/src/shared/styles/general.styles";
 import { TurndownButton } from "@/src/shared/ui/actions";
 import { Label } from "@/src/shared/ui/data-display/font";
 import { TurndownInfoRow } from "@/src/shared/ui/data-display/info-row";
-import { Mode } from "@/src/shared/ui/forms";
+import { TurndownLoader } from "@/src/shared/ui/data-display/loader";
+import { TurndownPill } from "@/src/shared/ui/data-display/pill";
 import { Row } from "@/src/shared/ui/surface/cell/row/row.layout.component";
-import { Modal } from "@/src/shared/ui/surface/modal/modal.layout.component";
-import { Page } from "@/src/shared/ui/surface/page/page.layout.component";
 import { TurndownSection } from "@/src/shared/ui/surface/section";
-import { Property } from "@/src/types/models";
+import { Property, Room } from "@/src/types/models";
 import {
   ExternalPathString,
   RelativePathString,
   router,
   useLocalSearchParams,
 } from "expo-router";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Image, Pressable, StyleSheet, View } from "react-native";
-import { PropertiesEditForm } from "../forms";
+import { useEffect, useMemo, useState } from "react";
+import { Pressable, StyleSheet, View } from "react-native";
 
 export const PropertyIdScreen = () => {
-  const propertiesEditFormRef = useRef<{
-    submitData: (cb: (ok: boolean) => void) => void;
-  }>(null);
-
   const { id } = useLocalSearchParams<{ id: string }>();
   const [property, setProperty] = useState<Property | null>(null);
   const [roomsCount, setRoomsCount] = useState(0);
-  const [mode, setMode] = useState<Mode | null>(null);
-  const [isModalDisplayed, setIsModalDisplayed] = useState(false);
+  const [checklistsCount, setChecklistsCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const { app } = useTheme();
-  const { setPropertyId } = useProperty();
 
   const fetchProperty = () => {
     setIsLoading(true);
     propertiesApi.getById(id).then(setProperty);
-    roomsApi.getAllByPropertyId(id).then((res) => setRoomsCount(res.length));
-
-    setPropertyId(id);
+    roomsApi.getAllByPropertyId(id).then((res) => {
+      setChecklistsCount(() => {
+        let checklistCounter = 0;
+        res.forEach(
+          (room: Room) => room?.checklist_template_id && checklistCounter++
+        );
+        return checklistCounter;
+      });
+      setRoomsCount(res.length);
+    });
     setIsLoading(false);
   };
 
@@ -62,101 +59,19 @@ export const PropertyIdScreen = () => {
       },
       {
         label: "Checklists",
-        value: (property as any)?.checklists?.length ?? 0,
+        value: checklistsCount ?? 0,
         route: "/properties/checklists",
-      },
-      {
-        label: "Open Tasks",
-        value: (property as any)?.openTasks ?? 0,
-        route: "/properties/tasks/tasks",
-      },
-      {
-        label: "Inventory Items",
-        value: (property as any)?.inventoryCount ?? 0,
-        route: "/properties/inventory",
       },
     ],
     [property, roomsCount]
   );
 
-  const handleCancel = () => {
-    setMode(null);
-    setIsModalDisplayed(false);
-  };
-  const handleSave = () => {
-    if (propertiesEditFormRef.current) {
-      propertiesEditFormRef.current.submitData((success: boolean) => {
-        if (success) {
-          fetchProperty();
-        }
-      });
-    }
-    setMode(null);
-    setIsModalDisplayed(false);
-  };
+  if (isLoading) {
+    return <TurndownLoader />;
+  }
 
   return (
-    <Page canGoBack isLoading={isLoading} scrollable>
-      <View style={s.hero}>
-        <View style={s.heroLeft}>
-          <Label variant="h2" style={s.title}>
-            {property?.name ?? "Property"}
-          </Label>
-          <View style={s.tagRow}>
-            <Tag
-              text={(property?.is_active ? "Active" : "Inactive") as string}
-              tone={property?.is_active ? "success" : "warn"}
-            />
-            {/* <Tag text={"Residential"} tone="neutral" /> */}
-            {property?.readiness_status && (
-              <Tag
-                text={property?.readiness_status}
-                tone={
-                  property?.readiness_status === "ready" ? "success" : "warn"
-                }
-              />
-            )}
-          </View>
-          <Label variant="subtitle1" style={s.subtle}>
-            {[
-              property?.address_line1,
-              property?.address_line2,
-              property?.city &&
-                `${property?.city}, ${property?.state} ${property?.postal_code}`,
-            ]
-              .filter(Boolean)
-              .join(" · ")}
-          </Label>
-        </View>
-
-        {/* hero thumb / map placeholder */}
-        <View style={s.thumb}>
-          <Image
-            source={{
-              uri:
-                (property?.photo_url || "").trim() !== ""
-                  ? property?.photo_url
-                  : defaultImages.home,
-            }}
-            style={s.thumbImg}
-          />
-        </View>
-      </View>
-
-      {/* quick actions */}
-      <Row justifyContent="space-between" style={s.actionsRow}>
-        <TurndownButton
-          variant="filled-secondary"
-          style={{ flex: 1 }}
-          onPress={() => {
-            setMode("EDIT");
-            setIsModalDisplayed(true);
-          }}
-        >
-          Edit
-        </TurndownButton>
-      </Row>
-
+    <Row rowDirection="column">
       {/* ==== OVERVIEW / STATS ==== */}
       <TurndownSection title="Overview">
         <View style={s.statsGrid}>
@@ -190,7 +105,7 @@ export const PropertyIdScreen = () => {
       <TurndownSection
         title="Checklists"
         hint="Track recurring tasks & compliance"
-        right={
+        action={
           <TurndownButton
             variant="link-button"
             onPress={() =>
@@ -211,7 +126,7 @@ export const PropertyIdScreen = () => {
 
       <TurndownSection
         title="Rooms"
-        right={
+        action={
           <TurndownButton
             variant="link-button"
             onPress={() =>
@@ -225,23 +140,17 @@ export const PropertyIdScreen = () => {
           </TurndownButton>
         }
       >
-        <ChipRow
-          chips={
-            (property as any)?.rooms ?? [
-              "Lobby",
-              "Gym",
-              "Pool",
-              "Boiler",
-              "Storage",
-            ]
-          }
-        />
+        <Row>
+          {["Lobby", "Gym", "Pool", "Boiler", "Storage"].map((room) => {
+            return <TurndownPill key={room} label={room} />;
+          })}
+        </Row>
       </TurndownSection>
 
-      <TurndownSection
+      {/* <TurndownSection
         title="Inventory"
         hint="Key supplies & levels"
-        right={
+        action={
           <TurndownButton
             variant="link-button"
             onPress={() =>
@@ -258,20 +167,8 @@ export const PropertyIdScreen = () => {
         <TurndownInfoRow label="Kureg Pods" quantity={722} />
         <TurndownInfoRow label="Toilet Paper" quantity={18} severity="low" />
         <TurndownInfoRow label="Paper Towls" quantity={8} severity="high" />
-      </TurndownSection>
-
-      {mode === "EDIT" && (
-        <Modal
-          saveText="Edit Property"
-          header={{ primary: "Edit Property" }}
-          isOpen={isModalDisplayed}
-          onCancel={handleCancel}
-          onSave={handleSave}
-        >
-          <PropertiesEditForm propertyId={id} ref={propertiesEditFormRef} />
-        </Modal>
-      )}
-    </Page>
+      </TurndownSection> */}
+    </Row>
   );
 };
 
@@ -298,37 +195,6 @@ const StatPill = ({
   );
 };
 
-const Tag = ({
-  text,
-  tone = "neutral",
-}: {
-  text: string;
-  tone?: "neutral" | "success" | "warn";
-}) => {
-  const { app } = useTheme();
-  const s = useMemo(() => themedStyles(app), [app]);
-
-  const toneBg =
-    tone === "success"
-      ? withOpacity(app.colors.success, 0.18)
-      : tone === "warn"
-      ? withOpacity(app.colors.warning, 0.18)
-      : withOpacity(app.colors.text, 0.08);
-
-  const toneFg =
-    tone === "success"
-      ? app.colors.success
-      : tone === "warn"
-      ? app.colors.warning
-      : app.colors.textMuted;
-
-  return (
-    <View style={[s.tag, { backgroundColor: toneBg, borderColor: toneFg }]}>
-      <Label style={{ color: toneFg }}>{text}</Label>
-    </View>
-  );
-};
-
 const ListItem = ({ title, meta }: { title: string; meta?: string }) => {
   const { app } = useTheme();
   const s = useMemo(() => themedStyles(app), [app]);
@@ -341,27 +207,6 @@ const ListItem = ({ title, meta }: { title: string; meta?: string }) => {
         </Label>
       )}
     </View>
-  );
-};
-
-const ChipRow = ({ chips }: { chips: string[] }) => {
-  const { app } = useTheme();
-  return (
-    <Row style={{ flexWrap: "wrap", gap: app.spacing[2] }}>
-      {chips.map((c, i) => (
-        <View
-          key={`${c}-${i}`}
-          style={{
-            paddingVertical: app.spacing[1] + 2,
-            paddingHorizontal: app.spacing[2] + 2,
-            borderRadius: app.radii.pill,
-            backgroundColor: withOpacity(app.colors.text, 0.08),
-          }}
-        >
-          <Label variant="subtitle2">{c}</Label>
-        </View>
-      ))}
-    </Row>
   );
 };
 

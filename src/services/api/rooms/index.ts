@@ -1,6 +1,9 @@
-import { showSuccessNotification } from "@/src/shared/feedback/notification/notification.helper";
+import {
+  showErrorNotification,
+  showSuccessNotification,
+} from "@/src/shared/feedback/notification/notification.helper";
 import { Room } from "@/src/types/models/property.types";
-import { get, post, update } from "../../firebase";
+import { get, post, remove, update } from "../../firebase";
 
 export const roomsApi = {
   getAllByPropertyId: async (property_id: string) => {
@@ -47,5 +50,13 @@ export const roomsApi = {
       console.error(error);
     }
   },
-  deleteById: async (room_id: string) => {},
+  delete: async (room_id: string) => {
+    try {
+      await remove("Room", room_id);
+      showSuccessNotification("Room was successfully deleted.");
+    } catch (error) {
+      console.error(error);
+      showErrorNotification("SOmething went wrong deleting this room.");
+    }
+  },
 };

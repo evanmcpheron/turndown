@@ -24,7 +24,7 @@ export const SignUpScreen = () => {
           onPress={() => {
             if (signUpFormRef.current) {
               signUpFormRef.current.submitData((success: boolean) => {
-                router.replace("/");
+                router.replace("/(tabs)/properties");
                 console.log("success: ", success);
               });
             }

@@ -24,7 +24,7 @@ export const TurndownSection = ({
     <View style={[styles.container, style]}>
       {(title || hint) && (
         <View>
-          <Row alignItems="center">
+          <Row>
             <View
               style={{
                 flexGrow: 1,

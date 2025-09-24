@@ -14,7 +14,6 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { CalendarDaysIcon } from "@/src/shared/icons/calendar-days.component";
-import { CommentIcon } from "@/src/shared/icons/comment.component";
 import { GaugeIcon } from "@/src/shared/icons/gauge.component";
 import { GearIcon } from "@/src/shared/icons/gear.component";
 import { HouseIcon } from "@/src/shared/icons/house.component";
@@ -67,7 +66,6 @@ export default function PillTabBar({
       ({
         dashboard: GaugeIcon,
         turns: CalendarDaysIcon,
-        messages: CommentIcon,
         properties: HouseIcon,
         settings: GearIcon,
       } as Record<string, React.ComponentType<any>>),

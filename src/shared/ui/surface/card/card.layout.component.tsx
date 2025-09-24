@@ -58,11 +58,10 @@ export const Card = ({
     >
       {title && (
         <View>
-          <Label align="center" variant="h3" style={styles.title}>
+          <Label align="center" variant="h3">
             {title}
           </Label>
-
-          <Hr marginVertical={10} />
+          <Hr marginVertical={5} />
         </View>
       )}
       {children}
@@ -80,9 +79,6 @@ export const cardComponentStyles = (theme: AppTheme) => {
       borderWidth: StyleSheet.hairlineWidth,
       borderColor: theme.colors.outline,
       elevation: theme.elevation[1].android,
-    },
-    title: {
-      color: theme.colors.text,
     },
   });
 };

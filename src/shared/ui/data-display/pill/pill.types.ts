@@ -3,6 +3,6 @@
 import { Severity } from "@/src/types";
 
 export interface TurndownPillProps {
-  severity: Severity;
+  severity?: Severity;
   label: React.ReactNode | number | string;
 }

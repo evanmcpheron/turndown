@@ -4,14 +4,15 @@ import { useAuth } from "@/src/contexts/auth";
 import { useTheme } from "@/src/contexts/theme";
 import { propertiesApi } from "@/src/services/api/properties";
 import { PlusIcon } from "@/src/shared/icons/plus.component";
+import { TurndownEmptyState } from "@/src/shared/ui";
 import { TurndownButton } from "@/src/shared/ui/actions";
-import { Label } from "@/src/shared/ui/data-display/font";
 import { Mode } from "@/src/shared/ui/forms";
 import { Modal } from "@/src/shared/ui/surface/modal/modal.layout.component";
 import { Page } from "@/src/shared/ui/surface/page/page.layout.component";
+import { TurndownSection } from "@/src/shared/ui/surface/section";
 import { Property } from "@/src/types/models";
-import { useNavigation } from "expo-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { router, useNavigation } from "expo-router";
+import { useEffect, useRef, useState } from "react";
 import { FlatList, RefreshControl, View } from "react-native";
 import { PropertiesCreateForm } from "./forms";
 
@@ -75,78 +76,73 @@ export const PropertiesScreen = () => {
     setMode(null);
   };
 
-  const emptyState = useMemo(
-    () => (
-      <View
-        style={{
-          padding: app.spacing[4],
-          borderRadius: app.radii.xl,
-          borderWidth: 1,
-          borderColor: app.colors.outline,
-          backgroundColor: app.colors.surface,
-          alignItems: "center",
-          gap: 10,
-        }}
-      >
-        <Label variant="h3">No Properties yet</Label>
-        <Label
-          variant="subtitle2"
-          style={{ color: app.colors.textMuted, textAlign: "center" }}
-        >
-          Create your first property to start tracking rooms, checklists, and
-          inventory.
-        </Label>
-        <TurndownButton
-          onPress={() => {
-            setMode("CREATE");
-            setIsModalDisplayed(true);
-          }}
-          variant="filled"
-        >
-          Create Property
-        </TurndownButton>
-      </View>
-    ),
-    [app]
-  );
-
   return (
-    <Page
-      isLoading={isLoading}
-      header="Properties"
-      headerButton={
-        <TurndownButton
-          width={50}
-          circle
-          onPress={() => {
-            setMode("CREATE");
-            setIsModalDisplayed(true);
-          }}
-        >
-          <PlusIcon type="solid" size={"regular"} />
-        </TurndownButton>
-      }
-    >
-      <FlatList
-        data={properties}
-        keyExtractor={(p) => p.id}
-        renderItem={({ item }) => <PropertyRow property={item} />}
-        ItemSeparatorComponent={() => (
-          <View style={{ height: app.spacing[2] }} />
-        )}
-        ListEmptyComponent={emptyState}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            tintColor={app.colors.primary}
-          />
+    <Page isLoading={isLoading} header="Properties">
+      <TurndownSection
+        title="Properties"
+        hint="Add, Remove, or Edit Properties here."
+        style={{ height: properties.length === 0 ? "auto" : "100%" }}
+        action={
+          properties.length ? (
+            <TurndownButton
+              width={50}
+              circle
+              onPress={() => {
+                setIsModalDisplayed(true);
+                setMode("CREATE");
+              }}
+            >
+              <PlusIcon type="solid" size={"regular"} />
+            </TurndownButton>
+          ) : (
+            <View />
+          )
         }
-        contentContainerStyle={{
-          gap: 10,
-          flex: 1,
-        }}
-      />
+      >
+        <FlatList
+          data={properties}
+          keyExtractor={(property) => property.id}
+          renderItem={({ item }) => (
+            <PropertyRow
+              property={item}
+              onEdit={() =>
+                router.push({
+                  pathname: "/properties/[id]",
+                  params: { id: item.id },
+                })
+              }
+              onDelete={() => {
+                console.log("DELETE", item.id);
+              }}
+            />
+          )}
+          ItemSeparatorComponent={() => (
+            <View style={{ height: app.spacing[2] }} />
+          )}
+          ListEmptyComponent={
+            <TurndownEmptyState
+              title="Properties"
+              description="Create your first property "
+              buttonText="Create a Property"
+              onCreate={() => {
+                setMode("CREATE");
+                setIsModalDisplayed(true);
+              }}
+            />
+          }
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor={app.colors.primary}
+            />
+          }
+          contentContainerStyle={{
+            gap: 10,
+            flex: 1,
+          }}
+        />
+      </TurndownSection>
 
       {mode === "CREATE" && (
         <Modal
@@ -155,6 +151,7 @@ export const PropertiesScreen = () => {
           isOpen={isModalDisplayed}
           onCancel={handleCancel}
           onSave={handleSave}
+          scrollable
         >
           <PropertiesCreateForm ref={propertiesCreateFormRef} />
         </Modal>

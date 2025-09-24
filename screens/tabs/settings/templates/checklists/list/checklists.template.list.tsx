@@ -1,3 +1,4 @@
+import { ChecklistRow } from "@/screens/components";
 import { useAuth } from "@/src/contexts/auth";
 import { useTheme } from "@/src/contexts/theme";
 import { checklistApi } from "@/src/services";
@@ -12,7 +13,6 @@ import { Checklist } from "@/src/types/models/checklist.types";
 import { useNavigation } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { FlatList, RefreshControl, View } from "react-native";
-import { ChecklistRow } from "../components";
 import { ChecklistsTemplateCreateForm } from "../create/checklists.create.form.component";
 import { ChecklistsTemplateEditForm } from "../edit/checklists.edit.form.component";
 
@@ -178,7 +178,7 @@ export const ChecklistsTemplateList = () => {
         header={{
           primary: `${normalCase(modeRef.current as string)} Checklist`,
         }}
-        scrollable={false}
+        scrollable={true}
         saveText={`${normalCase(modeRef.current as string)} Checklist`}
         isOpen={isModalDisplayed}
         onCancel={handleCancel}

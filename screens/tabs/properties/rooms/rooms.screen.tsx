@@ -5,14 +5,12 @@ import { RoomRow } from "@/screens/tabs/properties/rooms/components/room-row/roo
 import { useAuth } from "@/src/contexts/auth";
 import { useTheme } from "@/src/contexts/theme";
 import { roomsApi } from "@/src/services/api/rooms";
-import { PlusIcon } from "@/src/shared/icons/plus.component";
-import { TurndownButton } from "@/src/shared/ui/actions";
-import { Label } from "@/src/shared/ui/data-display/font";
+import { TurndownEmptyState } from "@/src/shared/ui";
 import { Mode } from "@/src/shared/ui/forms";
 import { Modal } from "@/src/shared/ui/surface/modal/modal.layout.component";
 import { Page } from "@/src/shared/ui/surface/page/page.layout.component";
 import { Room } from "@/src/types/models";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FlatList, RefreshControl, View } from "react-native";
 import { RoomCreateForm } from "./forms";
 
@@ -35,7 +33,6 @@ export const RoomsScreen = () => {
     setIsLoading(true);
     if (propertyId) {
       const res = await roomsApi.getAllByPropertyId(propertyId);
-      console.log(`🚀 ~ rooms.screen.tsx:38 ~ fetchRooms ~ res: \n`, res);
 
       setRooms(res ?? []);
     } else {
@@ -71,67 +68,32 @@ export const RoomsScreen = () => {
     }
   };
 
-  const emptyState = useMemo(
-    () => (
-      <View
-        style={{
-          padding: app.spacing[4],
-          borderRadius: app.radii.xl,
-          borderWidth: 1,
-          borderColor: app.colors.outline,
-          backgroundColor: app.colors.surface,
-          alignItems: "center",
-          gap: 10,
-        }}
-      >
-        <Label variant="h3">No Rooms yet</Label>
-        <Label
-          variant="subtitle2"
-          style={{ color: app.colors.textMuted, textAlign: "center" }}
-        >
-          Create your first room to start tracking photos, notes, and
-          checklists.
-        </Label>
-        <TurndownButton
-          onPress={() => {
-            setMode("CREATE");
-            setIsModalDisplayed(true);
-          }}
-          variant="filled"
-        >
-          Create Room
-        </TurndownButton>
-      </View>
-    ),
-    [app]
-  );
-
   return (
-    <Page
-      isLoading={isLoading}
-      header="Rooms"
-      canGoBack
-      headerButton={
-        <TurndownButton
-          width={50}
-          circle
-          onPress={() => {
-            setMode("CREATE");
-            setIsModalDisplayed(true);
-          }}
-        >
-          <PlusIcon type="regular" color="onPrimary" size={"medium"} />
-        </TurndownButton>
-      }
-    >
+    <Page isLoading={isLoading} header="Rooms" canGoBack>
       <FlatList
         data={rooms}
         keyExtractor={(room) => `turndown_room_${room.id}`}
-        renderItem={({ item }) => <RoomRow room={item} />}
+        renderItem={({ item }) => (
+          <RoomRow
+            room={item}
+            onDelete={() => console.log("DELETE")}
+            onEdit={() => console.log("EDIT")}
+          />
+        )}
         ItemSeparatorComponent={() => (
           <View style={{ height: app.spacing[2] }} />
         )}
-        ListEmptyComponent={emptyState}
+        ListEmptyComponent={
+          <TurndownEmptyState
+            title="Rooms"
+            description="Create your first room"
+            buttonText="Create a Room"
+            onCreate={() => {
+              setMode("CREATE");
+              setIsModalDisplayed(true);
+            }}
+          />
+        }
         refreshControl={
           <RefreshControl
             refreshing={refreshing}

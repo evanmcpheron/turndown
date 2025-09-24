@@ -156,9 +156,7 @@ export const Page: React.FC<PageProps> & { Step: typeof PageStep } = ({
               style={{ flex: 1 }}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={withBottomPadding([
-                { padding, flexGrow: 1, gap },
-              ])}
+              contentContainerStyle={withBottomPadding([{ padding, gap }])}
               keyboardShouldPersistTaps="handled"
               keyboardDismissMode="on-drag"
             >

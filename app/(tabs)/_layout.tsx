@@ -7,7 +7,6 @@ import { ActivityIndicator, View } from "react-native";
 import { useTheme } from "@/src/contexts/theme";
 import { BroomIcon } from "@/src/shared/icons/broom.component";
 import { ClipboardIcon } from "@/src/shared/icons/clipboard.component";
-import { CommentIcon } from "@/src/shared/icons/comment.component";
 import { GaugeIcon } from "@/src/shared/icons/gauge.component";
 import { GearIcon } from "@/src/shared/icons/gear.component";
 import PillTabBar from "@/src/shared/ui/navigation/tab-bar/tab.bar.pill.component";
@@ -65,21 +64,6 @@ export default function TabLayout() {
         listeners={{
           focus: () => {
             router.replace("/(tabs)/turns");
-          },
-        }}
-      />
-      <Tabs.Screen
-        name="messages"
-        options={{
-          title: "Messages",
-          tabBarStyle: { height: 40 },
-          tabBarIcon: () => (
-            <CommentIcon type="duotone" color="primary" size="regular" />
-          ),
-        }}
-        listeners={{
-          focus: () => {
-            router.replace("/(tabs)/messages");
           },
         }}
       />

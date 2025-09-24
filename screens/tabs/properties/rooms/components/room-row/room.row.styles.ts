@@ -6,7 +6,6 @@ export const roomRowStyles = (theme: AppTheme) => {
     thumb: {
       width: 56,
       height: 56,
-      marginRight: 10,
       borderRadius: theme.radii.lg,
       overflow: "hidden",
       backgroundColor: theme.colors.surface2,

@@ -1,16 +1,20 @@
+import { useTheme } from "@/src/contexts/theme";
+import { AppTheme } from "@/src/shared/styles";
 import React, { Children, isValidElement, useMemo, useState } from "react";
 import {
   ScrollView,
   StyleProp,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
   ViewStyle,
 } from "react-native";
+import { Label } from "../../data-display/font";
 import { TabsItemProps, TabsProps } from "./tabs.layout.types";
 
 export const Tabs = ({ style, children, centered = false }: TabsProps) => {
+  const { app } = useTheme();
+  const styles = useMemo(() => tabsStyles(app), [app]);
   const tabs = useMemo(
     () =>
       Children.toArray(children)
@@ -40,12 +44,16 @@ export const Tabs = ({ style, children, centered = false }: TabsProps) => {
         ]}
       >
         {tabs.map((tab, idx) => {
-          const { label, disabled } = tab.props;
+          const { label, disabled, onPress } = tab.props;
           const isActive = label === selectedLabel;
           return (
             <TouchableOpacity
               key={`tab_${idx}_${label}`}
-              onPress={() => !disabled && setSelectedLabel(label)}
+              onPress={() => {
+                if (disabled) return;
+                onPress?.(label);
+                setSelectedLabel(label);
+              }}
               disabled={disabled}
               style={[
                 styles.tabItem,
@@ -53,15 +61,12 @@ export const Tabs = ({ style, children, centered = false }: TabsProps) => {
                 disabled && styles.disabledTabItem,
               ]}
             >
-              <Text
-                style={[
-                  styles.tabText,
-                  isActive && styles.activeTabText,
-                  disabled && styles.disabledTabText,
-                ]}
+              <Label
+                {...(isActive && { color: "primary" })}
+                style={[disabled && styles.disabledTabText]}
               >
                 {label}
-              </Text>
+              </Label>
             </TouchableOpacity>
           );
         })}
@@ -77,21 +82,23 @@ const TabsItem: React.FC<TabsItemProps> = ({ children }) => <>{children}</>;
 TabsItem.displayName = "TabsItem";
 Tabs.Item = TabsItem;
 
-const styles = StyleSheet.create({
-  container: { flex: 1 },
-  tabsContainer: {
-    flexDirection: "row",
-  },
-  centeredContainer: {
-    justifyContent: "center",
-    flexGrow: 1,
-  },
-  tabItem: { paddingVertical: 8, paddingHorizontal: 16 },
-  activeTabItem: { borderBottomWidth: 2, borderBottomColor: "#007AFF" },
-  disabledTabItem: { opacity: 0.5 },
-  tabText: { fontSize: 16, color: "#333" },
-  activeTabText: { color: "#007AFF", fontWeight: "bold" },
-  disabledTabText: { color: "#999" },
-  separator: { height: 1, backgroundColor: "#ddd" },
-  contentContainer: { flex: 1, padding: 16 },
-});
+const tabsStyles = (theme: AppTheme) =>
+  StyleSheet.create({
+    container: { flex: 1 },
+    tabsContainer: {
+      flexDirection: "row",
+      maxHeight: 50,
+    },
+    centeredContainer: {
+      justifyContent: "center",
+    },
+    tabItem: { paddingVertical: 8, paddingHorizontal: 16 },
+    activeTabItem: {
+      borderBottomWidth: 3,
+      borderBottomColor: theme.colors.primary,
+    },
+    disabledTabItem: { opacity: 0.5 },
+    disabledTabText: { color: theme.colors.textMuted },
+    separator: { height: 1, backgroundColor: theme.colors.textMuted },
+    contentContainer: { flex: 1, paddingTop: 16 },
+  });

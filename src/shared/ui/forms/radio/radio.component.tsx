@@ -153,10 +153,7 @@ export const Radio = ({ name, defaultValue, options }: RadioProps) => {
         })}
       </View>
 
-      {/* Content rendering logic is gone, unless you want to associate children with options */}
-      <View style={styles.contentContainer}>
-        {/* You could render activeOption.value or other custom content */}
-      </View>
+      <View style={styles.contentContainer}></View>
     </View>
   );
 };

@@ -5,7 +5,10 @@ import { statesAndTerritories } from "@/src/shared/config/base.consts";
 import { showErrorNotification } from "@/src/shared/feedback/notification/notification.helper";
 import { removeUndefined } from "@/src/shared/lib/object";
 import { Label } from "@/src/shared/ui/data-display/font";
-import { Dropdown } from "@/src/shared/ui/forms/dropdown/dropdown.form.component";
+import {
+  Dropdown,
+  SelectOption,
+} from "@/src/shared/ui/forms/dropdown/dropdown.form.component";
 import { Form, useForm } from "@/src/shared/ui/forms/form";
 import { getFirstPropertyValue } from "@/src/shared/ui/forms/form/form.helpers";
 import { Input } from "@/src/shared/ui/forms/input";
@@ -97,7 +100,7 @@ export const PropertiesCreateForm = forwardRef<
           heading={{ primary: "Select State or Territory" }}
           hasFooter
           options={statesAndTerritories}
-          onSelect={(option: string) => setValue("state", option)}
+          onSelect={(option: SelectOption) => setValue("state", option.value)}
         />
         <Input
           name="postal_code"

@@ -42,7 +42,7 @@ export function getIconSize(props?: TurndownObject): {
   width: NonNullable<ViewStyle["width"]>;
   height: NonNullable<ViewStyle["height"]>;
 } {
-  const size = normalizeSize((props as any)?.size);
+  const size = normalizeSize((props as any)?.size || "regular");
 
   return { width: size, height: size };
 }

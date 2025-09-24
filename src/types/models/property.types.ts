@@ -20,6 +20,7 @@ export interface Room extends MetaData {
   id: string;
   deleted: boolean;
   name: string;
+  checklist_template_id?: string;
   hero_photo?: string;
   photos?: string[];
   property_id: string;

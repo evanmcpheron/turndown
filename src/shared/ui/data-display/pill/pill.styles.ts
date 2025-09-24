@@ -14,16 +14,14 @@ export const turndownPillComponentStyles = (theme: AppTheme) => {
 
   return StyleSheet.create({
     container: {
-      flex: 1,
+      borderWidth: 1,
+      paddingHorizontal: theme.spacing[2],
+      paddingVertical: theme.spacing[1],
+      borderRadius: theme.radii.pill,
       display: "flex",
       justifyContent: "center",
       minWidth: 50,
-      height: 30,
-      borderWidth: 2,
-      borderColor: theme.colors.outline,
-      paddingHorizontal: 5,
-      borderRadius: 100,
-      paddingVertical: 3,
+      height: 35,
       alignItems: "center",
     },
     label: {

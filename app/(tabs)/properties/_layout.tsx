@@ -2,7 +2,7 @@ import { PropertyProvider } from "@/screens";
 import { useTheme } from "@/src/contexts/theme";
 import { Stack } from "expo-router";
 
-export default function PropertyStackLayout() {
+export default function PropertiesStackLayout() {
   const { colors } = useTheme();
 
   return (

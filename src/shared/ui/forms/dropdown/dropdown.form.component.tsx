@@ -2,14 +2,13 @@ import { useTheme } from "@/src/contexts/theme";
 import { ArrowDownIcon } from "@/src/shared/icons/arrow-down.component";
 import { Label } from "@/src/shared/ui/data-display/font";
 import { TurndownObject } from "@/src/types";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Animated, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Modal } from "../../surface/modal/modal.layout.component";
 import { useForm, useFormErrors, useFormName } from "../form";
-import { hasOwnProp, validateInternalComponent } from "../form/form.helpers";
 
 export interface SelectOption {
-  label: string | React.ReactNode;
+  label: string;
   value: string;
   default?: boolean;
 }
@@ -24,93 +23,116 @@ interface DropdownProps {
   disabled?: boolean;
   placeholder?: string;
   hasFooter?: boolean;
-  onSelect: (option: string) => void;
+  onSelect?: (option: SelectOption) => void;
   defaultValue?: string;
+  ignoreForm?: boolean;
 }
 
 export const Dropdown = ({
   name,
-  options,
+  options = [],
   heading,
   onSelect,
   hasFooter,
   defaultValue,
+  ignoreForm,
   disabled = false,
   placeholder = "Select an option",
 }: DropdownProps) => {
-  const emptyOption: SelectOption = { label: "", value: "" };
-  const { app } = useTheme();
-
-  const [showError, setShowError] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>(defaultValue || "");
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<string | null>(
+    defaultValue || null
+  );
+  const [selectedLabel, setSelectedLabel] = useState<string | null>(null);
   const formName = useFormName();
 
+  const { app } = useTheme();
+
   const formErrors = useFormErrors();
+  console.log(
+    `🚀 ~ dropdown.form.component.tsx:53 ~ Dropdown ~ formErrors: \n`,
+    formErrors
+  );
+
   const domRef: TurndownObject = useRef(null);
 
-  const { setValue, registerField, deregisterField, subscribe, unsubscribe } =
-    useForm({ formName });
+  const {
+    setValue,
+    registerField,
+    deregisterField,
+    subscribe,
+    unsubscribe,
+    getValue,
+  } = useForm({ formName });
+
+  const handleSelect = (option: SelectOption) => {
+    setValue(name, option.value);
+    onSelect?.(option);
+
+    setSelectedOption(option.value);
+    setSelectedLabel(option.label);
+
+    if (!hasFooter) {
+      setIsOpen(false);
+    }
+  };
 
   useEffect(() => {
-    registerField(name, defaultValue);
+    const formValue = ignoreForm ? undefined : getValue(name);
+    if (formValue !== undefined && formValue !== selectedOption) {
+      const option = options.find((opt) => opt.value === formValue);
+      if (option) {
+        setSelectedOption(option.value);
+        setSelectedLabel(option.label);
+      }
+    } else if (selectedOption === null) {
+      const initialOption = options.find(
+        (option: SelectOption) => option.value === defaultValue
+      );
 
-    const handleValueChange = (newValue: TurndownObject) => {
-      setInputValue(newValue ?? "");
-    };
-
-    if (formName) {
-      subscribe(name, handleValueChange);
+      if (initialOption) {
+        setSelectedOption(initialOption.value);
+        setSelectedLabel(initialOption.label);
+      }
     }
+  }, [defaultValue, options, selectedOption, getValue, name]);
 
-    return () => {
-      deregisterField(name);
+  useEffect(() => {
+    if (!ignoreForm) {
+      registerField(name, selectedOption || defaultValue);
+
+      const handleValueChange = (newValue: string) => {
+        const option = options.find((opt) => opt.value === newValue);
+        if (option) {
+          setSelectedOption(option.value);
+          setSelectedLabel(option.label);
+        } else {
+          setSelectedOption(null);
+          setSelectedLabel(null);
+        }
+      };
+
       if (formName) {
-        unsubscribe(name, handleValueChange);
+        subscribe(name, handleValueChange);
       }
-    };
-  }, [formName, name]);
 
-  useEffect(() => {
-    if (!formName) {
-      setInputValue(defaultValue ?? "");
+      return () => {
+        if (!ignoreForm) {
+          if (formName) {
+            unsubscribe(name, handleValueChange);
+          }
+          deregisterField(name);
+        }
+      };
     }
-  }, [defaultValue, formName]);
+  }, [formName, name, ignoreForm, selectedOption, defaultValue]);
 
   useEffect(() => {
-    setInputValue("");
-  }, []);
-
-  useEffect(() => {
-    if (formErrors && formErrors.form === formName) {
-      if (hasOwnProp(formErrors.errors, name)) {
-        setShowError(true);
-      } else {
-        setShowError(false);
-      }
-    } else {
-      setShowError(false);
+    if (disabled) {
+      setIsOpen(false);
     }
-  }, [formErrors]);
+  }, [disabled]);
 
-  useEffect(() => {
-    const validateMessage = validateInternalComponent(
-      formName,
-      name,
-      inputValue
-    );
-    setShowError(!!validateMessage);
-  }, [inputValue]);
-
-  const resolvedDefault = useMemo((): string => {
-    if (defaultValue) return defaultValue;
-    const defaultOpt = options.find((o) => o.default)?.value;
-    return defaultOpt ?? "";
-  }, [defaultValue, options]);
-
-  const [selected, setSelected] = useState<string>(resolvedDefault);
-  const [confirmed, setConfirmed] = useState<string>(resolvedDefault);
-  const [isOpen, setIsOpen] = useState(false);
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -121,39 +143,21 @@ export const Dropdown = ({
     }).start();
   }, [isOpen, rotateAnim]);
 
-  useEffect(() => {
-    setConfirmed(resolvedDefault);
-    setSelected(resolvedDefault);
-  }, [resolvedDefault]);
-
   const arrowRotation = rotateAnim.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "180deg"],
   });
 
   const handleOpen = () => {
-    setSelected(confirmed);
     setIsOpen(true);
   };
 
-  const handleSelect = (option: SelectOption) => {
-    setSelected(option.value);
-    if (!hasFooter) {
-      setValue(name, option.value);
-      setConfirmed(option.value);
-      onSelect(option.value);
-      setIsOpen(false);
-    }
-  };
-
   const handleCancel = () => {
-    setSelected(confirmed);
     setIsOpen(false);
   };
 
   const handleSave = () => {
-    setConfirmed(selected);
-    onSelect(selected);
+    onSelect?.({ label: selectedLabel || "", value: selectedOption || "" });
     setIsOpen(false);
   };
 
@@ -186,7 +190,7 @@ export const Dropdown = ({
       >
         <Label
           style={[
-            !selected && { color: app.colors.textMuted },
+            !selectedOption && { color: app.colors.textMuted },
             disabled && {
               color: app.colors.textMuted,
               borderColor: app.colors.outlineStrong,
@@ -194,7 +198,7 @@ export const Dropdown = ({
             },
           ]}
         >
-          {selected ? selected : placeholder}
+          {selectedLabel ? selectedLabel : placeholder}
         </Label>
         <Animated.View style={{ transform: [{ rotate: arrowRotation }] }}>
           <ArrowDownIcon type="regular" />
@@ -206,6 +210,7 @@ export const Dropdown = ({
           primary: heading?.primary,
           secondary: heading?.secondary,
         }}
+        scrollable
         {...(hasFooter && { onCancel: handleCancel })}
         {...(hasFooter && { onSave: handleSave })}
         disabled={disabled}
@@ -222,7 +227,7 @@ export const Dropdown = ({
                   backgroundColor: app.colors.onPrimary,
                 },
 
-                selected === option.value && {
+                selectedOption === option.value && {
                   borderColor: app.colors.primary,
                   backgroundColor: app.colors.primary,
                 },
@@ -233,7 +238,7 @@ export const Dropdown = ({
               <Label
                 style={[
                   styles.optionText,
-                  selected === option.value && {
+                  selectedOption === option.value && {
                     color: app.colors.onPrimary,
                   },
                 ]}

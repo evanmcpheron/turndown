@@ -72,18 +72,6 @@ export const SettingsScreen = () => {
           type: "link",
           route: "/settings/templates/checklists",
         },
-        {
-          key: "inventory",
-          label: "Inventory",
-          type: "link",
-          route: "/settings/templates/inventory",
-        },
-        {
-          key: "tasks",
-          label: "Tasks",
-          type: "link",
-          route: "/settings/templates/tasks",
-        },
       ],
     },
     {
@@ -239,7 +227,7 @@ export const SettingsScreen = () => {
       {sections.map((section) => (
         <View key={section.title} style={{ gap: 10 }}>
           <View style={s.sectionHeaderWrap}>
-            <Label variant="subtitle2" style={{ color: colors.primary }}>
+            <Label variant="h6" style={{ color: colors.primary }}>
               {section.title}
             </Label>
           </View>
