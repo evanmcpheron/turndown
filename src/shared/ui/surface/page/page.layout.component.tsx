@@ -8,7 +8,14 @@ import { TurndownSafeView } from "@/src/shared/ui/surface/safe-view";
 import { DomProperties } from "@/src/types/common/style.types";
 import { router } from "expo-router";
 import React from "react";
-import { ScrollView, StyleProp, View, ViewStyle } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleProp,
+  View,
+  ViewStyle,
+} from "react-native";
 import { TurndownButton } from "../../actions";
 
 export interface PageProps extends DomProperties {
@@ -309,8 +316,11 @@ export const Page: React.FC<PageProps> & { Step: typeof PageStep } = ({
         {isLoading ? <TurndownLoader /> : renderActive()}
 
         {stepperPlacement === "footer" && stepperUI}
-
-        {footer && <View style={[{ padding }]}>{footer}</View>}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          {footer && <View style={[{ padding }]}>{footer}</View>}
+        </KeyboardAvoidingView>
       </StepsContext.Provider>
     </TurndownSafeView>
   );

@@ -1,4 +1,4 @@
-import { RoomsListComponent } from "@/screens/tabs/properties/rooms/list/rooms.list.component";
+import { RoomsListComponent } from "@/screens";
 
 const IndexScreen = () => {
   return <RoomsListComponent />;

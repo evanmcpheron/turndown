@@ -26,6 +26,7 @@ export interface SwipeRowProps {
   friction?: number;
   overshootLeft?: boolean;
   overshootRight?: boolean;
-  onSwipeStart?: (direction: "left" | "right") => void;
-  onSwipeEnd?: (direction: "left" | "right") => void;
+  onDelete?: () => void;
+  onEdit?: () => void;
+  onView?: () => void;
 }

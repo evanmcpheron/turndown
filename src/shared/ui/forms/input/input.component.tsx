@@ -27,6 +27,7 @@ export const Input: React.FC<InputProps> = ({
   autoComplete = "off",
   minNumber,
   maxNumber,
+  multiline,
   ignoreError,
   value,
   readOnly,
@@ -102,7 +103,7 @@ export const Input: React.FC<InputProps> = ({
   }, [formErrors]);
 
   const handleChange = (e: TurndownObject) => {
-    console.log(`🚀 ~ input.component.tsx:105 ~ handleChange ~ e: \n`, e);
+    console.log(`🚀 ~ input.component.tsx:106 ~ handleChange ~ e: \n`, e);
 
     let newValue = e ?? "";
 
@@ -171,11 +172,14 @@ export const Input: React.FC<InputProps> = ({
         placeholderTextColor={colors.textMuted}
         ref={domRef}
         value={inputValue}
+        {...(multiline && { multiline, numberOfLines: 4 })}
         style={[
           {
             color: colors.text,
             fontSize: app.typography.size.lg,
           },
+
+          { ...(multiline && { minHeight: 100 }) },
           disabled && { backgroundColor: colors.outline },
         ]}
       />

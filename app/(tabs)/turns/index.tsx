@@ -1,7 +1,9 @@
-import { TurndownScreen } from "@/screens";
+import { TurndownScreen, TurnWorkerScreen } from "@/screens/tabs/turns";
+import { useManagementMode } from "@/src";
 
 const IndexScreen = () => {
-  return <TurndownScreen />;
+  const { managementMode } = useManagementMode();
+  return managementMode ? <TurndownScreen /> : <TurnWorkerScreen />;
 };
 
 export default IndexScreen;

@@ -10,9 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { AuthContext } from "./auth.types";
 
-export const AuthProvider: React.FC<React.PropsWithChildren> = ({
-  children,
-}) => {
+const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -61,3 +59,5 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({
     </AuthContext.Provider>
   );
 };
+
+export default AuthProvider;

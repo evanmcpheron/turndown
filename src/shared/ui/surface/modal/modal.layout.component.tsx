@@ -25,6 +25,7 @@ import {
 } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { TurndownButton } from "../../actions";
+import { Mode } from "../../forms";
 
 export const Modal = ({
   header,
@@ -38,6 +39,9 @@ export const Modal = ({
   isTransparent = true,
   animationType = "fade",
   saveText = "Okay",
+  selectedId,
+  hideSave,
+  mode,
   children,
 }: ModalProps) => {
   const [hasFooter, setHasFooter] = useState(true);
@@ -155,6 +159,15 @@ export const Modal = ({
                   }}
                   style={{ backgroundColor: app.colors.background }}
                 >
+                  {actions.map((action, index) => {
+                    const needsId = mode !== "CREATE" && selectedId;
+                    return (
+                      action.props.mode === mode &&
+                      needsId && (
+                        <View key={index}>{action.props.children}</View>
+                      )
+                    );
+                  })}
                   {contentChildren}
                 </ScrollView>
               )}
@@ -179,7 +192,7 @@ export const Modal = ({
                       Cancel
                     </TurndownButton>
                   )}
-                  {onSave && (
+                  {mode !== "DETAILS" && !hideSave && onSave && (
                     <TurndownButton
                       style={{ flex: 1 }}
                       disabled={disabled || isLoading}
@@ -188,9 +201,6 @@ export const Modal = ({
                       {saveText}
                     </TurndownButton>
                   )}
-                  {actions.map((action, index) => {
-                    return <View key={index}>{action.props.children}</View>;
-                  })}
                 </View>
               )}
             </SafeAreaView>
@@ -203,6 +213,7 @@ export const Modal = ({
 
 interface ModalActionProps {
   children: React.ReactElement;
+  mode: Mode;
 }
 
 Modal.Actions = ({ children }: ModalActionProps) => <>{children}</>;

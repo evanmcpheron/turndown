@@ -11,7 +11,7 @@ export const checklistApi = {
     try {
       const response = await get("Checklist", {
         where: [
-          { field: "company_id", op: "==", value: "asdfasdfasdf" },
+          { field: "company_id", op: "==", value: company_id },
           { field: "is_template", op: "==", value: true },
         ],
       });

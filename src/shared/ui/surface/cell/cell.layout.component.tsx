@@ -12,7 +12,7 @@ export const Cell = ({
   cellWrap,
   width,
   height,
-  gap,
+  gap = 10,
 }: CellProperties) => {
   const ref = useRef(null);
 

@@ -7,16 +7,12 @@ export default function TurnsStackLayout() {
   return (
     <Stack
       screenOptions={{
-        headerShadowVisible: false,
+        headerShown: false,
+        animation: "none",
         headerTintColor: colors.background,
         headerStyle: { backgroundColor: colors.background },
         contentStyle: { backgroundColor: colors.background },
       }}
-    >
-      <Stack.Screen
-        name="index"
-        options={{ headerShown: false, title: "Turns" }}
-      />
-    </Stack>
+    />
   );
 }

@@ -1,5 +1,5 @@
 import { ChecklistRow } from "@/screens/components";
-import { useAuth } from "@/src/contexts/auth";
+import useAuth from "@/src/contexts/auth/auth.context";
 import { useTheme } from "@/src/contexts/theme";
 import { checklistApi } from "@/src/services";
 import { PlusIcon } from "@/src/shared/icons/plus.component";
@@ -39,8 +39,10 @@ export const ChecklistsTemplateList = () => {
 
   const fetchChecklists = async () => {
     setRefreshing(true);
-    if (user?.id) {
-      const res = await checklistApi.getAllTemplatesByCompanyId(user.id);
+    if (user?.company_id) {
+      const res = await checklistApi.getAllTemplatesByCompanyId(
+        user.company_id
+      );
 
       setChecklistTemplates(res);
     } else {
@@ -182,6 +184,7 @@ export const ChecklistsTemplateList = () => {
         saveText={`${normalCase(modeRef.current as string)} Checklist`}
         isOpen={isModalDisplayed}
         onCancel={handleCancel}
+        selectedId={selectedId}
         onSave={handleSave}
       >
         {modeRef.current === "CREATE" && (

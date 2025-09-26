@@ -1,9 +1,10 @@
 // app/(tabs)/_layout.tsx (or wherever your TabLayout lives)
-import { useAuth } from "@/src/contexts/auth";
+import useAuth from "@/src/contexts/auth/auth.context";
 import { Redirect, router, Tabs } from "expo-router";
 import React from "react";
 import { ActivityIndicator, View } from "react-native";
 
+import { useManagementMode } from "@/src/contexts";
 import { useTheme } from "@/src/contexts/theme";
 import { BroomIcon } from "@/src/shared/icons/broom.component";
 import { ClipboardIcon } from "@/src/shared/icons/clipboard.component";
@@ -14,6 +15,8 @@ import PillTabBar from "@/src/shared/ui/navigation/tab-bar/tab.bar.pill.componen
 export default function TabLayout() {
   const { user, loading } = useAuth();
   const { colors } = useTheme();
+
+  const { managementMode } = useManagementMode();
 
   if (loading) {
     return (
@@ -31,6 +34,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
+        animation: "none",
         sceneStyle: { backgroundColor: colors.background },
       }}
       tabBar={(props) => {
@@ -75,6 +79,7 @@ export default function TabLayout() {
           tabBarIcon: () => (
             <ClipboardIcon type="duotone" color="primary" size="regular" />
           ),
+          href: managementMode ? undefined : null,
         }}
         listeners={{
           focus: () => {

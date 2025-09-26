@@ -8,6 +8,7 @@ export default function DashboardStackLayout() {
     <Stack
       screenOptions={{
         headerShown: false,
+        animation: "none",
         headerTintColor: colors.background,
         headerStyle: { backgroundColor: colors.background },
         contentStyle: { backgroundColor: colors.background },

@@ -214,6 +214,8 @@ export const Dropdown = ({
         {...(hasFooter && { onCancel: handleCancel })}
         {...(hasFooter && { onSave: handleSave })}
         disabled={disabled}
+        selectedId={"dropdown"}
+        mode={"CREATE"}
         isOpen={isOpen}
       >
         <View>

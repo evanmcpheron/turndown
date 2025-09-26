@@ -3,11 +3,10 @@ import { defaultImages } from "@/src/shared/config/base.consts";
 import { normalCase } from "@/src/shared/lib/string";
 import { withOpacity } from "@/src/shared/styles";
 import { Label } from "@/src/shared/ui/data-display/font";
-import { Card } from "@/src/shared/ui/surface/card/card.layout.component";
 import { Row } from "@/src/shared/ui/surface/cell/row/row.layout.component";
 import { SwipeRow } from "@/src/shared/ui/surface/swipe-row";
 import { SwipeAction } from "@/src/shared/ui/surface/swipe-row/swipe.row.types";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import { propertyRowStyles } from "./property.row.styles";
 import { PropertyRowProps } from "./property.row.types";
@@ -17,12 +16,10 @@ export const PropertyRow = ({
   onDelete,
   onEdit,
 }: PropertyRowProps) => {
-  const [isSwiping, setIsSwiping] = useState(false);
   const { app } = useTheme();
   const s = useMemo(() => propertyRowStyles(app), [app]);
 
   const {
-    id,
     name,
     address_line1,
     address_line2,
@@ -62,66 +59,60 @@ export const PropertyRow = ({
   ];
 
   return (
-    <SwipeRow
-      rightActions={rightActions}
-      onSwipeStart={() => setIsSwiping(true)}
-      onSwipeEnd={() => setIsSwiping(false)}
-    >
+    <SwipeRow rightActions={rightActions}>
       <Pressable onPress={onEdit}>
-        <Card secondary rounded={!isSwiping}>
-          <Row justifyContent="space-between" alignItems="center">
-            {/* Thumbnail */}
-            <View style={s.thumb}>
-              <Image
-                source={{
-                  uri:
-                    (photo_url || "").trim() !== ""
-                      ? photo_url
-                      : defaultImages.home,
-                }}
-                style={s.thumbImg}
-              />
-            </View>
+        <Row justifyContent="space-between" alignItems="center">
+          {/* Thumbnail */}
+          <View style={s.thumb}>
+            <Image
+              source={{
+                uri:
+                  (photo_url || "").trim() !== ""
+                    ? photo_url
+                    : defaultImages.home,
+              }}
+              style={s.thumbImg}
+            />
+          </View>
 
-            {/* Main */}
-            <View style={s.main}>
+          {/* Main */}
+          <View style={s.main}>
+            <Label
+              variant="h3"
+              numberOfLines={1}
+              style={{ marginBottom: app.spacing[1] }}
+            >
+              {name || "Property"}
+            </Label>
+            {!!addressCompact && (
               <Label
-                variant="h3"
+                variant="subtitle2"
                 numberOfLines={1}
-                style={{ marginBottom: app.spacing[1] }}
+                style={{ color: app.colors.textMuted }}
               >
-                {name || "Property"}
+                {addressCompact}
               </Label>
-              {!!addressCompact && (
-                <Label
-                  variant="subtitle2"
-                  numberOfLines={1}
-                  style={{ color: app.colors.textMuted }}
-                >
-                  {addressCompact}
-                </Label>
+            )}
+
+            {/* Tags */}
+            <View style={s.tags}>
+              <Tag text={statusText} tone={statusTone} />
+              {!!readiness_status && (
+                <Tag
+                  text={`Readiness: ${normalCase(readiness_status)}`}
+                  tone={readinessTone as any}
+                />
               )}
-
-              {/* Tags */}
-              <View style={s.tags}>
-                <Tag text={statusText} tone={statusTone} />
-                {!!readiness_status && (
-                  <Tag
-                    text={`Readiness: ${normalCase(readiness_status)}`}
-                    tone={readinessTone as any}
-                  />
-                )}
-              </View>
             </View>
+          </View>
 
-            {/* Chevron */}
-            <View style={s.chevron}>
-              <Label variant="h3" style={{ color: app.colors.textMuted }}>
-                ›
-              </Label>
-            </View>
-          </Row>
-        </Card>
+          {/* Chevron */}
+          <View style={s.chevron}>
+            <Label variant="h3" style={{ color: app.colors.textMuted }}>
+              ›
+            </Label>
+          </View>
+        </Row>
       </Pressable>
     </SwipeRow>
   );

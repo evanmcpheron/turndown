@@ -1,5 +1,6 @@
 // app/(tabs)/settings.tsx
-import { useAuth } from "@/src/contexts/auth";
+import useAuth from "@/src/contexts/auth/auth.context";
+import { useManagementMode } from "@/src/contexts/management-mode";
 import { useTheme } from "@/src/contexts/theme";
 import { showInfoNotification } from "@/src/shared/feedback/notification/notification.helper";
 import { withOpacity } from "@/src/shared/styles";
@@ -41,6 +42,7 @@ type SettingSection = {
 };
 
 export const SettingsScreen = () => {
+  const { changeManagementMode, managementMode } = useManagementMode();
   const router = useRouter();
   const { app, colors, setScheme, mode } = useTheme();
   const { signOut } = useAuth();
@@ -60,20 +62,47 @@ export const SettingsScreen = () => {
           type: "link",
           route: "/settings/profile",
         },
+        {
+          key: "invite",
+          label: "Invite",
+          type: "link",
+          route: "/settings/invite",
+        },
+        ...(managementMode
+          ? [
+              {
+                key: "company",
+                label: "Company",
+                type: "link",
+                route: "/settings/company",
+              } as SettingRow,
+            ]
+          : []),
+        {
+          key: "reminders",
+          label: "Management mode",
+          type: "toggle",
+          value: managementMode,
+          onToggle: changeManagementMode,
+        },
         { key: "theme", label: "Appearance", type: "button-group" },
       ],
     },
-    {
-      title: "Templates",
-      data: [
-        {
-          key: "checklists",
-          label: "Checklists",
-          type: "link",
-          route: "/settings/templates/checklists",
-        },
-      ],
-    },
+    ...(managementMode
+      ? [
+          {
+            title: "Templates",
+            data: [
+              {
+                key: "checklists",
+                label: "Checklists",
+                type: "link",
+                route: "/settings/templates/checklists",
+              },
+            ],
+          } as SettingSection,
+        ]
+      : []),
     {
       title: "Notifications",
       data: [

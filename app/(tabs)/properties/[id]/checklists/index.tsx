@@ -1,4 +1,4 @@
-import { ChecklistsListComponent } from "@/screens/tabs/properties/checklists/list/checklists.list.component";
+import { ChecklistsListComponent } from "@/screens/tabs/properties/[id]/checklists/list/checklists.list.component";
 
 const IndexScreen = () => {
   return <ChecklistsListComponent />;

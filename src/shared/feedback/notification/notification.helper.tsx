@@ -26,7 +26,6 @@ export function hideNotice() {
   for (const l of Array.from(listeners)) l(null);
 }
 
-// Convenience helpers you can call anywhere in the app:
 export function showSuccessNotification(
   message: string,
   title?: string,

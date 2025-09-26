@@ -1,4 +1,4 @@
-import { useAuth } from "@/src/contexts/auth";
+import useAuth from "@/src/contexts/auth/auth.context";
 import { useTheme } from "@/src/contexts/theme";
 import { propertiesApi } from "@/src/services/api/properties";
 import { statesAndTerritories } from "@/src/shared/config/base.consts";

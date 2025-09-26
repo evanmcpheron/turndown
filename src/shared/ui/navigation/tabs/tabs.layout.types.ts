@@ -12,5 +12,6 @@ export interface TabsItemProps {
   disabled?: boolean;
   default?: boolean;
   onPress?: (option: TurndownObject) => void;
+  active?: boolean;
   children: React.ReactNode;
 }

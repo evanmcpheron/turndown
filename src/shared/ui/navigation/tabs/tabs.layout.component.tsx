@@ -44,8 +44,8 @@ export const Tabs = ({ style, children, centered = false }: TabsProps) => {
         ]}
       >
         {tabs.map((tab, idx) => {
-          const { label, disabled, onPress } = tab.props;
-          const isActive = label === selectedLabel;
+          const { label, disabled, active, onPress } = tab.props;
+          // const isActive = label === selectedLabel || active;
           return (
             <TouchableOpacity
               key={`tab_${idx}_${label}`}
@@ -57,12 +57,12 @@ export const Tabs = ({ style, children, centered = false }: TabsProps) => {
               disabled={disabled}
               style={[
                 styles.tabItem,
-                isActive && styles.activeTabItem,
+                active && styles.activeTabItem,
                 disabled && styles.disabledTabItem,
               ]}
             >
               <Label
-                {...(isActive && { color: "primary" })}
+                {...(active && { color: "primary" })}
                 style={[disabled && styles.disabledTabText]}
               >
                 {label}

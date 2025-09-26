@@ -1,4 +1,4 @@
-import { useAuth } from "@/src/contexts/auth";
+import useAuth from "@/src/contexts/auth/auth.context";
 import { useTheme } from "@/src/contexts/theme";
 import { checklistApi, checklistItemApi } from "@/src/services";
 import { showErrorNotification } from "@/src/shared/feedback/notification/notification.helper";
@@ -236,6 +236,7 @@ export const ChecklistsTemplateEditForm = forwardRef<
             secondary: "Manage items that belong to a checklist template",
           }}
           saveText="Add Item"
+          selectedId={selectedId}
           onCancel={() => {
             setIsModalDisplayed(false);
           }}

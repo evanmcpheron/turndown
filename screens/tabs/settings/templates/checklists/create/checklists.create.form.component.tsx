@@ -1,4 +1,4 @@
-import { useAuth } from "@/src/contexts/auth";
+import useAuth from "@/src/contexts/auth/auth.context";
 import { checklistApi } from "@/src/services";
 import { showErrorNotification } from "@/src/shared/feedback/notification/notification.helper";
 import { removeUndefined } from "@/src/shared/lib/object";
@@ -33,7 +33,7 @@ export const ChecklistsTemplateCreateForm = forwardRef<
       if (!user) return { success: false, id: null };
       const cleaned = removeUndefined(data);
       const response = await checklistApi.post(
-        { ...cleaned, is_template: true, company_id: "asdfasdfasdf" },
+        { ...cleaned, is_template: true, company_id: user?.company_id },
         user?.id
       );
 

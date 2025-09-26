@@ -1,6 +1,6 @@
 import { PropertyRow } from "@/screens/tabs/properties/components/property-row/property.row.component"; // renamed export below
 import { useProperty } from "@/screens/tabs/properties/context/property.context";
-import { useAuth } from "@/src/contexts/auth";
+import useAuth from "@/src/contexts/auth/auth.context";
 import { useTheme } from "@/src/contexts/theme";
 import { propertiesApi } from "@/src/services/api/properties";
 import { PlusIcon } from "@/src/shared/icons/plus.component";
@@ -77,7 +77,7 @@ export const PropertiesScreen = () => {
   };
 
   return (
-    <Page isLoading={isLoading} header="Properties">
+    <Page header="Properties">
       <TurndownSection
         title="Properties"
         hint="Add, Remove, or Edit Properties here."
@@ -139,7 +139,7 @@ export const PropertiesScreen = () => {
           }
           contentContainerStyle={{
             gap: 10,
-            flex: 1,
+            flexGrow: 1,
           }}
         />
       </TurndownSection>
@@ -151,6 +151,8 @@ export const PropertiesScreen = () => {
           isOpen={isModalDisplayed}
           onCancel={handleCancel}
           onSave={handleSave}
+          mode={"CREATE"}
+          selectedId={"modal"}
           scrollable
         >
           <PropertiesCreateForm ref={propertiesCreateFormRef} />

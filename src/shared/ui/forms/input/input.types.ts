@@ -28,6 +28,7 @@ export interface InputProps extends ClickActions, DomProperties {
   maxNumber?: number;
   ignoreError?: boolean;
   fullWidth?: boolean;
+  multiline?: boolean;
   readOnly?: boolean;
   numberFormat?: "INT" | "FLOAT" | "";
 }

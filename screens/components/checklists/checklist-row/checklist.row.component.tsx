@@ -1,7 +1,6 @@
 import { checklistItemApi } from "@/src/services";
 import { Label } from "@/src/shared/ui/data-display/font";
 import { TurndownPill } from "@/src/shared/ui/data-display/pill";
-import { Card } from "@/src/shared/ui/surface/card/card.layout.component";
 import { Cell } from "@/src/shared/ui/surface/cell/cell.layout.component";
 import { Row } from "@/src/shared/ui/surface/cell/row/row.layout.component";
 import { SwipeRow } from "@/src/shared/ui/surface/swipe-row";
@@ -16,8 +15,6 @@ export const ChecklistRow = ({
   onEdit,
   onDelete,
 }: ChecklistRowProps) => {
-  const [isSwiping, setIsSwiping] = useState(false);
-
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -38,22 +35,16 @@ export const ChecklistRow = ({
   ];
 
   return (
-    <SwipeRow
-      rightActions={rightActions}
-      onSwipeStart={() => setIsSwiping(true)}
-      onSwipeEnd={() => setIsSwiping(false)}
-    >
+    <SwipeRow rightActions={rightActions}>
       <Pressable onPress={onEdit}>
-        <Card secondary rounded={!isSwiping}>
-          <Row justifyContent="space-between" alignItems="center">
-            <Cell>
-              <Label>{name}</Label>
-            </Cell>
-            <Cell height={35}>
-              <TurndownPill label={`${count}`} severity={"low"} />
-            </Cell>
-          </Row>
-        </Card>
+        <Row justifyContent="space-between" alignItems="center">
+          <Cell>
+            <Label>{name}</Label>
+          </Cell>
+          <Cell height={35}>
+            <TurndownPill label={`${count}`} severity={"low"} />
+          </Cell>
+        </Row>
       </Pressable>
     </SwipeRow>
   );

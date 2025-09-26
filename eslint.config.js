@@ -16,6 +16,7 @@ module.exports = defineConfig([
       "no-empty-pattern": "off",
       "@typescript-eslint/no-empty-object-type": "off",
       "react/display-name": "off",
+      "import/no-cycle": "off",
     },
   },
 ]);

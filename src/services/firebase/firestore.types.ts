@@ -9,9 +9,14 @@ export interface ReturnData {
 export type Collections =
   | "Checklist"
   | "ChecklistItem"
+  | "TurnRunItem"
+  | "CodeRegistry"
+  | "Company"
+  | "CompanyInvite"
+  | "CompanyMember"
   | "Inventory"
   | "Property"
-  | "Task"
+  | "Turn"
   | "Message"
   | "Room"
   | "User";

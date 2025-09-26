@@ -1,8 +1,8 @@
-import { MetaData } from ".";
+import { MetaData } from "./base.types";
 import { MemberRole } from "./company.types";
 
 export interface User extends Omit<MetaData, "created_by" | "updated_by"> {
-  id?: string;
+  id: string;
   email: string;
   display_name: string;
   phone_number?: string;

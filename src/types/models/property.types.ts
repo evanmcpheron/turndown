@@ -1,4 +1,4 @@
-import { MetaData, ReadinessStatus } from ".";
+import { MetaData, ReadinessStatus } from "./base.types";
 
 export interface Property extends MetaData {
   id: string;
@@ -12,15 +12,16 @@ export interface Property extends MetaData {
   timezone?: string;
   photo_url?: string; // Hero Image
   readiness_status: ReadinessStatus;
-  checklist_template_id?: string;
+  checklist_template_id: string;
   is_active: boolean;
+  company_id: string;
 }
 
 export interface Room extends MetaData {
   id: string;
   deleted: boolean;
   name: string;
-  checklist_template_id?: string;
+  checklist_template_id: string;
   hero_photo?: string;
   photos?: string[];
   property_id: string;

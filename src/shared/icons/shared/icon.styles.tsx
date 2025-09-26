@@ -1,13 +1,17 @@
+import { TurndownObject } from "@/src/types";
 import { IconProps } from "@/src/types/common/style.types";
-import { View } from "react-native";
+import { StyleProp, View } from "react-native";
 import { getIconSize } from "../helpers/icon.helpers";
 
 export const StyledIcon = (
-  props: IconProps & { children: React.ReactNode }
+  props: IconProps & {
+    children: React.ReactNode;
+    style?: StyleProp<TurndownObject>;
+  }
 ) => {
-  const { children } = props;
+  const { children, style } = props;
 
   const styles = getIconSize(props);
 
-  return <View style={styles}>{children}</View>;
+  return <View style={[styles, style]}>{children}</View>;
 };

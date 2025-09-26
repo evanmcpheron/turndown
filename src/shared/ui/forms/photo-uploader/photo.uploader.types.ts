@@ -15,6 +15,7 @@ export type TurndownPhotoSource = "camera" | "library" | "both";
 export interface TurndownPhotoUploaderProps {
   /** Allow taking photos, selecting from library, or both (default: "both") */
   sourceMode?: TurndownPhotoSource;
+  defaultImage?: string;
   /** Allow selecting multiple at once (default: true; Android may pick one-by-one) */
   multiple?: boolean;
   /** Max photos allowed in the staging list (default: 10) */
@@ -42,7 +43,8 @@ export interface TurndownPhotoUploaderProps {
   quality?: number; // 0..1
 
   /** UI toggles */
-  showAddButtons?: boolean; // default: true
+  showAddButtons?: boolean; // default: false
+  showHeaders?: boolean;
   label?: string; // header label
 
   /** Disable everything (readonly display) */

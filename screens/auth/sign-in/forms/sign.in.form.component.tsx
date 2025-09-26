@@ -1,4 +1,4 @@
-import { useAuth } from "@/src/contexts/auth";
+import useAuth from "@/src/contexts/auth/auth.context";
 import { showErrorNotification } from "@/src/shared/feedback/notification/notification.helper";
 import { Form, useForm } from "@/src/shared/ui/forms/form";
 import { getFirstPropertyValue } from "@/src/shared/ui/forms/form/form.helpers";

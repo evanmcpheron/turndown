@@ -55,8 +55,8 @@ export default function PropertyStackLayout() {
       href: `/properties/${id}/checklists`,
     },
     {
-      label: "Schedule",
-      href: `/properties/${id}/schedule`,
+      label: "Turns",
+      href: `/properties/${id}/turns`,
     },
     {
       label: "Notes",
@@ -155,6 +155,7 @@ export default function PropertyStackLayout() {
             return (
               <Tabs.Item
                 default={pathname === section.href}
+                active={pathname === section.href}
                 onPress={() => router.replace(section.href as Href)}
                 key={section.label}
                 label={section.label}
@@ -172,6 +173,7 @@ export default function PropertyStackLayout() {
             isOpen={isModalDisplayed}
             onCancel={handleCancel}
             onSave={handleSave}
+            selectedId={id}
             scrollable
           >
             <PropertiesEditForm propertyId={id} ref={propertiesEditFormRef} />

@@ -53,8 +53,9 @@ export const TurndownPhotoUploader = forwardRef<
   (
     {
       sourceMode = "both",
-      multiple = true,
-      maxCount = 10,
+      multiple,
+      defaultImage,
+      maxCount = 1,
       autoUpload = false,
       forceCameraOnly = false,
       onChange,
@@ -65,8 +66,9 @@ export const TurndownPhotoUploader = forwardRef<
       allowsEditing = false,
       aspect,
       quality = 0.9,
-      showAddButtons = true,
-      label = "Photos",
+      showAddButtons = false,
+      showHeaders = false,
+      label,
       disabled = false,
     },
     forwardedRef
@@ -276,12 +278,14 @@ export const TurndownPhotoUploader = forwardRef<
 
     return (
       <View style={s.container}>
-        <View style={s.headerRow}>
-          <Label variant="subtitle1">{label}</Label>
-          <Label variant="subtitle2" style={s.subtle}>
-            {items.length} / {maxCount}
-          </Label>
-        </View>
+        {showHeaders && (
+          <View style={s.headerRow}>
+            {label && <Label variant="subtitle1">{label}</Label>}
+            <Label variant="subtitle2" style={s.subtle}>
+              {items.length} / {maxCount}
+            </Label>
+          </View>
+        )}
 
         {showAddButtons && (
           <View style={s.actionBar}>
@@ -312,7 +316,10 @@ export const TurndownPhotoUploader = forwardRef<
         <View style={s.grid}>
           {items.map((it) => (
             <View key={it.id} style={s.tile}>
-              <Image source={{ uri: it.localUri }} style={s.thumb} />
+              <Image
+                source={{ uri: it.localUri || defaultImage }}
+                style={s.thumb}
+              />
               {/* progress bar */}
               {it.status !== "uploaded" && (
                 <View style={s.progressBarWrap}>

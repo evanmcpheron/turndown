@@ -74,3 +74,13 @@ export const snakeCase = (str?: TurndownObject): string => {
     .replace(/[\s-]+/g, "_")
     .toLowerCase();
 };
+
+export const snakeCaseToSpaces = (str?: TurndownObject): string => {
+  if (!str) return "";
+  return str.split("_").join(" ");
+};
+
+export const kebabToSpaces = (str?: TurndownObject): string => {
+  if (!str) return "";
+  return str.split("-").join(" ");
+};

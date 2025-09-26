@@ -1,9 +1,9 @@
-import { Timestamp } from "firebase/firestore";
-import { MetaData } from ".";
+import { MetaData } from "./base.types";
+
 export type InventoryLevel = "out" | "low" | "ok";
 
 export interface InventoryItem extends MetaData {
-  id?: string;
+  id: string;
   slug: string;
   label: string;
   unit_label?: string;
@@ -11,7 +11,7 @@ export interface InventoryItem extends MetaData {
 }
 
 export interface PropertyInventory extends MetaData {
-  id?: string;
+  id: string;
   property_id: string;
   inventory_item_id: string;
   threshold: number;
@@ -21,12 +21,12 @@ export interface PropertyInventory extends MetaData {
 }
 
 export interface InventoryCount extends MetaData {
-  id?: string;
+  id: string;
   property_id: string;
   inventory_item_id: string;
-  turn_id?: string;
+  turn_id: string;
   level: InventoryLevel;
   value_count?: number;
-  counted_at: Timestamp;
+  counted_at: Date;
   counted_by_user_id: string;
 }

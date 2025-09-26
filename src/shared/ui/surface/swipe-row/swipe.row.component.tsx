@@ -2,12 +2,19 @@
 
 import { useTheme } from "@/src/contexts/theme";
 import { SemanticColors } from "@/src/shared/styles/general.styles";
+import { Label } from "@/src/shared/ui/data-display/font";
+import { Card } from "@/src/shared/ui/surface/card";
 import { TurndownObject } from "@/src/types";
-import { forwardRef, useImperativeHandle, useMemo, useRef } from "react";
+import {
+  forwardRef,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { View } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import Swipeable from "react-native-gesture-handler/ReanimatedSwipeable";
-import { Label } from "../../data-display/font";
 import { swipeRowComponentStyles } from "./swipe.row.styled";
 import { SwipeRowHandle, SwipeRowProps } from "./swipe.row.types";
 
@@ -23,13 +30,13 @@ export const SwipeRow = forwardRef<SwipeRowHandle, SwipeRowProps>(
       friction = 2,
       overshootLeft = false,
       overshootRight = false,
-      onSwipeStart,
-      onSwipeEnd,
     },
     ref
   ) {
     const swipeRef = useRef<TurndownObject>(null);
     const { app } = useTheme();
+
+    const [isSwiping, setIsSwiping] = useState(false);
 
     useImperativeHandle(ref, () => ({
       close: () => swipeRef.current?.close(),
@@ -90,16 +97,29 @@ export const SwipeRow = forwardRef<SwipeRowHandle, SwipeRowProps>(
       <Swipeable
         ref={swipeRef}
         renderLeftActions={() => renderActions("left")}
-        renderRightActions={() => renderActions("right")}
+        renderRightActions={() =>
+          rightActions.length > 0 && renderActions("right")
+        }
         rightThreshold={rightThreshold}
         leftThreshold={leftThreshold}
         friction={friction}
         overshootLeft={overshootLeft}
         overshootRight={overshootRight}
-        onSwipeableWillOpen={onSwipeStart}
-        onSwipeableWillClose={onSwipeEnd}
+        onSwipeableWillOpen={(direction) => {
+          if (
+            (direction === "left" && leftActions.length) ||
+            (direction === "right" && rightActions.length)
+          ) {
+            setIsSwiping(true);
+          }
+        }}
+        onSwipeableWillClose={() => setIsSwiping(false)}
       >
-        <View style={{ overflow: "hidden" }}>{children}</View>
+        <View style={{ overflow: "hidden" }}>
+          <Card secondary rounded={!isSwiping}>
+            {children}
+          </Card>
+        </View>
       </Swipeable>
     );
   }

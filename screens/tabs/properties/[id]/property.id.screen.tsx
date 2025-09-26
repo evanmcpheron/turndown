@@ -3,11 +3,9 @@ import { propertiesApi } from "@/src/services/api/properties";
 import { roomsApi } from "@/src/services/api/rooms";
 import { withOpacity } from "@/src/shared/styles";
 import { AppTheme } from "@/src/shared/styles/general.styles";
-import { TurndownButton } from "@/src/shared/ui/actions";
 import { Label } from "@/src/shared/ui/data-display/font";
 import { TurndownInfoRow } from "@/src/shared/ui/data-display/info-row";
 import { TurndownLoader } from "@/src/shared/ui/data-display/loader";
-import { TurndownPill } from "@/src/shared/ui/data-display/pill";
 import { Row } from "@/src/shared/ui/surface/cell/row/row.layout.component";
 import { TurndownSection } from "@/src/shared/ui/surface/section";
 import { Property, Room } from "@/src/types/models";
@@ -54,13 +52,13 @@ export const PropertyIdScreen = () => {
     () => [
       {
         label: "Rooms",
-        value: roomsCount,
-        route: "/properties/rooms",
+        value: roomsCount ?? 0,
+        route: `/properties/${id}/rooms`,
       },
       {
         label: "Checklists",
         value: checklistsCount ?? 0,
-        route: "/properties/checklists",
+        route: `/properties/${id}/checklists`,
       },
     ],
     [property, roomsCount]
@@ -72,7 +70,6 @@ export const PropertyIdScreen = () => {
 
   return (
     <Row rowDirection="column">
-      {/* ==== OVERVIEW / STATS ==== */}
       <TurndownSection title="Overview">
         <View style={s.statsGrid}>
           {stats.map((sItem, i) => (
@@ -86,7 +83,6 @@ export const PropertyIdScreen = () => {
         </View>
       </TurndownSection>
 
-      {/* ==== PROPERTY INFO ==== */}
       <TurndownSection title="Property Info">
         <TurndownInfoRow label="Address 1" value={property?.address_line1} />
         <TurndownInfoRow label="Address 2" value={property?.address_line2} />
@@ -102,17 +98,14 @@ export const PropertyIdScreen = () => {
       </TurndownSection>
 
       {/* ==== CHECKLISTS ==== */}
-      <TurndownSection
+      {/* <TurndownSection
         title="Checklists"
         hint="Track recurring tasks & compliance"
         action={
           <TurndownButton
             variant="link-button"
             onPress={() =>
-              router.push({
-                pathname: "/properties/checklists",
-                params: { id },
-              })
+              router.replace(`/properties/${id}/checklists` as Href)
             }
           >
             View All
@@ -122,19 +115,14 @@ export const PropertyIdScreen = () => {
         <ListItem title="Monthly Safety" meta="3 open · due Sep 30" />
         <ListItem title="Pool Maintenance" meta="Next: Friday 9 AM" />
         <ListItem title="HVAC Inspection" meta="Scheduled Oct 10" />
-      </TurndownSection>
+      </TurndownSection> */}
 
-      <TurndownSection
+      {/* <TurndownSection
         title="Rooms"
         action={
           <TurndownButton
             variant="link-button"
-            onPress={() =>
-              router.push({
-                pathname: "/properties/rooms",
-                params: { id },
-              })
-            }
+            onPress={() => router.replace(`/properties/${id}/rooms` as Href)}
           >
             Manage Rooms
           </TurndownButton>
@@ -145,7 +133,7 @@ export const PropertyIdScreen = () => {
             return <TurndownPill key={room} label={room} />;
           })}
         </Row>
-      </TurndownSection>
+      </TurndownSection> */}
 
       {/* <TurndownSection
         title="Inventory"
@@ -154,10 +142,8 @@ export const PropertyIdScreen = () => {
           <TurndownButton
             variant="link-button"
             onPress={() =>
-              router.push({
-                pathname: "/properties/inventory",
-                params: { id },
-              })
+             
+              router.replace(`/properties/${id}/inventory` as Href)
             }
           >
             Open Inventory
@@ -184,7 +170,7 @@ const StatPill = ({
   const { app } = useTheme();
   const s = useMemo(() => themedStyles(app), [app]);
   return (
-    <Pressable style={s.statPill} onPress={() => router.push(route)}>
+    <Pressable style={s.statPill} onPress={() => router.replace(route)}>
       <Label variant="h2" style={{ textAlign: "center" }}>
         {value}
       </Label>

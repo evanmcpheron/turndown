@@ -1,6 +1,7 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   DocumentData,
   DocumentReference,
@@ -34,6 +35,8 @@ export const timestampToDate = (timestamp?: Timestamp): Date => {
   const t = timestamp || Timestamp.now();
   return t.toDate();
 };
+
+export const now: Date = dayjs(Date.now()).toDate();
 
 // ---------- Create ----------
 export const post = async (
@@ -189,9 +192,14 @@ export const update = async (
 
 export const remove = async (
   coll: Collections,
-  id: string
+  id: string,
+  hardDelete = false
 ): Promise<ReturnData> => {
   try {
+    if (hardDelete) {
+      await deleteDoc(doc(db, coll, id));
+      return { success: true, data: { id, deleted: true } };
+    }
     const dates = dateToTimestamp();
 
     const docRef = doc(db, coll, id);
