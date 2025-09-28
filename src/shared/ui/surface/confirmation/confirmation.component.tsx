@@ -18,6 +18,7 @@ export const Confirmation = ({
   body,
   cancelText = "Cancel",
   confirmText = "Confirm",
+  confirmationColor = "primary",
 }: ConfirmationProps) => {
   const { app } = useTheme();
 
@@ -37,7 +38,9 @@ export const Confirmation = ({
             <TurndownButton variant="outline" onPress={onCancel}>
               {cancelText}
             </TurndownButton>
-            <TurndownButton onPress={onConfirm}>{confirmText}</TurndownButton>
+            <TurndownButton color={confirmationColor} onPress={onConfirm}>
+              {confirmText}
+            </TurndownButton>
           </Row>
         </TurndownSection>
       </View>

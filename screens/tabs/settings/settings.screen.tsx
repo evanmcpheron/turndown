@@ -7,12 +7,12 @@ import { withOpacity } from "@/src/shared/styles";
 import { AppTheme } from "@/src/shared/styles/general.styles";
 import { TurndownButton } from "@/src/shared/ui/actions";
 import { Label } from "@/src/shared/ui/data-display/font";
+import { Confirmation } from "@/src/shared/ui/surface/confirmation";
 import { Page } from "@/src/shared/ui/surface/page/page.layout.component";
 import { TurndownObject } from "@/src/types";
 import { useRouter } from "expo-router";
 import React, { useMemo, useState } from "react";
 import {
-  Alert,
   Linking,
   Pressable,
   Switch as RNSwitch,
@@ -46,6 +46,7 @@ export const SettingsScreen = () => {
   const router = useRouter();
   const { app, colors, setScheme, mode } = useTheme();
   const { signOut } = useAuth();
+  const [showSignOut, setShowSignOut] = useState(false);
   const s = useMemo(() => themedStyles(app), [app]);
 
   // Local MVP state
@@ -154,18 +155,7 @@ export const SettingsScreen = () => {
           type: "action",
           danger: true,
           onPress: () => {
-            Alert.alert("Sign out", "Are you sure you want to sign out?", [
-              { text: "Cancel", style: "cancel" },
-              {
-                text: "Sign out",
-                style: "destructive",
-                onPress: async () => {
-                  try {
-                    await signOut();
-                  } catch {}
-                },
-              },
-            ]);
+            setShowSignOut(true);
           },
         },
       ],
@@ -266,6 +256,20 @@ export const SettingsScreen = () => {
           </View>
         </View>
       ))}
+      <Confirmation
+        visible={showSignOut}
+        onCancel={() => setShowSignOut(false)}
+        confirmationColor="danger"
+        confirmText="Sign Out"
+        onConfirm={async () => {
+          try {
+            await signOut();
+            setShowSignOut(false);
+          } catch {}
+        }}
+        title={"Sign Out"}
+        body={"Are you sure you want to sign out?"}
+      />
     </Page>
   );
 };
